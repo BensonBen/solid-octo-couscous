@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "solid-octo-couscous",
   "version": "0.0.0",
   "license": "MIT",
@@ -27,7 +28,6 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^11.2.0",
     "@angular/common": "^11.2.0",
@@ -37,17 +37,18 @@
     "@angular/platform-browser": "^11.2.0",
     "@angular/platform-browser-dynamic": "^11.2.0",
     "@angular/router": "^11.2.0",
+    "@angular/youtube-player": "^11.2.3",
     "@nrwl/angular": "11.4.0",
-    "rxjs": "~6.6.3",
+    "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.0",
-    "@angular-eslint/eslint-plugin": "~1.0.0",
-    "@angular-eslint/eslint-plugin-template": "~1.0.0",
-    "@angular-eslint/template-parser": "~1.0.0",
-    "@angular/cli": "~11.0.0",
+    "@angular-devkit/build-angular": "^0.1102.0",
+    "@angular-eslint/eslint-plugin": "^1.0.0",
+    "@angular-eslint/eslint-plugin-template": "^1.0.0",
+    "@angular-eslint/template-parser": "^1.0.0",
+    "@angular/cli": "^11.0.0",
     "@angular/compiler-cli": "^11.2.0",
     "@angular/language-service": "^11.2.0",
     "@nrwl/cli": "11.4.0",
@@ -71,7 +72,7 @@
     "jest-preset-angular": "8.3.2",
     "prettier": "2.2.1",
     "ts-jest": "26.4.0",
-    "ts-node": "~9.1.1",
-    "typescript": "~4.0.3"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.3"
   }
 }
