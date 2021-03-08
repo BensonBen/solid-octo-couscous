@@ -1,0 +1,44 @@
+{
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "solid-octo-couscous",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MGJlMDEzNzctMGE3OS00NTdmLWE0ZmUtNzU5OTJiNWE3YjdkfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "rex": {
+      "tags": []
+    },
+    "rex-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "rex"
+      ]
+    }
+  }
+}
