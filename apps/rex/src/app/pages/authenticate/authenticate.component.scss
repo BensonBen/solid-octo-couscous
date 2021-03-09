@@ -1,0 +1,45 @@
+// TODO: consider moving this into its own mixins scss file, but thats for later.
+@mixin grid-position($rowStart, $rowEnd, $colStart, $colEnd) {
+	grid-column-start: $colStart;
+	grid-column-end: $colEnd;
+	grid-row-start: $rowStart;
+	grid-row-end: $rowEnd;
+}
+
+.d-absolute {
+	position: absolute;
+}
+
+div.d-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: [nav-bar] 3.125em [login] calc(100% - 2em - 6.5em) [footer] 3.125em;
+	row-gap: 1em;
+	height: 100%;
+	width: 100%;
+
+	// header.
+	.header {
+		@include grid-position(1, 1, 1, 1);
+	}
+
+	.login-section {
+		@include grid-position(2, 2, 1, 1);
+		display: flex;
+		align-content: center;
+		align-self: center;
+		justify-content: center;
+		overflow: hidden;
+		overflow-x: hidden;
+		height: 100vh;
+		padding-top: 20vh;
+	}
+}
+
+solid-octo-couscous-credentials {
+	width: 30em;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}

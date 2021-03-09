@@ -21,7 +21,7 @@
     }
   },
   "projects": {
-    "rex": { "tags": [] },
+    "rex": { "tags": [], "implicitDependencies": ["api"] },
     "rex-e2e": { "tags": [], "implicitDependencies": ["rex"] },
     "api": { "tags": [] },
     "model": { "tags": [] },

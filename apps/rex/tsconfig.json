@@ -16,6 +16,7 @@
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,
-    "strictInputTypes": true
+    "strictInputTypes": true,
+    "strictNullChecks": true
   }
 }
