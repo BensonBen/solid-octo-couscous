@@ -8,14 +8,6 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./tsconfig.editor.json"
     }
-  ],
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true,
-    "fullTemplateTypeCheck": true,
-    "strictInputTypes": true
-  }
+  ]
 }

@@ -3,7 +3,7 @@ import { getGreeting } from '../support/app.po';
 describe('rex', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
+  it('should get the welcome message', () => {
     // Custom command example, see `../support/commands.ts` file
     cy.login('my-email@something.com', 'myPassword');
 
