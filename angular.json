@@ -1,7 +1,8 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
   },
   "defaultProject": "rex",
   "schematics": {
