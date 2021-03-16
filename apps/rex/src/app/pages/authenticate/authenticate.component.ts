@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { trigger, transition, style, animate, keyframes } from '@angular/animations';
 import { ThemePalette } from '@angular/material/core';
 
@@ -70,13 +70,13 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	color: ThemePalette = 'warn';
 	isLogin = true;
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
+	isDarkMode = true;
 
-	constructor(private readonly renderer: Renderer2, private readonly changeDetectorRef: ChangeDetectorRef) {}
+	constructor(private readonly renderer: Renderer2) {}
 
 	ngOnInit(): void {
 		// this is for animations smoothly moving accross the screen.
 		this.renderer.setStyle(document.body, 'overflow', 'hidden');
-		this.changeDetectorRef.markForCheck();
 	}
 
 	ngOnDestroy(): void {
@@ -84,8 +84,15 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 		this.renderer.setStyle(document.body, 'overflow', 'auto');
 	}
 
-	toggleChanged(): void {
-		this.toggleName = this.toggleName === 'Create Account' ? 'Login' : 'Create Account';
-		this.isLogin = this.isLogin ? false : true;
+	changeThemes(): void {
+		// this.toggleName = this.toggleName === 'Create Account' ? 'Login' : 'Create Account';
+		// this.isLogin = this.isLogin ? false : true;
+		if (this.isDarkMode === true) {
+			this.renderer.addClass(document.body, 'solid-octo-couscous-light-theme');
+		} else {
+			this.renderer.removeClass(document.body, 'solid-octo-couscous-light-theme');
+		}
+
+		this.isDarkMode = !this.isDarkMode;
 	}
 }

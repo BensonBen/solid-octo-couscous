@@ -1,7 +1,8 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
   },
   "defaultProject": "rex",
   "schematics": {
@@ -259,6 +260,31 @@
           ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "authentication": {
+      "root": "libs/authentication",
+      "sourceRoot": "libs/authentication/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/authentication/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/authentication"
+          ],
+          "options": {
+            "jestConfig": "libs/authentication/jest.config.js",
             "passWithNoTests": true
           }
         }
