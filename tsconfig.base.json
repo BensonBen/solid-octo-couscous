@@ -10,14 +10,27 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@solid-octo-couscous/model": ["libs/model/src/index.ts"],
-      "@solid-octo-couscous/ui": ["libs/ui/src/index.ts"]
+      "@solid-octo-couscous/model": [
+        "libs/model/src/index.ts"
+      ],
+      "@solid-octo-couscous/ui": [
+        "libs/ui/src/index.ts"
+      ],
+      "@solid-octo-couscous/nestjs-authentication": [
+        "libs/authentication/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
