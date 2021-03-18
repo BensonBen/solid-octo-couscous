@@ -1,0 +1,24 @@
+<mat-card class="login-card" style="margin-bottom: 2em">
+	<mat-card-header>
+		<mat-card-title> SOC 🧦 </mat-card-title>
+		<mat-card-subtitle>Login</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form [formGroup]="form" style="display: flex; flex-direction: column">
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>Email</mat-label>
+				<input matInput="email" formControlName="email" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance" style="margin-bottom: 0em; padding-bottom: 0em">
+				<mat-label>Password</mat-label>
+				<input type="password" matInput formControlName="password" autocomplete="on" />
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions>
+		<div style="display: flex; justify-content: space-around">
+			<button mat-stroked-button color="primary" (click)="signIn()" [disabled]="form?.invalid">Sign In</button>
+			<button mat-stroked-button color="primary" (click)="goToCreateAccount()">Create Account</button>
+		</div>
+	</mat-card-actions>
+</mat-card>

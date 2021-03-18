@@ -1,0 +1,12 @@
+<div class="login-section">
+	<solid-octo-couscous-login-component
+		*ngIf="(loginService.loginAnimationState$ | async) === 'login'"
+		@login
+	>
+	</solid-octo-couscous-login-component>
+	<solid-octo-couscous-create-component
+		*ngIf="(loginService.loginAnimationState$ | async) === 'create'"
+		@create
+	>
+	</solid-octo-couscous-create-component>
+</div>

@@ -1,3 +1,29 @@
 <div class="app-frame mat-app-background">
-	<router-outlet></router-outlet>
+	<div class="d-grid">
+		<div class="header">
+			<mat-toolbar [color]="'primary'">
+				<button mat-icon-button aria-label="menu">
+					<mat-icon>menu</mat-icon>
+				</button>
+				<span>🦖 REX</span>
+				<span class="spacer"></span>
+				<mat-slide-toggle [labelPosition]="'before'" [color]="color" (toggleChange)="changeThemes()">
+					{{ isDarkMode ? 'light theme' : 'dark theme' }}
+				</mat-slide-toggle>
+				<button mat-icon-button class="favorite-icon" aria-label="bookmark rex">
+					<mat-icon>favorite</mat-icon>
+				</button>
+				<button mat-icon-button aria-label="share on social media">
+					<mat-icon>share</mat-icon>
+				</button>
+			</mat-toolbar>
+		</div>
+		<div class="main">
+			<router-outlet></router-outlet>
+		</div>
+		<div class="footer">
+			<mat-toolbar [color]="'accent'">
+			</mat-toolbar>
+		</div>
+	</div>
 </div>
