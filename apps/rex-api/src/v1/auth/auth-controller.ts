@@ -11,13 +11,12 @@ export class AuthController {
 	private readonly baseTransaction: Transaction<User> = {
 		data: undefined,
 		success: false,
-		message: ''
-	}
+		message: '',
+	};
 
-	constructor(@inject(AuthService) public authService?: AuthService) { }
+	constructor(@inject(AuthService) public authService?: AuthService) {}
 
 	public readonly createAccount = async ({ body }: Request, response: Response) => {
-
 		try {
 			const newUser = await this.authService.createAccount(body);
 			return response.status(OK).send({ ...this.baseTransaction, data: newUser, success: true });

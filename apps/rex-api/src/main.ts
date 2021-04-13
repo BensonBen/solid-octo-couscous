@@ -11,12 +11,12 @@ const dotEnvConfig: DotenvConfigOutput = config({ debug: true });
 
 // TODO: wrap this in a debug only environment variable to not log it in any higher environments.
 if (dotEnvConfig.error == null) {
-    console.log(`Something went wrong with environment variables: ${JSON.stringify(dotEnvConfig?.error)}`)
+	console.log(`Something went wrong with environment variables: ${JSON.stringify(dotEnvConfig?.error)}`);
 }
 
 if (process.env.AUTH_API_ENV === 'local') {
-    console.log(`Current directory: ${process.cwd()}`);
-    console.log(`Dotenv parsed current environment variables: ${JSON.stringify(dotEnvConfig?.parsed)}`);
+	console.log(`Current directory: ${process.cwd()}`);
+	console.log(`Dotenv parsed current environment variables: ${JSON.stringify(dotEnvConfig?.parsed)}`);
 }
 
 const { port, hostName } = autheniticationConfiguration;
@@ -25,8 +25,10 @@ const loggerPrefix = '[AuthServerCreation]';
 const serverFactory: AuthenticationServerFactory = new AuthenticationServerFactory();
 
 serverFactory.generate().listen(port as number, hostName, () => {
-    console.log(green(`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${autheniticationConfiguration?.whiteList?.join(' ')}.`));
-    console.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}`));
-    console.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
-    console.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
+	console.log(
+		green(`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${autheniticationConfiguration?.whiteList?.join(' ')}.`)
+	);
+	console.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}.`));
+	console.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
+	console.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
 });

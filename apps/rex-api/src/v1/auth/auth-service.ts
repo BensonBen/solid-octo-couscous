@@ -11,7 +11,7 @@ export class AuthService {
 	private readonly loggerPrefix = '[AuthService]';
 	private readonly twoThousandTen: number = 1262304000000;
 
-	constructor(@inject(AuthDataProvider) private readonly authDataProvider?: AuthDataProvider) { }
+	constructor(@inject(AuthDataProvider) private readonly authDataProvider?: AuthDataProvider) {}
 
 	/**
 	 * Handles the POST request for creating a users account.
@@ -21,27 +21,28 @@ export class AuthService {
 	 * @returns, a Promise that stores the Transactional data from the new account created.
 	 */
 	public readonly createAccount = async (userRequest: Readonly<NewUserRequest>): Promise<Record<string, string>> => {
-
 		const { lastName, firstName, loginName, password, email, dateOfBirth } = userRequest;
 
-		if (!_isEmpty(lastName) &&
+		if (
+			!_isEmpty(lastName) &&
 			!_isEmpty(firstName) &&
 			!_isEmpty(loginName) &&
 			!_isEmpty(password) &&
 			!_isEmpty(email) &&
 			dateOfBirth > 0 &&
-			dateOfBirth <= this.twoThousandTen) {
-
+			dateOfBirth <= this.twoThousandTen
+		) {
 			this.logger(
-				green(`${this.loggerPrefix} Attempting to create new user account using: ${JSON.stringify(userRequest)}`)
+				green(
+					`${this.loggerPrefix} Attempting to create new user account using: ${JSON.stringify(userRequest)}`
+				)
 			);
 
-			return Promise.resolve(_omit(
-				await this.authDataProvider.createAccount(userRequest),
-				['password'] as Array<keyof User>
-			));
+			return Promise.resolve(
+				_omit(await this.authDataProvider.createAccount(userRequest), ['password'] as Array<keyof User>)
+			);
 		}
 
 		return Promise.resolve(null);
-	}
+	};
 }
