@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthenticateComponent } from './pages/authenticate/authenticate.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'auth', pathMatch: 'full' },
-	{ path: 'auth', component: AuthenticateComponent },
-	// { path: 'anotherRoute', component: AnotherComponent },
+	{
+		path: 'auth',
+		loadChildren: () => import('./pages/login/login.module').then(mod => mod.LoginModule),
+	},
+	{
+		path: 'main',
+		loadChildren: () => import('./pages/main/main.module').then(mod => mod.MainModule),
+	},
 	{ path: '**', redirectTo: 'auth' },
 ];
 

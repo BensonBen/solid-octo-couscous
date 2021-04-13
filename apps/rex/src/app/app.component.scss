@@ -5,3 +5,40 @@
 .soc-logo {
 	font-size: 2em;
 }
+
+// TODO: consider moving this into its own mixins scss file, but thats for later.
+@mixin grid-position($rowStart, $rowEnd, $colStart, $colEnd) {
+	grid-column-start: $colStart;
+	grid-column-end: $colEnd;
+	grid-row-start: $rowStart;
+	grid-row-end: $rowEnd;
+}
+
+div.d-grid {
+	display: grid;
+	grid-template-columns: 100vw;
+	grid-template-rows: minmax(0, 4em) minmax(0, calc(100% - 10em)) minmax(0, 4em);
+	row-gap: 1em;
+	height: 100vh;
+	width: 100vw;
+
+	// header.
+	.header {
+		@include grid-position(1, 1, 1, 1);
+	}
+
+	.main {
+		@include grid-position(2, 2, 1, 1);
+		display: flex;
+		justify-content: center;
+		overflow-y: auto;
+	}
+
+	.footer {
+		@include grid-position(3, 3, 1, 1);
+	}
+}
+
+.spacer {
+	flex: 1 1 auto;
+}

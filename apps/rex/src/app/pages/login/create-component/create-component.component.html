@@ -1,0 +1,48 @@
+<mat-card class="login-card" style="margin-bottom: 2em">
+	<mat-card-header>
+		<mat-card-title> SOC 🧦 </mat-card-title>
+		<mat-card-subtitle>Create Account</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form [formGroup]="form" style="display: flex; flex-direction: column">
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>First Name</mat-label>
+				<input matInput="text" formControlName="firstName" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>Last Name</mat-label>
+				<input matInput="text" formControlName="lastName" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>Login Name</mat-label>
+				<input matInput="text" formControlName="loginName" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>Email</mat-label>
+				<input matInput="email" formControlName="email" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance" style="margin-bottom: 0em; padding-bottom: 0em">
+				<mat-label>Password</mat-label>
+				<input type="password" matInput formControlName="password" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field [appearance]="matFormFieldAppearance">
+				<mat-label>Retype Password</mat-label>
+				<input type="password" matInput formControlName="retypedPassword" autocomplete="on" />
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Date of Birth</mat-label>
+				<input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+				<mat-datepicker #picker></mat-datepicker>
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions>
+		<div style="display: flex; justify-content: space-around">
+			<button mat-stroked-button color="primary" (click)="createAccount()" [disabled]="form?.invalid">
+				Create Account
+			</button>
+			<button mat-stroked-button color="primary" (click)="goToLogin()">Login</button>
+		</div>
+	</mat-card-actions>
+</mat-card>
