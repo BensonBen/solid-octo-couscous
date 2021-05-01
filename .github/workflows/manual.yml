@@ -22,9 +22,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install --no-save
-    - run: npm run affected:lint --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:test --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:build --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:e2e --base=develop --skip-nx-cache --head=HEAD
+    - run: npm run affected:lint --base=[SHA1] --skip-nx-cache --head=HEAD
+    - run: npm run affected:test --base=[SHA1] --skip-nx-cache --head=HEAD
+    - run: npm run affected:build --base=[SHA1] --skip-nx-cache --head=HEAD
+    - run: npm run affected:e2e --base=[SHA1] --skip-nx-cache --head=HEAD
       env:
         CI: true
