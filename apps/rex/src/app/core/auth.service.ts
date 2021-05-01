@@ -13,5 +13,8 @@ export class AuthService {
 			`http://localhost:3333/v1/auth/createAccount`,
 			userRequestInformation
 		);
+
+
+
 	}
 }
