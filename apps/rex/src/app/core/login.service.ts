@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class LoginService {
 	public readonly loginAnimationState$: ReplaySubject<'login' | 'create'> = new ReplaySubject(1);
-	private readonly api = `${environment.baseUrl}${environment.apiVersionOne}`
+	private readonly api = `${environment.baseUrl}${environment.apiVersionOne}`;
 
 	constructor(private readonly httpClient: HttpClient) {
 		// the first animation state should be login.
@@ -29,7 +29,9 @@ export class LoginService {
 	}
 
 	createWithEmailAndPassword(email: string, password: string, dateOfBirth: number, retypedPassword: string): void {
-		this.httpClient.post(`${this.api}/auth/createAccount`, { email, password, dateOfBirth, retypedPassword }).pipe(first())
+		this.httpClient
+			.post(`${this.api}/auth/createAccount`, { email, password, dateOfBirth, retypedPassword })
+			.pipe(first())
 			.subscribe(e => console.log(e));
 	}
 }

@@ -6,9 +6,12 @@ import { NewUserRequest, Transaction, User } from '@solid-octo-couscous/model';
 	providedIn: 'root',
 })
 export class AuthService {
-	constructor(private readonly httpClient: HttpClient) { }
+	constructor(private readonly httpClient: HttpClient) {}
 
 	public createAccount(userRequestInformation: NewUserRequest): Observable<Transaction<User>> {
-		return this.httpClient.post<Transaction<User>>(`http://localhost:3333/v1/auth/createAccount`, userRequestInformation);
+		return this.httpClient.post<Transaction<User>>(
+			`http://localhost:3333/v1/auth/createAccount`,
+			userRequestInformation
+		);
 	}
 }

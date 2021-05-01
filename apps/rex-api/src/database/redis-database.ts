@@ -1,4 +1,3 @@
-
 import * as bcrypt from 'bcrypt';
 import { green } from 'chalk';
 import * as redis from 'ioredis';
@@ -8,7 +7,6 @@ import { singleton } from 'tsyringe';
 
 @singleton()
 export class RedisDatabaseService {
-
 	public redisDatabase: Redis;
 	private readonly loggerPrefix: string = '[RedisDatabaseService]';
 	private readonly logger = console;
@@ -20,7 +18,7 @@ export class RedisDatabaseService {
 		};
 
 		this.redisDatabase = new redis(options);
-		this.redisDatabase.on('error', (error) => {
+		this.redisDatabase.on('error', error => {
 			this.logger.trace();
 			this.logger.error(JSON.parse(error.stack));
 		});
