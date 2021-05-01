@@ -8,7 +8,7 @@ import { singleton } from 'tsyringe';
 export class SqlLiteDatabase {
 	private readonly databaseMode: string | ':memory:' = ':memory:';
 	private readonly logger = console.log;
-	private readonly loggerPrefix: string = '[SqlLiteDatabase]'
+	private readonly loggerPrefix: string = '[SqlLiteDatabase]';
 
 	private readonly productTableName: string = 'Products';
 	private readonly primaryColumn: keyof Product = 'id';
@@ -59,7 +59,8 @@ export class SqlLiteDatabase {
 			} else {
 				this.logger(
 					red(
-						`${this.loggerPrefix} Something went wrong creating the databse: ${(error || { stack: null }).stack ?? 'message stack was nullish.'
+						`${this.loggerPrefix} Something went wrong creating the databse: ${
+							(error || { stack: null }).stack ?? 'message stack was nullish.'
 						}`
 					)
 				);
@@ -78,5 +79,5 @@ export class SqlLiteDatabase {
 			});
 			stmt.finalize();
 		});
-	}
+	};
 }

@@ -12,7 +12,6 @@ import { AuthService } from '../../../core/auth.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponentComponent implements OnInit {
-
 	form: FormGroup;
 	matFormFieldAppearance: MatFormFieldAppearance = 'fill';
 
@@ -21,18 +20,9 @@ export class CreateComponentComponent implements OnInit {
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
 	private readonly createGroup: any = {
-		firstName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
-		lastName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
-		loginName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
+		firstName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
+		lastName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
+		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
 			Validators.compose([Validators.required, Validators.email, Validators.minLength(this.minEmailLength)]),
@@ -55,18 +45,14 @@ export class CreateComponentComponent implements OnInit {
 				Validators.pattern(this.strongPasswordRegex),
 			]),
 		],
-		dateOfBirth: [
-			null,
-			Validators.compose([
-				Validators.required
-			])
-		]
+		dateOfBirth: [null, Validators.compose([Validators.required])],
 	};
 
 	constructor(
 		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
-		private readonly loginService: LoginService) { }
+		private readonly loginService: LoginService
+	) {}
 
 	ngOnInit(): void {
 		this.form = this.formBuilder.group(this.createGroup, {
@@ -87,9 +73,16 @@ export class CreateComponentComponent implements OnInit {
 
 	createAccount(): void {
 		const { email, password, dateOfBirth, lastName, firstName, loginName } = this.form.value;
-		this.authService.createAccount({
-			email, password, dateOfBirth: (dateOfBirth as Date)?.getTime(), lastName, firstName, loginName
-		}).subscribe(e => console.log(e))
+		this.authService
+			.createAccount({
+				email,
+				password,
+				dateOfBirth: (dateOfBirth as Date)?.getTime(),
+				lastName,
+				firstName,
+				loginName,
+			})
+			.subscribe(e => console.log(e));
 	}
 
 	goToLogin(): void {

@@ -33,9 +33,7 @@ export class LoginComponent implements OnInit {
 		],
 	};
 
-	constructor(
-		private readonly loginService: LoginService,
-		private readonly formBuilder: FormBuilder) { }
+	constructor(private readonly loginService: LoginService, private readonly formBuilder: FormBuilder) {}
 
 	ngOnInit(): void {
 		this.form = this.formBuilder.group(this.loginGroup);

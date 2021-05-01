@@ -13,7 +13,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
 @NgModule({
 	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent],
 	imports: [
@@ -26,7 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 		MatCardModule,
 		MatSelectModule,
 		MatIconModule,
-		MatNativeDateModule
+		MatNativeDateModule,
 	],
 })
-export class LoginModule { }
+export class LoginModule {}

@@ -20,7 +20,7 @@ export class AuthenticationServerFactory {
 	public readonly logger = console.log;
 	private readonly loggerPrefix: string = `[AuthenticationServerFactory]`;
 
-	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) { }
+	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
 	public generate(): Application {
 		const authenticationServer = expressServer();
@@ -31,7 +31,9 @@ export class AuthenticationServerFactory {
 			throw new Error('failed to load secret from environment variables.');
 		}
 
-		authenticationServer.use(jwt({ secret, algorithms: ['HS256'] }).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] }));
+		authenticationServer.use(
+			jwt({ secret, algorithms: ['HS256'] }).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] })
+		);
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
 		authenticationServer.use(json());
 		authenticationServer.use(morgan('dev'));
