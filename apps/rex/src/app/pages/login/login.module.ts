@@ -12,9 +12,10 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { RandomComponent } from './random/random.component';
 
 @NgModule({
-	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent],
+	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent, RandomComponent],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
