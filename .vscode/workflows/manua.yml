@@ -22,9 +22,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run affected:lint
-    - run: npm run affected:test
-    - run: npm run affected:build
-    - run: npm run affected:e2e
+    - run: npm run nx affected:lint --all
+    - run: npm run affected:test --all
+    - run: npm run affected:build --all
+    - run: npm run affected:e2e --all
       env:
         CI: true
