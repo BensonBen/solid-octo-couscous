@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 15.x]
+        node-version: [15.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -23,10 +23,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm run affected:lint --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:test --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:build --base=develop --skip-nx-cache --head=HEAD
-    - run: npm run affected:e2e --base=develop --skip-nx-cache --head=HEAD
+    - run: npm ci
+    - run: npm run affected:lint --base=develop --head=HEAD
+    - run: npm run affected:test --base=develop --head=HEAD
+    - run: npm run affected:build --base=develop --head=HEAD
+    - run: npm run affected:e2e --base=develop --head=HEAD
       env:
         CI: true
