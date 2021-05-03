@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: git fetch origin develop
+    - run: sudo npm install -g nx@12.0.8
     - run: npm i --no-save
     - run: nx affected --target=lint --base=origin/develop
     - run: nx affected --target=test --base=origin/develop
