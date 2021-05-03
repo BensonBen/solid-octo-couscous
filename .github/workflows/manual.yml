@@ -25,9 +25,8 @@ jobs:
     - run: git fetch origin develop
     - run: sudo npm install -g nx@12.0.8
     - run: npm i --no-save
-    - run: nx affected --target=lint --base=remotes/origin/develop
-    - run: nx affected --target=test --base=remotes/origin/develop
-    - run: nx affected --target=build --base=remotes/origin/develop
-    - run: nx affected --target=e2e --base=remotes/origin/develop
+    - run: npm run affected:lint -- --base=remotes/origin/develop
+    - run: npm run affected:test -- --base=remotes/origin/develop
+    - run: npm run affected:build -- --base=remotes/origin/develop
       env:
         CI: true
