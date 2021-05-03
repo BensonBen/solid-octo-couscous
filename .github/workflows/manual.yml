@@ -9,7 +9,7 @@ on:
     types:
       - created
 jobs:
-  ci:
+  ci-develop:
 
     runs-on: [ubuntu-20.04]
 
@@ -25,9 +25,9 @@ jobs:
     - run: git fetch origin develop
     - run: sudo npm install -g nx@12.0.8
     - run: npm i --no-save
-    - run: nx affected --target=lint --base=origin/develop
-    - run: nx affected --target=test --base=origin/develop
-    - run: nx affected --target=build --base=origin/develop
-    - run: nx affected --target=e2e --base=origin/develop
+    - run: nx affected --target=lint --base=develop
+    - run: nx affected --target=test --base=develop
+    - run: nx affected --target=build --base=develop
+    - run: nx affected --target=e2e --base=develop
       env:
         CI: true
