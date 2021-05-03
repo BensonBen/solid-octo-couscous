@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcrypt';
 import { green } from 'chalk';
 import * as redis from 'ioredis';
 
