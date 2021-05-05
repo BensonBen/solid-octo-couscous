@@ -2,7 +2,9 @@ import { AuthController } from '../auth-controller';
 import { AuthService } from '../auth-service';
 
 describe('AuthController', () => {
-    const createAccount = jest.fn(() => { });
+    const createAccount = jest.fn(() => {
+        // no-op.
+    });
     const authService = { createAccount, };
     let authController: AuthController;
 

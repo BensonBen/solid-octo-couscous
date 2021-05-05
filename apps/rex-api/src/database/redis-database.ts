@@ -1,9 +1,9 @@
 import { green } from 'chalk';
-const Redis = require("ioredis");
 
 import { Redis, RedisOptions } from 'ioredis';
 import { singleton } from 'tsyringe';
 import { environment } from '../environments/environment';
+import * as IORedis from 'ioredis';
 
 @singleton()
 export class RedisDatabaseService {
@@ -16,7 +16,7 @@ export class RedisDatabaseService {
 			port: +process.env.AUTH_API_REDIS_PORT,
 			host: process.env.AUTH_API_REDIS_HOST,
 		};
-		this.redisDatabase = new Redis(options);
+		this.redisDatabase = new IORedis(options);
 		this.redisDatabase.on('error', error => {
 			if (!environment.production) {
 				this.logger.trace();
