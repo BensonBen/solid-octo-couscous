@@ -1,9 +1,9 @@
-import * as bcrypt from 'bcrypt';
 import { green } from 'chalk';
-import * as redis from 'ioredis';
 
 import { Redis, RedisOptions } from 'ioredis';
 import { singleton } from 'tsyringe';
+import { environment } from '../environments/environment';
+import * as IORedis from 'ioredis';
 
 @singleton()
 export class RedisDatabaseService {
@@ -16,15 +16,18 @@ export class RedisDatabaseService {
 			port: +process.env.AUTH_API_REDIS_PORT,
 			host: process.env.AUTH_API_REDIS_HOST,
 		};
-
-		this.redisDatabase = new redis(options);
+		this.redisDatabase = new IORedis(options);
 		this.redisDatabase.on('error', error => {
-			this.logger.trace();
-			this.logger.error(JSON.parse(error.stack));
+			if (!environment.production) {
+				this.logger.trace();
+				this.logger.error(JSON.parse(error.stack));
+			}
 		});
 
 		this.redisDatabase.on('connect', () => {
-			this.logger.log(green(`${this.loggerPrefix} CONNECTED TO REDIS.`));
+			if (!environment.production) {
+				this.logger.log(green(`${this.loggerPrefix} CONNECTED TO REDIS.`));
+			}
 		});
 	}
 }

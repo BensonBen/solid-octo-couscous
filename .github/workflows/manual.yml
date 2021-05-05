@@ -28,6 +28,6 @@ jobs:
     - run: npm i --no-save
     - run: npm run affected:lint -- --base=remotes/origin/develop --head=HEAD
     - run: npm run affected:test -- --base=remotes/origin/develop --head=HEAD
-    - run: npm run affected:build -- --base=remotes/origin/develop --head=HEAD
+    - run: npm run rex-build-prod
       env:
         CI: true
