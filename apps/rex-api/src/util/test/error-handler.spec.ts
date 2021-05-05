@@ -1,6 +1,6 @@
 import { ErrorHandler } from '../error-handler';
 
-describe('ErrorHandler Util', () => {
+describe('ErrorHandler', () => {
     let errorHandler: ErrorHandler;
 
     it('should create', () => {
