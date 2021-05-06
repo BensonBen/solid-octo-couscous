@@ -12,6 +12,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AnimationService } from './services/animation.service';
 
 @NgModule({
 	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent],
@@ -27,5 +28,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 		MatIconModule,
 		MatNativeDateModule,
 	],
+	providers: [AnimationService]
 })
 export class LoginModule {}

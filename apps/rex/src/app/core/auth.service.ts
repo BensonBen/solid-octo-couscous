@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NewUserRequest, Transaction, User } from '@solid-octo-couscous/model';
-@Injectable({
-	providedIn: 'root',
-})
+
+@Injectable()
 export class AuthService {
 	constructor(private readonly httpClient: HttpClient) {}
 

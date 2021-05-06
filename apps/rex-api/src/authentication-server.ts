@@ -9,7 +9,6 @@ import { Application, Router } from 'express';
 import { ErrorHandler } from './util/error-handler';
 import { green } from 'chalk';
 import { autoInjectable, inject } from 'tsyringe';
-import { ProductController } from './v1/product/product-controller';
 import * as jwt from 'express-jwt';
 import { isEmpty as _isEmpty } from 'lodash';
 import { AuthController } from './v1/auth/auth-controller';
@@ -42,21 +41,16 @@ export class AuthenticationServerFactory {
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 
 		// Setup auto-injected dependencies.
-		const productController: ProductController = new ProductController();
 		const authController: AuthController = new AuthController();
 
 		// Setup routing.
 		const versionOneRouter: Router = Router();
-		const productRouter: Router = Router();
 		const authRouter: Router = Router();
 
 		// Setup sub routes.
-		productRouter.get('/:productId', productController.findOne);
-
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
 
-		versionOneRouter.use('/products', productRouter);
 		versionOneRouter.use('/auth', authRouter);
 		authenticationServer.use('/v1', versionOneRouter);
 

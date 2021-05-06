@@ -16,11 +16,12 @@ export class RedisDatabaseService {
 			port: +process.env.AUTH_API_REDIS_PORT,
 			host: process.env.AUTH_API_REDIS_HOST,
 		};
+
 		this.redisDatabase = new IORedis(options);
-		this.redisDatabase.on('error', error => {
+		this.redisDatabase.on('error', (err) => {
 			if (!environment.production) {
+				this.logger.log(JSON.stringify(err))
 				this.logger.trace();
-				this.logger.error(JSON.parse(error.stack));
 			}
 		});
 

@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { isNil as _isNil } from 'lodash-es';
-import { LoginService } from '../../../core';
-import { AuthService } from '../../../core/auth.service';
+import { AuthService } from '../../../core';
+import { AnimationService } from '../services/animation.service';
 
 @Component({
 	selector: 'solid-octo-couscous-create-component',
@@ -51,7 +51,7 @@ export class CreateComponentComponent implements OnInit {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
-		private readonly loginService: LoginService
+		private readonly animationService: AnimationService
 	) {}
 
 	ngOnInit(): void {
@@ -86,6 +86,6 @@ export class CreateComponentComponent implements OnInit {
 	}
 
 	goToLogin(): void {
-		this.loginService.toggleAnimationState();
+		this.animationService.toggleAnimationState();
 	}
 }

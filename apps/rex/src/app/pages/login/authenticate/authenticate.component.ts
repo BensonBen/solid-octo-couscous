@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { trigger, transition, style, animate, keyframes } from '@angular/animations';
 import { ThemePalette } from '@angular/material/core';
-import { LoginService } from '../../../core';
+import { AnimationService } from '../services/animation.service';
 
 @Component({
 	selector: 'solid-octo-couscous-authenticate',
@@ -77,7 +77,7 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 
-	constructor(public readonly loginService: LoginService, private readonly renderer: Renderer2) {}
+	constructor(public readonly animationService: AnimationService, private readonly renderer: Renderer2) { }
 
 	ngOnInit(): void {
 		// this is for animations smoothly moving accross the screen.

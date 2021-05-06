@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,13 +11,14 @@ import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
-import { ReactiveFormsModule } from '@angular/forms';
 import { CoreServicesModule } from './core/core-services.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -31,16 +31,16 @@ import { MatButtonModule } from '@angular/material/button';
 		MatIconModule,
 		MatToolbarModule,
 		MatButtonModule,
+		MatGridListModule,
 		EffectsModule.forRoot([]),
 		EntityDataModule.forRoot(entityConfig),
+		HttpClientModule,
 		StoreRouterConnectingModule.forRoot(),
 		StoreModule.forRoot({}, {}),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
 		}),
-		HttpClientModule,
-		ReactiveFormsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
