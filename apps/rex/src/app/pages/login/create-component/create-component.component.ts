@@ -20,8 +20,6 @@ export class CreateComponentComponent implements OnInit {
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
 	private readonly createGroup: any = {
-		firstName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
-		lastName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
@@ -72,14 +70,12 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	createAccount(): void {
-		const { email, password, dateOfBirth, lastName, firstName, loginName } = this.form.value;
+		const { email, password, dateOfBirth, loginName } = this.form.value;
 		this.authService
 			.createAccount({
 				email,
 				password,
 				dateOfBirth: (dateOfBirth as Date)?.getTime(),
-				lastName,
-				firstName,
 				loginName,
 			})
 			.subscribe(e => console.log(e));

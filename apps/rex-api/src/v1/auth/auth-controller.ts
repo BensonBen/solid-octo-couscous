@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { INTERNAL_SERVER_ERROR, OK, UNAUTHORIZED } from 'http-status';
 import { autoInjectable, inject } from 'tsyringe';
 import { AuthService } from './auth-service';
+
 @autoInjectable()
 export class AuthController {
 	private readonly loggerPrefix: string = `[Auth Controller]`;
@@ -19,7 +20,13 @@ export class AuthController {
 	public readonly createAccount = async ({ body }: Request, response: Response) => {
 		try {
 			const newUser = await this.authService.createAccount(body);
-			return response.status(OK).send({ ...this.baseTransaction, data: newUser, success: true });
+			return response.status(OK).send(
+				{
+					...this.baseTransaction,
+					data: newUser,
+					success: true
+				} as Transaction<Record<string, string>>
+			);
 		} catch (error: any) {
 			this.logger(bgRed(`Failed to create account with reason: ${JSON.stringify(error)}`));
 			return response
