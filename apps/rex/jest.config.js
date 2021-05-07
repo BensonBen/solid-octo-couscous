@@ -21,6 +21,6 @@ module.exports = {
 		'jest-preset-angular/build/serializers/html-comment',
 	],
 	moduleNameMapper: {
-		"^lodash-es$": "lodash"
-	}
+		'^lodash-es$': 'lodash',
+	},
 };

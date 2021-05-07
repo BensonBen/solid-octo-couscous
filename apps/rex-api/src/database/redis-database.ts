@@ -18,9 +18,9 @@ export class RedisDatabaseService {
 		};
 
 		this.redisDatabase = new IORedis(options);
-		this.redisDatabase.on('error', (err) => {
+		this.redisDatabase.on('error', err => {
 			if (!environment.production) {
-				this.logger.log(JSON.stringify(err))
+				this.logger.log(JSON.stringify(err));
 				this.logger.trace();
 			}
 		});

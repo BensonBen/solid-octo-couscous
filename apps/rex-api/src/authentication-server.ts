@@ -35,7 +35,6 @@ export class AuthenticationServerFactory {
 		);
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
 		authenticationServer.use(json());
-		authenticationServer.use(morgan('dev'));
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));

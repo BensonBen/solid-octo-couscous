@@ -13,22 +13,25 @@ describe('CreateComponentComponent', () => {
 	const loginService = {};
 	const authService = {};
 
-	beforeEach(waitForAsync(() => {
-		TestBed.configureTestingModule({
-			imports: [MatCardModule, ReactiveFormsModule],
-			declarations: [CreateComponentComponent],
-			providers: [{
-				provide: LoginService,
-				useValue: loginService,
-			},
-			{
-				provide: AuthService,
-				useValue: authService
-			},
-			],
-			schemas: [NO_ERRORS_SCHEMA]
-		}).compileComponents();
-	}));
+	beforeEach(
+		waitForAsync(() => {
+			TestBed.configureTestingModule({
+				imports: [MatCardModule, ReactiveFormsModule],
+				declarations: [CreateComponentComponent],
+				providers: [
+					{
+						provide: LoginService,
+						useValue: loginService,
+					},
+					{
+						provide: AuthService,
+						useValue: authService,
+					},
+				],
+				schemas: [NO_ERRORS_SCHEMA],
+			}).compileComponents();
+		})
+	);
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(CreateComponentComponent);

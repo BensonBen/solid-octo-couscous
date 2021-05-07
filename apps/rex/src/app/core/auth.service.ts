@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NewUserRequest, Transaction, User } from '@solid-octo-couscous/model';
+import { LoginUserRequest, NewUserRequest, Transaction, User } from '@solid-octo-couscous/model';
 
 @Injectable()
 export class AuthService {
@@ -12,5 +12,9 @@ export class AuthService {
 			`http://localhost:3333/v1/auth/createAccount`,
 			userRequestInformation
 		);
+	}
+
+	public loginWithEmailAndPassword(userLoginInformation: LoginUserRequest): Observable<Transaction<User>> {
+		return this.httpClient.post<Transaction<User>>(`http://localhost:3333/v1/auth/login`, userLoginInformation);
 	}
 }

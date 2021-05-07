@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AnimationService } from './services/animation.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
 	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent],
@@ -25,9 +26,10 @@ import { AnimationService } from './services/animation.service';
 		MatInputModule,
 		MatCardModule,
 		MatSelectModule,
+		MatSnackBarModule,
 		MatIconModule,
 		MatNativeDateModule,
 	],
-	providers: [AnimationService]
+	providers: [AnimationService],
 })
 export class LoginModule {}

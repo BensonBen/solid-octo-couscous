@@ -9,7 +9,7 @@ describe('user model test suite', () => {
 		dateOfBirth: 0,
 		createdOn: 0,
 		isApproved: true,
-		modifiedOn: 0
+		modifiedOn: 0,
 	};
 
 	it('should set approval notes correctly', () => {

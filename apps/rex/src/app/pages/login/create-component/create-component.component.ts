@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { isNil as _isNil } from 'lodash-es';
 import { AuthService } from '../../../core';
 import { AnimationService } from '../services/animation.service';
@@ -49,6 +50,7 @@ export class CreateComponentComponent implements OnInit {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
+		private readonly matSnackBar: MatSnackBar,
 		private readonly animationService: AnimationService
 	) {}
 
@@ -78,7 +80,12 @@ export class CreateComponentComponent implements OnInit {
 				dateOfBirth: (dateOfBirth as Date)?.getTime(),
 				loginName,
 			})
-			.subscribe(e => console.log(e));
+			.subscribe(e => {
+				this.matSnackBar.open('Created Account', JSON.stringify(e), {
+					horizontalPosition: 'center',
+					verticalPosition: 'bottom',
+				});
+			});
 	}
 
 	goToLogin(): void {

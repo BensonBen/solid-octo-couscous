@@ -1,13 +1,13 @@
 import { RedisDatabaseService } from '../redis-database';
 
 describe('RedisDatabaseService test', () => {
-    let redisDatabaseService: RedisDatabaseService;
+	let redisDatabaseService: RedisDatabaseService;
 
-    beforeEach(() => {
-        redisDatabaseService = new RedisDatabaseService();
-    });
+	beforeEach(() => {
+		redisDatabaseService = new RedisDatabaseService();
+	});
 
-    it('should create', () => {
-        expect(redisDatabaseService).toBeDefined();
-    })
+	it('should create', () => {
+		expect(redisDatabaseService).toBeDefined();
+	});
 });

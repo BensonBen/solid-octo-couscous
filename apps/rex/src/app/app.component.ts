@@ -10,7 +10,6 @@ declare const window: Window;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-
 	color: ThemePalette = 'warn';
 	isLogin = true;
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
@@ -23,7 +22,7 @@ export class AppComponent {
 		this.screenHeight = window.innerHeight / 3;
 	}
 
-	constructor(private readonly renderer: Renderer2) { }
+	constructor(private readonly renderer: Renderer2) {}
 
 	changeThemes(): void {
 		if (this.isDarkMode === true) {

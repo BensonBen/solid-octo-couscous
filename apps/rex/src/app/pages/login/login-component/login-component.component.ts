@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../core/auth.service';
 import { AnimationService } from '../services/animation.service';
 
@@ -19,10 +20,7 @@ export class LoginComponent implements OnInit {
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
 	private readonly loginGroup: any = {
-		email: [
-			null,
-			Validators.compose([Validators.required, Validators.email, Validators.minLength(this.minEmailLength)]),
-		],
+		loginName: [null, Validators.compose([Validators.required, Validators.minLength(this.minEmailLength)])],
 		password: [
 			null,
 			Validators.compose([
@@ -37,17 +35,22 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly animationService: AnimationService,
 		private readonly formBuilder: FormBuilder,
-		private readonly authService: AuthService) { }
+		private readonly matSnackBar: MatSnackBar,
+		private readonly authService: AuthService
+	) {}
 
 	ngOnInit(): void {
 		this.form = this.formBuilder.group(this.loginGroup);
 	}
 
 	signIn(): void {
-		const { email, password } = this.form.value;
-		// this.authService.loginWithEmailAndPassword(email, password);
-		// TODO: implement the above method;
-		console.log('future implementation');
+		const { value } = this.form;
+		this.authService.loginWithEmailAndPassword(value ?? {}).subscribe(e => {
+			this.matSnackBar.open('Logged In', 'gg', {
+				horizontalPosition: 'center',
+				verticalPosition: 'bottom',
+			});
+		});
 	}
 
 	goToCreateAccount(): void {

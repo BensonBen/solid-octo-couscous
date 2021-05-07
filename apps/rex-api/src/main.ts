@@ -2,22 +2,12 @@
 import 'reflect-metadata';
 
 // according to the dotenv documentation this should be invoked as early as possible
-import { config, DotenvConfigOutput } from 'dotenv';
+import { config } from 'dotenv';
 import { green } from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
 import { autheniticationConfiguration } from './config/auth-api-config';
 
-const dotEnvConfig: DotenvConfigOutput = config({ debug: true });
-
-// TODO: wrap this in a debug only environment variable to not log it in any higher environments.
-if (dotEnvConfig.error == null) {
-	console.log(`Something went wrong with environment variables: ${JSON.stringify(dotEnvConfig?.error)}`);
-}
-
-if (process.env.AUTH_API_ENV === 'local') {
-	console.log(`Current directory: ${process.cwd()}`);
-	console.log(`Dotenv parsed current environment variables: ${JSON.stringify(dotEnvConfig?.parsed)}`);
-}
+config();
 
 const { port, hostName } = autheniticationConfiguration;
 

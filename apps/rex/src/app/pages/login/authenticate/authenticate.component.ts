@@ -77,7 +77,7 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 
-	constructor(public readonly animationService: AnimationService, private readonly renderer: Renderer2) { }
+	constructor(public readonly animationService: AnimationService, private readonly renderer: Renderer2) {}
 
 	ngOnInit(): void {
 		// this is for animations smoothly moving accross the screen.
