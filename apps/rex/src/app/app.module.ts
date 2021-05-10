@@ -36,11 +36,24 @@ import { MatGridListModule } from '@angular/material/grid-list';
 		EntityDataModule.forRoot(entityConfig),
 		HttpClientModule,
 		StoreRouterConnectingModule.forRoot(),
-		StoreModule.forRoot({}, {}),
+		StoreModule.forRoot(
+			{},
+			{
+				runtimeChecks: {
+					strictStateSerializability: true,
+					strictActionSerializability: true,
+					strictStateImmutability: true,
+					strictActionImmutability: true,
+					strictActionWithinNgZone: true,
+					strictActionTypeUniqueness: true,
+				},
+			}
+		),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
 		}),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 	],
 	providers: [],
 	bootstrap: [AppComponent],
