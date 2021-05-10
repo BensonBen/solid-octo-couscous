@@ -25,7 +25,7 @@ export class AuthController {
 				...this.baseTransaction,
 				data: newUser,
 				success: true,
-			} as Transaction<Record<string, string>>);
+			} as Transaction<string>);
 		} catch (error: any) {
 			this.logger(red(`Failed to create account with reason: ${JSON.stringify(error)}`));
 			return response
@@ -37,11 +37,13 @@ export class AuthController {
 	public readonly login = async ({ body }: Request, response: Response) => {
 		try {
 			const loggedInUser = await this.authService.login(body);
+
 			return response.status(OK).send({
 				...this.baseTransaction,
 				data: loggedInUser,
 				success: true,
-			} as Transaction<Record<string, string>>);
+			} as Transaction<string>);
+
 		} catch (error: any) {
 			return response
 				.status(INTERNAL_SERVER_ERROR)
