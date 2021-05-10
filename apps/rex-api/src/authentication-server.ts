@@ -38,7 +38,7 @@ export class AuthenticationServerFactory {
 				secret,
 				audience,
 				issuer,
-				algorithms: ['HS256']
+				algorithms: ['HS256'],
 			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] })
 		);
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));

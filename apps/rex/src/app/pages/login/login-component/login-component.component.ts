@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../core/auth.service';
+import { WorkoutService } from '../../../core/workout.service';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
 		private readonly animationService: AnimationService,
 		private readonly formBuilder: FormBuilder,
 		private readonly matSnackBar: MatSnackBar,
-		private readonly authService: AuthService
+		private readonly authService: AuthService,
+		private readonly workoutService: WorkoutService
 	) {}
 
 	ngOnInit(): void {
@@ -55,5 +57,9 @@ export class LoginComponent implements OnInit {
 
 	goToCreateAccount(): void {
 		this.animationService.toggleAnimationState();
+	}
+
+	getWorkout(): void {
+		this.workoutService.getWorkout();
 	}
 }

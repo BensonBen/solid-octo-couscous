@@ -43,7 +43,6 @@ export class AuthController {
 				data: loggedInUser,
 				success: true,
 			} as Transaction<string>);
-
 		} catch (error: any) {
 			return response
 				.status(INTERNAL_SERVER_ERROR)
