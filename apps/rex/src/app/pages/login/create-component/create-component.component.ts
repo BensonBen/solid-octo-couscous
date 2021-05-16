@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isNil as _isNil } from 'lodash-es';
+import { Observable, of } from 'rxjs';
+import { delay, first, map } from 'rxjs/operators';
 import { AuthService } from '../../../core';
 import { AnimationService } from '../services/animation.service';
 
@@ -13,8 +15,9 @@ import { AnimationService } from '../services/animation.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponentComponent implements OnInit {
-	form: FormGroup;
+	form !: FormGroup;
 	matFormFieldAppearance: MatFormFieldAppearance = 'fill';
+	isValidUsername$: Observable<boolean>;
 
 	private readonly minEmailLength: number = 1;
 	private readonly minPasswordLength: number = 1;
@@ -55,9 +58,11 @@ export class CreateComponentComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.createGroup.loginName
 		this.form = this.formBuilder.group(this.createGroup, {
 			validators: this.checkPasswords,
 		});
+		this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken)
 	}
 
 	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
@@ -84,11 +89,18 @@ export class CreateComponentComponent implements OnInit {
 				this.matSnackBar.open('Created Account', JSON.stringify(e), {
 					horizontalPosition: 'center',
 					verticalPosition: 'bottom',
+					direction: 'ltr'
 				});
 			});
 	}
 
 	goToLogin(): void {
 		this.animationService.toggleAnimationState();
+	}
+
+	private readonly isUsernameTaken = (control: AbstractControl): Observable<ValidationErrors> => {
+		// TODO: implement find duplicate username when creating a new user account.
+		console.log(control);
+		return of(false).pipe(delay(3000), map(() => ({ nameTaken: true })), first());
 	}
 }

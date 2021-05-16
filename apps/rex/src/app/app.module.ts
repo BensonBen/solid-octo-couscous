@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { httpInterceptorProviders } from './core';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -55,7 +56,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 		}),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 	],
-	providers: [],
+	providers: [httpInterceptorProviders],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login-component/login-component.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
@@ -26,6 +27,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatInputModule,
 		MatCardModule,
 		MatSelectModule,
+		MatFormFieldModule,
 		MatSnackBarModule,
 		MatIconModule,
 		MatNativeDateModule,

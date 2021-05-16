@@ -7,26 +7,33 @@
 		<form [formGroup]="form" style="display: flex; flex-direction: column">
 			<mat-form-field [appearance]="matFormFieldAppearance">
 				<mat-label>Login Name</mat-label>
-				<input matInput="text" formControlName="loginName" autocomplete="on" />
+				<input matInput="text" formControlName="loginName" autocomplete="off" />
 			</mat-form-field>
+			<mat-error *ngIf="form.get('loginName')?.invalid">Login Name Taken</mat-error>
 			<mat-form-field [appearance]="matFormFieldAppearance">
 				<mat-label>Email</mat-label>
-				<input matInput="email" formControlName="email" autocomplete="on" />
+				<input matInput="email" formControlName="email" autocomplete="off" />
 			</mat-form-field>
+			<mat-error *ngIf="form.get('email')?.invalid">Email Invalid</mat-error>
 			<mat-form-field [appearance]="matFormFieldAppearance" style="margin-bottom: 0em; padding-bottom: 0em">
 				<mat-label>Password</mat-label>
-				<input type="password" matInput formControlName="password" autocomplete="on" />
+				<input type="password" matInput formControlName="password" autocomplete="off" />
 			</mat-form-field>
+			<mat-error *ngIf="form.get('password')?.invalid">Incorrect Password Strength</mat-error>
 			<mat-form-field [appearance]="matFormFieldAppearance">
 				<mat-label>Retype Password</mat-label>
-				<input type="password" matInput formControlName="retypedPassword" autocomplete="on" />
+				<input type="password" matInput formControlName="retypedPassword" autocomplete="off" />
 			</mat-form-field>
+			<mat-error *ngIf="form.get('retypedPassword')?.invalid">Incorrect Password Strength</mat-error>
+			<!-- TODO: figure this out later for the incorrect password strength -->
+			<!-- <mat-error *ngIf="form.get('password')?.invalid">Incorrect Password Strength</mat-error> -->
 			<mat-form-field appearance="fill">
 				<mat-label>Date of Birth</mat-label>
 				<input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
 				<mat-datepicker #picker></mat-datepicker>
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 			</mat-form-field>
+			
 		</form>
 	</mat-card-content>
 	<mat-card-actions>

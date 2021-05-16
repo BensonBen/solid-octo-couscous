@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../../core/auth.service';
-import { WorkoutService } from '../../../core/workout.service';
+import { AuthService, WorkoutService } from '../../../core';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
