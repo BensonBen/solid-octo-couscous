@@ -2,10 +2,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
 import { Observable, of } from 'rxjs';
 import { delay, first, map } from 'rxjs/operators';
 import { AuthService } from '../../../core';
+import { CurrentUserStoreActions } from '../../../root-state/current-user';
+import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
@@ -15,7 +19,7 @@ import { AnimationService } from '../services/animation.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponentComponent implements OnInit {
-	form !: FormGroup;
+	form!: FormGroup;
 	matFormFieldAppearance: MatFormFieldAppearance = 'fill';
 	isValidUsername$: Observable<boolean>;
 
@@ -53,16 +57,16 @@ export class CreateComponentComponent implements OnInit {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
-		private readonly matSnackBar: MatSnackBar,
-		private readonly animationService: AnimationService
+		private readonly animationService: AnimationService,
+		private readonly store$: Store<RootStoreState>
 	) {}
 
 	ngOnInit(): void {
-		this.createGroup.loginName
+		this.createGroup.loginName;
 		this.form = this.formBuilder.group(this.createGroup, {
 			validators: this.checkPasswords,
 		});
-		this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken)
+		this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken);
 	}
 
 	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
@@ -78,20 +82,8 @@ export class CreateComponentComponent implements OnInit {
 
 	createAccount(): void {
 		const { email, password, dateOfBirth, loginName } = this.form.value;
-		this.authService
-			.createAccount({
-				email,
-				password,
-				dateOfBirth: (dateOfBirth as Date)?.getTime(),
-				loginName,
-			})
-			.subscribe(e => {
-				this.matSnackBar.open('Created Account', JSON.stringify(e), {
-					horizontalPosition: 'center',
-					verticalPosition: 'bottom',
-					direction: 'ltr'
-				});
-			});
+		const newUserRequest: NewUserRequest = { email, password, dateOfBirth, loginName };
+		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
 	}
 
 	goToLogin(): void {
@@ -101,6 +93,10 @@ export class CreateComponentComponent implements OnInit {
 	private readonly isUsernameTaken = (control: AbstractControl): Observable<ValidationErrors> => {
 		// TODO: implement find duplicate username when creating a new user account.
 		console.log(control);
-		return of(false).pipe(delay(3000), map(() => ({ nameTaken: true })), first());
-	}
+		return of(false).pipe(
+			delay(3000),
+			map(() => ({ nameTaken: true })),
+			first()
+		);
+	};
 }

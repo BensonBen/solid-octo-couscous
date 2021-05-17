@@ -1,4 +1,6 @@
 export interface User {
+	id: string;
+	loginName: string;
 	email: string;
 	approvalNotes: string;
 	password: string;

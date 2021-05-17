@@ -37,6 +37,10 @@ export class AuthDataProvider {
 			hashedPassword,
 			'email',
 			email,
+			'approvalNotes',
+			null,
+			'description',
+			null,
 			'dateOfBirth',
 			dateOfBirth,
 			'createdOn',
@@ -44,7 +48,9 @@ export class AuthDataProvider {
 			'modifiedOn',
 			createdOnModifiedOnTime,
 			'id',
-			id
+			id,
+			'isApproved',
+			0
 		);
 
 		if (newUserHashCreationResult === 'OK') {

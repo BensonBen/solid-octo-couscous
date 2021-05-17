@@ -1,5 +1,4 @@
 import * as cors from 'cors';
-import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import * as expressServer from 'express';
 
@@ -30,7 +29,8 @@ export class AuthenticationServerFactory {
 
 		// Setup middleware.
 		if (_isEmpty(secret) || _isEmpty(audience) || _isEmpty(issuer)) {
-			throw new Error('failed to load secret from environment variables.');
+			// uncaught fatal exception kill the node process prevent it from starting.
+			process.exit(1);
 		}
 
 		authenticationServer.use(

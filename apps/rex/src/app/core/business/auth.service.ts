@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginUserRequest, NewUserRequest, Transaction, User } from '@solid-octo-couscous/model';
+import { LoginUserRequest, LoginUserResponse, NewUserRequest, Transaction } from '@solid-octo-couscous/model';
 import { environment } from '../../../environments/environment';
 
 declare const window: Window;
-
 @Injectable()
 export class AuthService {
 	private readonly baseUrl: string = environment.baseUrl;
@@ -14,26 +13,26 @@ export class AuthService {
 
 	private readonly authResource: string = `${this.baseUrl}/${this.authApiVersion}/${this.authApi}`;
 
-	constructor(private readonly httpClient: HttpClient) { }
+	constructor(private readonly httpClient: HttpClient) {}
 
-	public createAccount(userRequestInformation: NewUserRequest): Observable<Transaction<User>> {
-		return this.httpClient.post<Transaction<User>>(
+	public persistJwtTokenToSessionStorage(jwtToken: string): void {
+		// doesn't really matter if session storage isn't a thing on a given browser.
+		// That browser won't be supported.
+		window?.sessionStorage.setItem('jwtToken', jwtToken);
+	}
+
+	public createAccount(newUserRequest: NewUserRequest): Observable<Transaction<LoginUserResponse>> {
+		return this.httpClient.post<Transaction<LoginUserResponse>>(
 			`${this.authResource}/createAccount`,
-			userRequestInformation
+			newUserRequest
 		);
 	}
 
-	public loginWithEmailAndPassword(userLoginInformation: LoginUserRequest): Observable<Transaction<User>> {
-		return this.httpClient.post<Transaction<User>>(
-			`${this.authResource}/login`,
-			userLoginInformation
-		);
+	public loginWithEmailAndPassword(loginUserRequest: LoginUserRequest): Observable<Transaction<LoginUserResponse>> {
+		return this.httpClient.post<Transaction<LoginUserResponse>>(`${this.authResource}/login`, loginUserRequest);
 	}
 
-	public isDuplicationUsername(username: string): Observable<Transaction<User>> {
-		return this.httpClient.post<Transaction<User>>(
-			`${this.authResource}/duplicateUsername`,
-			username
-		);
+	public isDuplicationUsername(username: string): Observable<Transaction<LoginUserResponse>> {
+		return this.httpClient.post<Transaction<LoginUserResponse>>(`${this.authResource}/duplicateUsername`, username);
 	}
 }

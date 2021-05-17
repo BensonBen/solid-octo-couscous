@@ -3,13 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './entity-metadata';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { CoreServicesModule } from './core/core-services.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { httpInterceptorProviders } from './core';
-
+import { RootStoreModule } from './root-state/root-state.module';
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
@@ -33,28 +26,8 @@ import { httpInterceptorProviders } from './core';
 		MatToolbarModule,
 		MatButtonModule,
 		MatGridListModule,
-		EffectsModule.forRoot([]),
-		EntityDataModule.forRoot(entityConfig),
 		HttpClientModule,
-		StoreRouterConnectingModule.forRoot(),
-		StoreModule.forRoot(
-			{},
-			{
-				runtimeChecks: {
-					strictStateSerializability: true,
-					strictActionSerializability: true,
-					strictStateImmutability: true,
-					strictActionImmutability: true,
-					strictActionWithinNgZone: true,
-					strictActionTypeUniqueness: true,
-				},
-			}
-		),
-		StoreDevtoolsModule.instrument({
-			maxAge: 25,
-			logOnly: environment.production,
-		}),
-		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+		RootStoreModule,
 	],
 	providers: [httpInterceptorProviders],
 	bootstrap: [AppComponent],
