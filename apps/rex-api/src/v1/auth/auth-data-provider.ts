@@ -2,7 +2,7 @@ import { LoginUserRequest, NewUserRequest } from '@solid-octo-couscous/model';
 import { inject, singleton } from 'tsyringe';
 import { RedisDatabaseService } from '../../database/redis-database';
 import { genSalt, hash, compareSync } from 'bcrypt';
-import { red } from 'chalk';
+import { magentaBright, red } from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
 
 @singleton()
@@ -26,9 +26,9 @@ export class AuthDataProvider {
 			this.redisDatabaseService.redisDatabase.incr('users:id'),
 			hash(password, await genSalt(+this.authDataProviderSaltRounds)),
 		]);
-
 		const createdOnModifiedOnTime: number = new Date().getTime();
 		const id = uuidv4();
+
 		const newUserHashCreationResult = await this.redisDatabaseService.redisDatabase.hmset(
 			loginName,
 			'loginName',
@@ -38,9 +38,9 @@ export class AuthDataProvider {
 			'email',
 			email,
 			'approvalNotes',
-			null,
+			'',
 			'description',
-			null,
+			'',
 			'dateOfBirth',
 			dateOfBirth,
 			'createdOn',
@@ -48,9 +48,7 @@ export class AuthDataProvider {
 			'modifiedOn',
 			createdOnModifiedOnTime,
 			'id',
-			id,
-			'isApproved',
-			0
+			id
 		);
 
 		if (newUserHashCreationResult === 'OK') {

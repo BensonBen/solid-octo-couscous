@@ -47,10 +47,15 @@
 						"main": "apps/rex/src/main.ts",
 						"polyfills": "apps/rex/src/polyfills.ts",
 						"tsConfig": "apps/rex/tsconfig.app.json",
-						"aot": true,
 						"assets": ["apps/rex/src/favicon.ico", "apps/rex/src/assets"],
 						"styles": ["apps/rex/src/styles.scss"],
-						"scripts": []
+						"scripts": [],
+						"vendorChunk": true,
+						"extractLicenses": false,
+						"buildOptimizer": false,
+						"sourceMap": true,
+						"optimization": false,
+						"namedChunks": true
 					},
 					"configurations": {
 						"production": {

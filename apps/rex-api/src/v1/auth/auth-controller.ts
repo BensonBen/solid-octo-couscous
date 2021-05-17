@@ -1,5 +1,5 @@
 import { LoginUserResponse, Transaction, User } from '@solid-octo-couscous/model';
-import { red } from 'chalk';
+import { red, magentaBright } from 'chalk';
 import { Request, Response } from 'express';
 import { INTERNAL_SERVER_ERROR, OK } from 'http-status';
 import { autoInjectable, inject } from 'tsyringe';
@@ -21,6 +21,7 @@ export class AuthController {
 
 	public readonly createAccount = async ({ body }: Request, response: Response) => {
 		try {
+			console.log(magentaBright(`${body}`));
 			const newUser = await this.authService.createAccount(body);
 			return response.status(OK).send({
 				...this.baseTransaction,

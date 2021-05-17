@@ -55,7 +55,6 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	constructor(
-		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
 		private readonly animationService: AnimationService,
 		private readonly store$: Store<RootStoreState>
@@ -66,7 +65,7 @@ export class CreateComponentComponent implements OnInit {
 		this.form = this.formBuilder.group(this.createGroup, {
 			validators: this.checkPasswords,
 		});
-		this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken);
+		// this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken);
 	}
 
 	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
@@ -82,7 +81,13 @@ export class CreateComponentComponent implements OnInit {
 
 	createAccount(): void {
 		const { email, password, dateOfBirth, loginName } = this.form.value;
-		const newUserRequest: NewUserRequest = { email, password, dateOfBirth, loginName };
+		// date of birth is definitely typed as a date object.
+		const newUserRequest: NewUserRequest = {
+			email,
+			password,
+			dateOfBirth: (dateOfBirth as Date)?.getTime(),
+			loginName,
+		};
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
 	}
 
@@ -90,13 +95,13 @@ export class CreateComponentComponent implements OnInit {
 		this.animationService.toggleAnimationState();
 	}
 
-	private readonly isUsernameTaken = (control: AbstractControl): Observable<ValidationErrors> => {
-		// TODO: implement find duplicate username when creating a new user account.
-		console.log(control);
-		return of(false).pipe(
-			delay(3000),
-			map(() => ({ nameTaken: true })),
-			first()
-		);
-	};
+	// private readonly isUsernameTaken = (control: AbstractControl): Observable<ValidationErrors> => {
+	// 	// TODO: implement find duplicate username when creating a new user account.
+	// 	console.log(control);
+	// 	return of(false).pipe(
+	// 		delay(3000),
+	// 		map(() => ({ nameTaken: true })),
+	// 		first()
+	// 	);
+	// };
 }
