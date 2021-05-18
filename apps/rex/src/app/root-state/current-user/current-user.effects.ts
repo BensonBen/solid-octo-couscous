@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ofType, createEffect, Actions } from '@ngrx/effects';
-import { User } from '@solid-octo-couscous/model';
+import { LoginUserResponse, User } from '@solid-octo-couscous/model';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../core';
 
@@ -20,28 +20,7 @@ export class CurrentUserStoreEffects {
 						this.authService.persistJwtTokenToSessionStorage(data?.jwtToken);
 					}),
 					map(({ data }) => {
-						const {
-							approvalNotes,
-							id,
-							dateOfBirth,
-							createdOn,
-							description,
-							email,
-							isApproved,
-							loginName,
-							modifiedOn,
-						} = data;
-						const user: Omit<User, 'password'> = {
-							approvalNotes,
-							id,
-							dateOfBirth,
-							createdOn,
-							description,
-							email,
-							isApproved,
-							loginName,
-							modifiedOn,
-						};
+						const user = this.transform(data);
 						return CurrentUserActions.signInRequestSuccess({ user });
 					})
 				);
@@ -54,55 +33,56 @@ export class CurrentUserStoreEffects {
 	// 		ofType(CurrentUserActions.signInRequestSuccess),
 	// 		tap(({ user }) => {
 	// 			const { loginName } = user;
-	// 			this.matSnackBar.open(`Welcome! ${loginName ?? '_______'}. You're signed in`, undefined, {
-	// 				duration: 3000,
-	// 			});
+	// 			this.matSnackBar.open(`Welcome! ${loginName ?? '_______'}. You're signed in`);
 	// 		})
 	// 	)
 	// );
 
-	// public loginUser$ = createEffect(() =>
-	// 	this.actions$.pipe(
-	// 		ofType(CurrentUserActions.loginUserRequest),
-	// 		exhaustMap(({ password, loginName }) => {
-	// 			return this.authService.loginWithEmailAndPassword({ password, loginName }).pipe(
-	// 				tap(thing => this.authService.persistJwtTokenToSessionStorage(thing?.data?.jwtToken)),
-	// 				map(({ data }) => {
-	// 					const {
-	// 						approvalNotes,
-	// 						id,
-	// 						dateOfBirth,
-	// 						createdOn,
-	// 						description,
-	// 						email,
-	// 						isApproved,
-	// 						loginName,
-	// 						modifiedOn,
-	// 					} = data;
-	// 					const user: Omit<User, 'password'> = {
-	// 						approvalNotes,
-	// 						id,
-	// 						dateOfBirth,
-	// 						createdOn,
-	// 						description,
-	// 						email,
-	// 						isApproved,
-	// 						loginName,
-	// 						modifiedOn,
-	// 					};
-	// 					return CurrentUserActions.signInRequestSuccess({ user });
-	// 				}),
-	// 				catchError(({ message, error }) =>
-	// 					of(CurrentUserActions.currentUserGenericError({ error, message }))
-	// 				)
-	// 			);
-	// 		})
-	// 	)
-	// );
+	public loginUser$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(CurrentUserActions.loginUserRequest),
+			switchMap(({ password, loginName }) => {
+				return this.authService.loginWithEmailAndPassword({ password, loginName }).pipe(
+					tap(thing => this.authService.persistJwtTokenToSessionStorage(thing?.data?.jwtToken)),
+					map(({ data }) => {
+						const user = this.transform(data);
+						return CurrentUserActions.signInRequestSuccess({ user });
+					})
+				);
+			})
+		)
+	);
 
 	constructor(
 		private readonly actions$: Actions,
 		private readonly authService: AuthService,
 		private readonly matSnackBar: MatSnackBar
 	) {}
+
+	private readonly transform = (data: LoginUserResponse): Omit<User, 'password'> => {
+		const {
+			approvalNotes,
+			id,
+			dateOfBirth,
+			createdOn,
+			description,
+			email,
+			isApproved,
+			loginName,
+			modifiedOn,
+		} = data;
+		const user: Omit<User, 'password'> = {
+			approvalNotes,
+			id,
+			dateOfBirth,
+			createdOn,
+			description,
+			email,
+			isApproved,
+			loginName,
+			modifiedOn,
+		};
+
+		return user;
+	};
 }

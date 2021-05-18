@@ -2,7 +2,7 @@ import { LoginUserRequest, NewUserRequest } from '@solid-octo-couscous/model';
 import { inject, singleton } from 'tsyringe';
 import { RedisDatabaseService } from '../../database/redis-database';
 import { genSalt, hash, compareSync } from 'bcrypt';
-import { magentaBright, red } from 'chalk';
+import { red } from 'chalk';
 import { v4 as uuidv4 } from 'uuid';
 
 @singleton()

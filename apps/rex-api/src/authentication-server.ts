@@ -21,7 +21,7 @@ export class AuthenticationServerFactory {
 
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
-	public generate(): Application {
+	public bootstrap(): Application {
 		const authenticationServer = expressServer();
 		const secret = process?.env?.AUTH_API_JWT_KEY;
 		const audience = process?.env?.AUTH_API_JWT_AUDIENCE;

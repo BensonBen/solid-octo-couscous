@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService, WorkoutService } from '../../../core';
+import { Store } from '@ngrx/store';
+import { CurrentUserStoreActions } from '../../../root-state/current-user';
+import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 	private readonly minPasswordLength: number = 1;
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
-	private readonly loginGroup: any = {
+	private readonly loginGroup: Record<string, Validators> = {
 		loginName: [null, Validators.compose([Validators.required, Validators.minLength(this.minEmailLength)])],
 		password: [
 			null,
@@ -35,9 +36,7 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly animationService: AnimationService,
 		private readonly formBuilder: FormBuilder,
-		private readonly matSnackBar: MatSnackBar,
-		private readonly authService: AuthService,
-		private readonly workoutService: WorkoutService
+		private readonly store$: Store<RootStoreState>
 	) {}
 
 	ngOnInit(): void {
@@ -45,20 +44,11 @@ export class LoginComponent implements OnInit {
 	}
 
 	signIn(): void {
-		const { value } = this.form;
-		this.authService.loginWithEmailAndPassword(value ?? {}).subscribe(e => {
-			this.matSnackBar.open('Logged In', 'gg', {
-				horizontalPosition: 'center',
-				verticalPosition: 'bottom',
-			});
-		});
+		const { loginName, password } = this.form.value;
+		this.store$.dispatch(CurrentUserStoreActions.loginUserRequest({ loginName, password }));
 	}
 
 	goToCreateAccount(): void {
 		this.animationService.toggleAnimationState();
-	}
-
-	getWorkout(): void {
-		this.workoutService.getWorkout();
 	}
 }

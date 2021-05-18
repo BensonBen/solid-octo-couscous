@@ -13,12 +13,13 @@ const { port, hostName } = autheniticationConfiguration;
 
 const loggerPrefix = '[AuthServerCreation]';
 const serverFactory: AuthenticationServerFactory = new AuthenticationServerFactory();
+const logger = console;
 
-serverFactory.generate().listen(port as number, hostName, () => {
-	console.log(
+serverFactory.bootstrap().listen(port as number, hostName, () => {
+	logger.log(
 		green(`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${autheniticationConfiguration?.whiteList?.join(' ')}.`)
 	);
-	console.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}`));
-	console.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
-	console.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
+	logger.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}`));
+	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
+	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
 });

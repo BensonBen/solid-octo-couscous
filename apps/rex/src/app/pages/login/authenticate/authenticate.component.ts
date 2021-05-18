@@ -85,7 +85,7 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		// clean up after yourself, so the rest of the application.
+		// clean up after yourself.
 		this.renderer.setStyle(document.body, 'overflow', 'auto');
 	}
 
