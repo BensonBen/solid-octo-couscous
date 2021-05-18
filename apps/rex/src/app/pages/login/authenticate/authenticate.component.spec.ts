@@ -9,7 +9,7 @@ describe('AuthenticateComponent', () => {
 	let component: AuthenticateComponent;
 	let fixture: ComponentFixture<AuthenticateComponent>;
 	const animationService = {};
-	const renderer = {}
+	const renderer = {};
 
 	beforeEach(
 		waitForAsync(() => {
@@ -24,8 +24,8 @@ describe('AuthenticateComponent', () => {
 					},
 					{
 						provide: Renderer2,
-						useValue: renderer
-					}
+						useValue: renderer,
+					},
 				],
 			})
 				.compileComponents()
