@@ -2,16 +2,15 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { LoginService } from '../../../core';
-import { AuthService } from '../../../core/auth.service';
+import { AnimationService } from '../services/animation.service';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { CreateComponentComponent } from './create-component.component';
 
 describe('CreateComponentComponent', () => {
 	let component: CreateComponentComponent;
 	let fixture: ComponentFixture<CreateComponentComponent>;
-	const loginService = {};
-	const authService = {};
+	const animationService = {};
 
 	beforeEach(
 		waitForAsync(() => {
@@ -20,13 +19,10 @@ describe('CreateComponentComponent', () => {
 				declarations: [CreateComponentComponent],
 				providers: [
 					{
-						provide: LoginService,
-						useValue: loginService,
+						provide: AnimationService,
+						useValue: animationService,
 					},
-					{
-						provide: AuthService,
-						useValue: authService,
-					},
+					provideMockStore({}),
 				],
 				schemas: [NO_ERRORS_SCHEMA],
 			}).compileComponents();

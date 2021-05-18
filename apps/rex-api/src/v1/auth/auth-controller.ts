@@ -28,7 +28,7 @@ export class AuthController {
 				success: true,
 			} as Transaction<LoginUserResponse>);
 		} catch (error: any) {
-			this.logger.log(red(`Failed to create account with reason: ${JSON.stringify(error)}`));
+			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
 			return response
 				.status(INTERNAL_SERVER_ERROR)
 				.send({ ...this.baseTransaction, message: this.somethingWentWrong });
@@ -45,7 +45,7 @@ export class AuthController {
 				success: true,
 			} as Transaction<LoginUserResponse>);
 		} catch (error: any) {
-			this.logger.log(red(`Failed to login account with reason: ${JSON.stringify(error)}`));
+			this.logger.log(red(`${this.loggerPrefix} Failed to login account with reason: ${JSON.stringify(error)}`));
 			return response
 				.status(INTERNAL_SERVER_ERROR)
 				.send({ ...this.baseTransaction, message: this.somethingWentWrong });

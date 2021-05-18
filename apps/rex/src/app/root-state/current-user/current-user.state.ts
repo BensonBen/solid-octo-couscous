@@ -14,7 +14,7 @@ export const initialState: State = {
 	email: '',
 	error: null,
 	id: '',
-	isApproved: false,
+	isApproved: 0,
 	isLoaded: false,
 	loading: false,
 	loginName: '',

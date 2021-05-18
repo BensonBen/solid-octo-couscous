@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AuthenticateComponent } from './authenticate.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginService } from '../../../core';
+import { AnimationService } from '../services/animation.service';
 
 describe('AuthenticateComponent', () => {
 	let component: AuthenticateComponent;
 	let fixture: ComponentFixture<AuthenticateComponent>;
-
-	const loginService = {};
+	const animationService = {};
+	const renderer = {}
 
 	beforeEach(
 		waitForAsync(() => {
@@ -19,9 +19,13 @@ describe('AuthenticateComponent', () => {
 				declarations: [AuthenticateComponent],
 				providers: [
 					{
-						provide: LoginService,
-						useValue: loginService,
+						provide: AnimationService,
+						useValue: animationService,
 					},
+					{
+						provide: Renderer2,
+						useValue: renderer
+					}
 				],
 			})
 				.compileComponents()

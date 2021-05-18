@@ -8,5 +8,5 @@ export interface User {
 	dateOfBirth: number;
 	createdOn: number;
 	modifiedOn: number;
-	isApproved: boolean;
+	isApproved: number;
 }

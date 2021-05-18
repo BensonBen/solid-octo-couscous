@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ofType, createEffect, Actions } from '@ngrx/effects';
 import { LoginUserResponse, User } from '@solid-octo-couscous/model';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -28,16 +27,6 @@ export class CurrentUserStoreEffects {
 		)
 	);
 
-	// readonly loginUserSuccess$ = createEffect(() =>
-	// 	this.actions$.pipe(
-	// 		ofType(CurrentUserActions.signInRequestSuccess),
-	// 		tap(({ user }) => {
-	// 			const { loginName } = user;
-	// 			this.matSnackBar.open(`Welcome! ${loginName ?? '_______'}. You're signed in`);
-	// 		})
-	// 	)
-	// );
-
 	public loginUser$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CurrentUserActions.loginUserRequest),
@@ -53,11 +42,7 @@ export class CurrentUserStoreEffects {
 		)
 	);
 
-	constructor(
-		private readonly actions$: Actions,
-		private readonly authService: AuthService,
-		private readonly matSnackBar: MatSnackBar
-	) {}
+	constructor(private readonly actions$: Actions, private readonly authService: AuthService) {}
 
 	private readonly transform = (data: LoginUserResponse): Omit<User, 'password'> => {
 		const {

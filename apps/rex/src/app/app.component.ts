@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-
-declare const window: Window;
 
 @Component({
 	selector: 'solid-octo-couscous-root',
@@ -15,12 +13,6 @@ export class AppComponent {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 	title = 'rex';
-	screenHeight: number = window.innerHeight / 3;
-
-	@HostListener('window:resize', ['$event'])
-	onResize(): void {
-		this.screenHeight = window.innerHeight / 3;
-	}
 
 	constructor(private readonly renderer: Renderer2) {}
 

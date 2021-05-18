@@ -12,12 +12,14 @@ import * as jwt from 'express-jwt';
 import { isEmpty as _isEmpty } from 'lodash';
 import { AuthController } from './v1/auth/auth-controller';
 import { WorkoutController } from './v1/workout/workout-controller';
+import { Algorithm } from 'jsonwebtoken';
 
 /** This class is designed to produce express servers with a default configuration depending on the environment file. */
 @autoInjectable()
 export class AuthenticationServerFactory {
 	public readonly logger = console.log;
 	private readonly loggerPrefix: string = `[AuthenticationServerFactory]`;
+	private readonly jwtTokenAlgorithm: Algorithm = process?.env?.AUTH_API_JWT_ALG as Algorithm;
 
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
@@ -38,7 +40,7 @@ export class AuthenticationServerFactory {
 				secret,
 				audience,
 				issuer,
-				algorithms: ['HS256'],
+				algorithms: [this.jwtTokenAlgorithm],
 			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] })
 		);
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));

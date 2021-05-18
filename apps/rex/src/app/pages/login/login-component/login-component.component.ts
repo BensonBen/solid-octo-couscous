@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
+import { WorkoutService } from '../../../core';
 import { CurrentUserStoreActions } from '../../../root-state/current-user';
 import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly animationService: AnimationService,
 		private readonly formBuilder: FormBuilder,
-		private readonly store$: Store<RootStoreState>
+		private readonly store$: Store<RootStoreState>,
+		private readonly workoutService: WorkoutService
 	) {}
 
 	ngOnInit(): void {
@@ -50,5 +52,9 @@ export class LoginComponent implements OnInit {
 
 	goToCreateAccount(): void {
 		this.animationService.toggleAnimationState();
+	}
+
+	getWorkout(): void {
+		this.workoutService.getWorkout();
 	}
 }

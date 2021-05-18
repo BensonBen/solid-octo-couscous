@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
-import { Observable, of } from 'rxjs';
-import { delay, first, map } from 'rxjs/operators';
-import { AuthService } from '../../../core';
+import { Observable } from 'rxjs';
+
 import { CurrentUserStoreActions } from '../../../root-state/current-user';
 import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
@@ -65,7 +63,6 @@ export class CreateComponentComponent implements OnInit {
 		this.form = this.formBuilder.group(this.createGroup, {
 			validators: this.checkPasswords,
 		});
-		// this.form?.get('loginName')?.setAsyncValidators(this.isUsernameTaken);
 	}
 
 	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
@@ -81,7 +78,6 @@ export class CreateComponentComponent implements OnInit {
 
 	createAccount(): void {
 		const { email, password, dateOfBirth, loginName } = this.form.value;
-		// date of birth is definitely typed as a date object.
 		const newUserRequest: NewUserRequest = {
 			email,
 			password,
@@ -94,14 +90,4 @@ export class CreateComponentComponent implements OnInit {
 	goToLogin(): void {
 		this.animationService.toggleAnimationState();
 	}
-
-	// private readonly isUsernameTaken = (control: AbstractControl): Observable<ValidationErrors> => {
-	// 	// TODO: implement find duplicate username when creating a new user account.
-	// 	console.log(control);
-	// 	return of(false).pipe(
-	// 		delay(3000),
-	// 		map(() => ({ nameTaken: true })),
-	// 		first()
-	// 	);
-	// };
 }
