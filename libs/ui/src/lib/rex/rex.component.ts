@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
 	templateUrl: './rex.component.html',
 	styleUrls: ['./rex.component.scss'],
 })
-export class RexComponent {
-}
+export class RexComponent {}

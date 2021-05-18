@@ -4,4 +4,5 @@
 	"editor.formatOnSaveMode": "modifications",
 	"editor.renderWhitespace": "all",
 	"editor.tabSize": 2,
+	"jest.jestCommandLine": "npm run affected:test -- --base=develop --head=HEAD"
 }

@@ -1,13 +1,18 @@
 {
 	"implicitDependencies": {
 		"angular.json": "*",
-		"package.json": { "dependencies": "*", "devDependencies": "*" },
+		"package.json": {
+			"dependencies": "*",
+			"devDependencies": "*"
+		},
 		"tsconfig.base.json": "*",
 		"tslint.json": "*",
 		".eslintrc.json": "*",
 		"nx.json": "*"
 	},
-	"affected": { "defaultBase": "master" },
+	"affected": {
+		"defaultBase": "master"
+	},
 	"npmScope": "solid-octo-couscous",
 	"tasksRunnerOptions": {
 		"default": {
@@ -21,10 +26,22 @@
 		}
 	},
 	"projects": {
-		"rex": { "tags": [], "implicitDependencies": [] },
-		"rex-e2e": { "tags": [], "implicitDependencies": ["rex"] },
-		"model": { "tags": [] },
-		"ui": { "tags": [] },
-		"rex-api": { "tags": [] }
+		"rex": {
+			"tags": [],
+			"implicitDependencies": []
+		},
+		"rex-e2e": {
+			"tags": [],
+			"implicitDependencies": ["rex"]
+		},
+		"model": {
+			"tags": []
+		},
+		"ui": {
+			"tags": []
+		},
+		"rex-api": {
+			"tags": []
+		}
 	}
 }

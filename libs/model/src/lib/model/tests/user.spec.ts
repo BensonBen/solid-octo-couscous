@@ -8,8 +8,10 @@ describe('user model test suite', () => {
 		password: '12345',
 		dateOfBirth: 0,
 		createdOn: 0,
-		isApproved: true,
-		modifiedOn: 0
+		isApproved: 0,
+		modifiedOn: 0,
+		id: '1234',
+		loginName: 'chaoz133',
 	};
 
 	it('should set approval notes correctly', () => {

@@ -1,5 +1,4 @@
 import * as cors from 'cors';
-import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import * as expressServer from 'express';
 
@@ -9,55 +8,66 @@ import { Application, Router } from 'express';
 import { ErrorHandler } from './util/error-handler';
 import { green } from 'chalk';
 import { autoInjectable, inject } from 'tsyringe';
-import { ProductController } from './v1/product/product-controller';
 import * as jwt from 'express-jwt';
 import { isEmpty as _isEmpty } from 'lodash';
 import { AuthController } from './v1/auth/auth-controller';
+import { WorkoutController } from './v1/workout/workout-controller';
+import { Algorithm } from 'jsonwebtoken';
 
 /** This class is designed to produce express servers with a default configuration depending on the environment file. */
 @autoInjectable()
 export class AuthenticationServerFactory {
 	public readonly logger = console.log;
 	private readonly loggerPrefix: string = `[AuthenticationServerFactory]`;
+	private readonly jwtTokenAlgorithm: Algorithm = process?.env?.AUTH_API_JWT_ALG as Algorithm;
 
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
-	public generate(): Application {
+	public bootstrap(): Application {
 		const authenticationServer = expressServer();
 		const secret = process?.env?.AUTH_API_JWT_KEY;
+		const audience = process?.env?.AUTH_API_JWT_AUDIENCE;
+		const issuer = process?.env?.AUTH_API_JWT_ISSUER;
 
 		// Setup middleware.
-		if (_isEmpty(secret)) {
-			throw new Error('failed to load secret from environment variables.');
+		if (_isEmpty(secret) || _isEmpty(audience) || _isEmpty(issuer)) {
+			// uncaught fatal exception kill the node process prevent it from starting.
+			process.exit(1);
 		}
 
 		authenticationServer.use(
-			jwt({ secret, algorithms: ['HS256'] }).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] })
+			jwt({
+				secret,
+				audience,
+				issuer,
+				algorithms: [this.jwtTokenAlgorithm],
+			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login'] })
 		);
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
 		authenticationServer.use(json());
-		authenticationServer.use(morgan('dev'));
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 
 		// Setup auto-injected dependencies.
-		const productController: ProductController = new ProductController();
 		const authController: AuthController = new AuthController();
+		const workoutController: WorkoutController = new WorkoutController();
 
 		// Setup routing.
 		const versionOneRouter: Router = Router();
-		const productRouter: Router = Router();
 		const authRouter: Router = Router();
+		const workoutRouter: Router = Router();
 
-		// Setup sub routes.
-		productRouter.get('/:productId', productController.findOne);
-
+		// auth sub routes.
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
 
-		versionOneRouter.use('/products', productRouter);
+		// workout sub routes.
+		workoutRouter.get('/get', workoutController.getWorkout);
+
+		// version one routes.
 		versionOneRouter.use('/auth', authRouter);
+		versionOneRouter.use('/workout', workoutRouter);
 		authenticationServer.use('/v1', versionOneRouter);
 
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER ROUTING PATHWAYS.`));
