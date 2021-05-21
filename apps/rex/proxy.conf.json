@@ -1,6 +1,6 @@
 {
 	"/rex-api": {
-		"target": "http://localhost:3333/something",
+		"target": "http://localhost:3333/v1/auth/login",
 		"secure": false,
 		"logLevel": "debug",
 		"changeOrigin": false
