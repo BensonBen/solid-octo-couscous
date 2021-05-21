@@ -11,7 +11,6 @@ export class AuthService {
 	private readonly authApi: string = environment.authApi;
 	private readonly authApiVersion: string = environment.apiVersionOne;
 
-	// private readonly authResource: string = `${this.baseUrl}/${this.authApiVersion}/${this.authApi}`;
 	private authResource = `${this.baseUrl}/${this.authApiVersion}/${this.authApi}`;
 
 	constructor(private readonly httpClient: HttpClient) {}
