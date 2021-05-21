@@ -12,8 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { httpInterceptorProviders } from './core';
 import { RootStoreModule } from './root-state/root-state.module';
+import { httpInterceptorProviders } from './interceptors';
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
