@@ -1,8 +1,11 @@
 {
-	"/rex-api": {
-		"target": "http://localhost:3333/something",
+	"/rex-api/*": {
+		"target": "http://localhost:3333",
 		"secure": false,
 		"logLevel": "debug",
-		"changeOrigin": false
+		"changeOrigin": false,
+		"pathRewrite": {
+			"^/rex-api": ""
+		}
 	}
 }
