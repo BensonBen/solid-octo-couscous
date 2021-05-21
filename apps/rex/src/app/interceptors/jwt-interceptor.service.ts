@@ -8,12 +8,14 @@ declare const window: Window;
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
 	public intercept(req: HttpRequest<any>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
-		const jwtToken: string = window.sessionStorage.getItem('jwt') ?? '';
+		const jwtToken: string = window.sessionStorage.getItem('jwtToken') ?? '';
+		let authReq = req;
 		if (!_isNil(jwtToken)) {
-			req.headers.append('Content-Type', 'application/json');
-			req.headers.append('Authorization', `Bearer ${jwtToken}`);
+			authReq = req.clone({
+				headers: req.headers.set('Authorization', `Bearer ${jwtToken}`),
+			});
 		}
 
-		return httpHandler.handle(req);
+		return httpHandler.handle(authReq);
 	}
 }
