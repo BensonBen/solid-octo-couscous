@@ -14,10 +14,7 @@ export class CurrentUserStoreEffects {
 			switchMap(({ newUserRequest }) => {
 				console.table([newUserRequest]);
 				return this.authService.createAccount(newUserRequest).pipe(
-					tap(({ data }) => {
-						console.log(data?.jwtToken);
-						this.authService.persistJwtTokenToSessionStorage(data?.jwtToken);
-					}),
+					tap(({ data }) => this.authService.persistJwtTokenToSessionStorage(data?.jwtToken)),
 					map(({ data }) => {
 						const user = this.transform(data);
 						return CurrentUserActions.signInRequestSuccess({ user });
