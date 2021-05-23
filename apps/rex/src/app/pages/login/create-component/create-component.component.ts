@@ -11,7 +11,7 @@ import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
-	selector: 'solid-octo-couscous-create-component',
+	selector: 'soc-create-component',
 	templateUrl: './create-component.component.html',
 	styleUrls: ['./create-component.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,7 @@
 export const environment = {
 	production: true,
-	baseUrl: `http://localhost:3333`,
+	baseUrl: `/rex-api`,
 	apiVersionOne: `v1`,
 	authApi: `auth`,
+	workoutApi: `workout`,
 };
