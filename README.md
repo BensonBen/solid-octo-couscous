@@ -4,8 +4,6 @@
 	<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
 </p>
 
----
-
 ## Description
 REX is designed to be a electron, or web application that interfaces with popular exercise bikes.
 The user will connect their exercise bike through bluetooth, or possibly USB.
