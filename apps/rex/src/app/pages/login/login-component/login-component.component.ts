@@ -8,7 +8,7 @@ import { RootStoreState } from '../../../root-state/root-state';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
-	selector: 'solid-octo-couscous-login-component',
+	selector: 'soc-login-component',
 	templateUrl: './login-component.component.html',
 	styleUrls: ['./login-component.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

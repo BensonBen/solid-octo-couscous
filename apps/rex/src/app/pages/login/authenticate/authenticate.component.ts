@@ -4,7 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { AnimationService } from '../services/animation.service';
 
 @Component({
-	selector: 'solid-octo-couscous-authenticate',
+	selector: 'soc-authenticate',
 	templateUrl: './authenticate.component.html',
 	styleUrls: ['./authenticate.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,7 +13,7 @@ import { AnimationService } from '../services/animation.service';
 			transition(':enter', [
 				style({ position: 'absolute' }),
 				animate(
-					'2s cubic-bezier(0.86, 0, 0.07, 1)',
+					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({
 							opacity: 0,
@@ -27,7 +27,7 @@ import { AnimationService } from '../services/animation.service';
 			transition(':leave', [
 				style({ position: 'absolute' }),
 				animate(
-					'2s cubic-bezier(0.86, 0, 0.07, 1)',
+					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
 						style({
@@ -43,7 +43,7 @@ import { AnimationService } from '../services/animation.service';
 			transition(':enter', [
 				style({ position: 'absolute' }),
 				animate(
-					'2s cubic-bezier(0.86, 0, 0.07, 1)',
+					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({
 							opacity: 0,
@@ -57,7 +57,7 @@ import { AnimationService } from '../services/animation.service';
 			transition(':leave', [
 				style({ position: 'absolute' }),
 				animate(
-					'2s cubic-bezier(0.86, 0, 0.07, 1)',
+					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
 						style({
