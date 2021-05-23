@@ -33,18 +33,18 @@ TODO: not yet implemented using electron.
 
 ## Usage
 
-1.  visit [rex.fitness](https://rex.fitness)
-2.  login in / create account
-    1.  if not automatically redirected.
-    2.  visit [rex.fitness/main](https://rex.fitness/main)
-3.  connect to your exercise bike using the connect floating action button
-4.  once paired with your bike verify you can get information from it by pedaling
-5.  select options availible to you by joining a group session, or solo riding with the provided workouts.
+1.  Visit [rex.fitness](https://rex.fitness)
+2.  Login in / create account
+    1.  If not automatically redirected.
+    2.  Visit [rex.fitness/main](https://rex.fitness/main)
+3.  Connect to your exercise bike using the connect floating action button
+4.  Once paired with your bike verify you can get information from it by pedaling
+5.  Select options availible to you by joining a group session, or solo riding with the provided workouts.
 
 ## Contributing
 
-1. select a task from the availible issues.
-2. clone the git repository and checkout the develop branch if not already on it by default.
+1. Select a task from the availible issues.
+2. Clone the git repository and checkout the develop branch if not already on it by default.
 3. Ensure you have `nx` installed globally via your flavor of package manager.
 4. Ensure you have at least `nodejs 14.x` installed.
 5. At a mimimum if you've added code, add tests and run them locally.
