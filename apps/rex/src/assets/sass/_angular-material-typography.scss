@@ -2,7 +2,7 @@
 @use '../fonts/fonts'as fonts;
 
 $solid-octo-couscous-typography: material.define-typography-config(
-	$font-family: '"Arvo-Regular"',
+	$font-family: '"Arvo"',
 	$display-4: material.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
 	$display-3: material.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
 	$display-2: material.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
