@@ -15,14 +15,4 @@ export class AppComponent {
 	title = 'rex';
 
 	constructor(private readonly renderer: Renderer2) {}
-
-	changeThemes(): void {
-		if (this.isDarkMode === true) {
-			this.renderer.addClass(document.body, 'solid-octo-couscous-light-theme');
-		} else {
-			this.renderer.removeClass(document.body, 'solid-octo-couscous-light-theme');
-		}
-
-		this.isDarkMode = !this.isDarkMode;
-	}
 }

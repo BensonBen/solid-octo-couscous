@@ -5,16 +5,20 @@
 </p>
 
 ## Description
+
 REX is designed to be a electron, or web application that interfaces with popular exercise bikes.
 The user will connect their exercise bike through bluetooth, or possibly USB.
+
 ## Table of Contents
-  - [Installation](#installation)
-  - [Built With](#built-with)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [Credits](#credits)
+
+-   [Installation](#installation)
+-   [Built With](#built-with)
+-   [Usage](#usage)
+-   [Contributing](#contributing)
+-   [Credits](#credits)
 
 ## Installation
+
 TODO: not yet implemented using electron.
 
 ## Built With
