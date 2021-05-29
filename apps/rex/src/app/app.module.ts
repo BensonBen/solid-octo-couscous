@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreServicesModule } from './core/core-services.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RootStoreModule } from './root-state/root-state.module';
 import { httpInterceptorProviders } from './interceptors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
