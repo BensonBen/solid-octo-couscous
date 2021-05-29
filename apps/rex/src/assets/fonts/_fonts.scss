@@ -1,7 +1,10 @@
 @font-face {
-	font-family: 'Arvo';
+	font-family: 'Arvo-Regular';
 	font-display: 'swap';
-	font-weight: 400;
+	font-weight: 400 500;
 	font-style: normal;
-	src: local('/Arvo-Regular.ttf') url('https://fonts.googleapis.com/css2?family=Arvo:wght@300;400;500&display=swap');
+	src: url('./Arvo-Regular.ttf') url('https://fonts.googleapis.com/css2?family=Arvo:wght@300;400;500&display=swap')
+		format('truetype');
+	font-stretch: 50% 200%;
+	font-style: oblique 20deg 50deg;
 }
