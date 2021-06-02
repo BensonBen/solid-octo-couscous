@@ -1,96 +1,64 @@
-# solid-octo-couscous
-
-Solid Octo Couscous is designed to be a electron, or web application that interfaces with popular exercise bikes.
-This project is also an exercise in machine learning for of various biking applications.
+# REX 🦖 a S.O.C. 🧦 product
 
 <p align="center">
 	<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
 </p>
 
-## Motivation
+## Description
 
-There are a bunch of biking exercise bike applications that are overall unfriendly to use. Overly complicated, not user driver
-and other things that could be improved upon in the industry.
+REX is designed to be a electron, or web application that interfaces with popular exercise bikes.
+The user will connect their exercise bike through bluetooth, or possibly USB.
 
-## Build status
+## Table of Contents
 
-**TODO** setup build status in future update.
+-   [Installation](#installation)
+-   [Built With](#built-with)
+-   [Usage](#usage)
+-   [Contributing](#contributing)
+-   [Credits](#credits)
 
-<!-- Build status of continus integration i.e. travis, appveyor etc. Ex. -
+## Installation
 
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master) -->
+TODO: not yet implemented using electron.
 
-## Code style
-
-Currently using [NX Linting](https://nx.dev) that was auto generated through their command line `npx create-nx-workspace`
-which is based on [eslint](https://eslint.org).
-
-## Screenshots
-
-**TODO** setup screenshots of the landing page in the future.
-
-## Frameworks used
-
-<b>Built with</b>
+## Built With
 
 -   [Angular](https://angular.io/) Web Framework
 -   [Angular Material](https://material.angular.io) Web Style Patterns
 -   [ESLint](https://eslint.org) Style Adherence
 -   [Express](https://expressjs.com) API Server
--   [GraphQL](https://graphql.org) Database
 -   [Jest](https://jestjs.io) Frontend Testing
 -   [Node JS](https://nodejs.org/en/) Backend
 -   [Nx](https://nx.dev) Complexity Management
 -   [NGINX](https://www.nginx.com/) Web Server
 -   [NgRx](https://ngrx.io/) Frontend State Management
 -   [TensorFlowJS](https://www.tensorflow.org/js) Machine learning in the browser
--   [Raspberry PI 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) Physical Test Server
+-   [Linode](https://linode.com) Deployment
 
-## Features
+## Usage
 
--   Data Logging for your exercise habits
--   Heart rate monitoring
--   Custom Exercise habits
+1.  Visit [rex.fitness](https://rex.fitness)
+2.  Login in / create account
+    1.  If not automatically redirected.
+    2.  Visit [rex.fitness/main](https://rex.fitness/main)
+3.  Connect to your exercise bike using the connect floating action button
+4.  Once paired with your bike verify you can get information from it by pedaling
+5.  Select options availible to you by joining a group session, or solo riding with the provided workouts.
 
-## Code Example
+## Contributing
 
-**TODO**
-
-## Contribution Guidelines (Provided by Nx)
-
-1. Fork the repo and create your branch from `develop`.
-2. If you've added code that should be tested, add tests.
-    1. run `ng test my-app` to execute unit tests using [jest](https://jestjs.io)
-    2. run `nx affected:test` to execute end-to-end tests affected by the change.
-3. Update API information as needed.
-4. Make sure your code lints.
-    1. run `nx lint <project> [options]` [documentation](https://nx.dev/latest/angular/cli/lint)
-5. Pull Request
+1. Select a task from the availible issues.
+2. Clone the git repository and checkout the develop branch if not already on it by default.
+3. Ensure you have `nx` installed globally via your flavor of package manager.
+4. Ensure you have at least `nodejs 14.x` installed.
+5. At a mimimum if you've added code, add tests and run them locally.
+    1. run `nx affected:test --base=remotes/origin/develop --head=HEAD` to execute unit tests using [jest](https://jestjs.io)
+    2. run `nx affected:lint --base=remotes/origin/develop --head=HEAD` to execute linting affected by the change.
+6. Update Documentation as needed.
+7. Pull Request
     1. Open a Pull request against the original branch `develop`
     2. Your pull request will build and additional code quality checks will be made.
     3. Be open to criticism after all we're human all human... right? 🤖
-
-## Installation
-
-**TODO** need to figure out physical implemention of web server and have a page of setup.
-
-## API Reference
-
-|     Enpoint      |  Type  |                                              Body                                               | Screenshot With Postman |
-| :--------------: | :----: | :---------------------------------------------------------------------------------------------: | :---------------------: |
-| `/v1/products/1` |  GET   |                                              None                                               |                         |
-| `/v1/products/1` | DELETE |                                              None                                               |                         |
-|  `/v1/products`  |  POST  | `{ "color": "blue", "cost": 2, "name": "SirGrabingtonTheThird", "retired": 1, "size": "small"}` |                         |
-|  `/v1/products`  | PATCH  |     `{ "id": 3, "color": "red", "cost": 2, "name": "Yeet", "retired": 1, "size": "Large" }`     |                         |
-
-## Tests
-
-Install `nodejs, npm, and globally install the npm package nx` from the base of the application run `nx test`. You may have to restart your command line if you just installed `nx` globally using `npm`
-
-## How to use?
-
-You'll be able to use the application locally through running it in development mode, or you can have an example of the application availible here `TODO`
 
 ## Credits
 

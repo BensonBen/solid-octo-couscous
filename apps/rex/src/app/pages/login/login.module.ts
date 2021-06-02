@@ -31,5 +31,6 @@ import { AnimationService } from './services/animation.service';
 		MatNativeDateModule,
 	],
 	providers: [AnimationService],
+	exports: [AuthenticateComponent],
 })
 export class LoginModule {}

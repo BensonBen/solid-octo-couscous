@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthenticateComponent } from './pages/login/authenticate/authenticate.component';
+import { LoginModule } from './pages/login/login.module';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'auth', pathMatch: 'full' },
+	// not lazily loaded because this will be required for every single login.
 	{
 		path: 'auth',
-		loadChildren: () => import('./pages/login/login.module').then(mod => mod.LoginModule),
+		component: AuthenticateComponent,
 	},
 	{
 		path: 'main',
@@ -15,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes), LoginModule],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
