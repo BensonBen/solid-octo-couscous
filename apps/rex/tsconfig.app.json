@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [
-      "chrome"
+      "chrome",
+      "web-bluetooth"
     ]
   },
   "files": ["src/main.ts", "src/polyfills.ts"],

@@ -1,2 +1,2 @@
 export { LoginService } from './login.service';
-export { BluetoothConnectionService } from './bluetooth-connection.service';
+export { SchwinIc4BluetoothConnectionService } from './schwin-ic4-bluetooth-connection.service';
