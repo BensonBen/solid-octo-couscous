@@ -1,18 +1,109 @@
-// custom created primary map of colors for SOC.
+$primary900: #1a237e;
+$primary800: #283493;
+$primary700: #303e9f;
+$primary600: #3948ab;
+$primary500: #3f50b5;
+$primary400: #5c6ac0;
+$primary300: #7986cb;
+$primary200: #9fa8da;
+$primary100: #c5cae9;
+$primary50: #e8eaf6;
+
+$secondary900: #7e761a;
+$secondary800: #9a9c27;
+$secondary700: #aab32e;
+$secondary600: #bbc936;
+$secondary500: #c7db3c;
+$secondary400: #d8e676;
+$secondary300: #d8e676;
+$secondary200: #e3ed9d;
+$secondary100: #eef4c3;
+$secondary50: #f8fbe7;
+
+$error900: #7e1a22;
+$error800: #8e1f2b;
+$error700: #9c2431;
+$error600: #ad2b37;
+$error500: #bb323a;
+$error400: #bb454f;
+$error300: #b6656d;
+$error200: #cc8e94;
+$error100: #e9c5cc;
+$error50: #f5e8eb;
+
+/* custom created primary map of colors for SOC. */
 $mat-dark-indigo-blue: (
-	50: #002171,
+	50: $primary50,
+	100: $primary100,
+	200: $primary200,
+	300: $primary300,
+	400: $primary400,
+	500: $primary500,
+	600: $primary600,
+	700: $primary700,
+	800: $primary800,
+	900: $primary900,
 	contrast: (
-		50: #002171,
+		50: rgba($primary50, 0.87),
+		100: rgba($primary100, 0.87),
+		200: rgba($primary200, 0.87),
+		300: rgba($primary300, 0.87),
+		400: rgba($primary400, 0.87),
+		500: rgba($primary500, 0.87),
+		600: rgba($primary600, 0.87),
+		700: rgba($primary700, 0.87),
+		800: rgba($primary800, 0.87),
+		900: rgba($primary900, 0.87),
 	),
 );
 
-// $mat-dark-indigo-blue: #002171;
-// $mat-dark-indigo-blue: #000a12;
-
-// custom created secondary map of colors for SOC.
-$mat-dark-blue-gray: (
-	50: #000a12,
+/* custom created secondary map of colors for SOC. */
+$mat-dark-mustard-secondary: (
+	50: $secondary50,
+	100: $secondary100,
+	200: $secondary200,
+	300: $secondary300,
+	400: $secondary400,
+	500: $secondary500,
+	600: $secondary600,
+	700: $secondary700,
+	800: $secondary800,
+	900: $secondary900,
 	contrast: (
-		50: #000a12,
+		50: rgba($secondary50, 0.87),
+		100: rgba($secondary100, 0.87),
+		200: rgba($secondary200, 0.87),
+		300: rgba($secondary300, 0.87),
+		400: rgba($secondary400, 0.87),
+		500: rgba($secondary500, 0.87),
+		600: rgba($secondary600, 0.87),
+		700: rgba($secondary700, 0.87),
+		800: rgba($secondary800, 0.87),
+		900: rgba($secondary900, 0.87),
+	),
+);
+
+$mat-dark-triadic-error: (
+	50: $error50,
+	100: $error100,
+	200: $error200,
+	300: $error300,
+	400: $error400,
+	500: $error500,
+	600: $error600,
+	700: $error700,
+	800: $error800,
+	900: $error900,
+	contrast: (
+		50: rgba($error50, 0.87),
+		100: rgba($error100, 0.87),
+		200: rgba($error200, 0.87),
+		300: rgba($error300, 0.87),
+		400: rgba($error400, 0.87),
+		500: rgba($error500, 0.87),
+		600: rgba($error600, 0.87),
+		700: rgba($error700, 0.87),
+		800: rgba($error800, 0.87),
+		900: rgba($error900, 0.87),
 	),
 );

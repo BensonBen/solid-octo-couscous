@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'Arvo';
+	font-display: 'swap';
+	font-weight: 400 500;
+	font-style: normal;
+	src: local('Times'), local('Times New Roman'), url('./Arvo-Regular.ttf') format('truetype'),
+		url('https://fonts.googleapis.com/css2?family=Arvo:wght@300;400;500&display=swap') format('woff');
+	font-stretch: 50% 200%;
+	font-style: oblique 20deg 50deg;
+}

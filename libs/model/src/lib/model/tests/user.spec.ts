@@ -1,5 +1,4 @@
-import { User } from './user';
-import * as moment from 'moment';
+import { User } from '../user';
 
 describe('user model test suite', () => {
 	const user: User = {
@@ -7,9 +6,12 @@ describe('user model test suite', () => {
 		description: 'user description',
 		email: 'email@email.com',
 		password: '12345',
-		dateOfBirth: moment('01-01-2020'),
-		createdOn: moment('01-01-2020'),
-		isApproved: true,
+		dateOfBirth: 0,
+		createdOn: 0,
+		isApproved: 0,
+		modifiedOn: 0,
+		id: '1234',
+		loginName: 'chaoz133',
 	};
 
 	it('should set approval notes correctly', () => {
@@ -26,11 +28,5 @@ describe('user model test suite', () => {
 
 	it('should set password correctly', () => {
 		expect(user.password).toBe('12345');
-	});
-
-	it('should set the date correctly', () => {
-		expect(user.dateOfBirth.get('year')).toBe(2020);
-		expect(user.dateOfBirth.get('month')).toBe(0);
-		expect(user.dateOfBirth.get('day')).toBe(3);
 	});
 });

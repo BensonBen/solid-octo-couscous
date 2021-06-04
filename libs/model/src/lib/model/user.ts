@@ -1,4 +1,6 @@
 export interface User {
+	id: string;
+	loginName: string;
 	email: string;
 	approvalNotes: string;
 	password: string;
@@ -6,5 +8,5 @@ export interface User {
 	dateOfBirth: number;
 	createdOn: number;
 	modifiedOn: number;
-	isApproved: boolean;
+	isApproved: number;
 }

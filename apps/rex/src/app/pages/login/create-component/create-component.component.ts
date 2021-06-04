@@ -1,38 +1,32 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Store } from '@ngrx/store';
+import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
-import { LoginService } from '../../../core';
-import { AuthService } from '../../../core/auth.service';
+import { Observable } from 'rxjs';
+
+import { CurrentUserStoreActions } from '../../../root-state/current-user';
+import { RootStoreState } from '../../../root-state/root-state';
+import { AnimationService } from '../services/animation.service';
 
 @Component({
-	selector: 'solid-octo-couscous-create-component',
+	selector: 'soc-create-component',
 	templateUrl: './create-component.component.html',
 	styleUrls: ['./create-component.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponentComponent implements OnInit {
-
-	form: FormGroup;
+	form!: FormGroup;
 	matFormFieldAppearance: MatFormFieldAppearance = 'fill';
+	isValidUsername$: Observable<boolean>;
 
 	private readonly minEmailLength: number = 1;
 	private readonly minPasswordLength: number = 1;
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
 	private readonly createGroup: any = {
-		firstName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
-		lastName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
-		loginName: [
-			null,
-			Validators.compose([Validators.required, Validators.minLength(0)]),
-		],
+		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
 			Validators.compose([Validators.required, Validators.email, Validators.minLength(this.minEmailLength)]),
@@ -55,20 +49,17 @@ export class CreateComponentComponent implements OnInit {
 				Validators.pattern(this.strongPasswordRegex),
 			]),
 		],
-		dateOfBirth: [
-			null,
-			Validators.compose([
-				Validators.required
-			])
-		]
+		dateOfBirth: [null, Validators.compose([Validators.required])],
 	};
 
 	constructor(
-		private readonly authService: AuthService,
 		private readonly formBuilder: FormBuilder,
-		private readonly loginService: LoginService) { }
+		private readonly animationService: AnimationService,
+		private readonly store$: Store<RootStoreState>
+	) {}
 
 	ngOnInit(): void {
+		this.createGroup.loginName;
 		this.form = this.formBuilder.group(this.createGroup, {
 			validators: this.checkPasswords,
 		});
@@ -86,13 +77,17 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	createAccount(): void {
-		const { email, password, dateOfBirth, lastName, firstName, loginName } = this.form.value;
-		this.authService.createAccount({
-			email, password, dateOfBirth: (dateOfBirth as Date)?.getTime(), lastName, firstName, loginName
-		}).subscribe(e => console.log(e))
+		const { email, password, dateOfBirth, loginName } = this.form.value;
+		const newUserRequest: NewUserRequest = {
+			email,
+			password,
+			dateOfBirth: (dateOfBirth as Date)?.getTime(),
+			loginName,
+		};
+		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
 	}
 
 	goToLogin(): void {
-		this.loginService.toggleAnimationState();
+		this.animationService.toggleAnimationState();
 	}
 }

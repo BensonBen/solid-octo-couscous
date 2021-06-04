@@ -1,60 +1,36 @@
-@import '~@angular/material/theming';
-@import './colors';
+@use '~@angular/material' as mat;
+@use './colors'as colors;
+@use './angular-material-typography'as typography;
 
-// only needs to be included once.
-@include mat-core();
-
-// ------------------------------- begin: material typography setup. -----------------------------------
-$solid-octo-couscous-typography: mat-typography-config(
-	$font-family: 'Arvo',
-	$headline: mat-typography-level(32px, 48px, 700),
-	$body-1: mat-typography-level(16px, 24px, 500),
-);
-
-// Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
-@include mat-base-typography($solid-octo-couscous-typography);
-
-// Override typography for a specific Angular Material components.
-@include mat-checkbox-typography($solid-octo-couscous-typography);
-
-// Override typography for all Angular Material, including mat-base-typography and all components.
-@include angular-material-typography($solid-octo-couscous-typography);
-// ------------------------------- end: material typography setup. -------------------------------------
-
-// ------------------------------- begin: material theme setup. ----------------------------------------
-$solid-octo-couscous-primary: mat-palette($mat-dark-indigo-blue);
-$solid-octo-couscous-accent: mat-palette($mat-dark-blue-gray, A200, A100, A400);
-$solid-octo-couscous-warn: mat-palette($mat-red);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as `color` or `typography`.
-$solid-octo-couscous-light-theme: mat-light-theme(
+// derived from: https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=002070&secondary.color=37464f.
+/* only needs to be included once. */
+@include mat.core(typography.$solid-octo-couscous-typography);
+@include mat.strong-focus-indicators();
+/* ------------------------------- begin: material theme setup. ---------------------------------------- */
+$solid-octo-couscous-primary: mat.define-palette(colors.$mat-dark-indigo-blue, 400);
+$solid-octo-couscous-accent: mat.define-palette(colors.$mat-dark-mustard-secondary, A200, A100, A400);
+$solid-octo-couscous-warn: mat.define-palette(colors.$mat-dark-triadic-error);
+$solid-octo-couscous-dark-theme: mat.define-dark-theme(
 	(
 		color: (
 			primary: $solid-octo-couscous-primary,
 			accent: $solid-octo-couscous-accent,
 			warn: $solid-octo-couscous-warn,
 		),
-		typography: $solid-octo-couscous-typography,
 		density: 0,
 	)
 );
 
-$solid-octo-couscous-dark-theme: mat-dark-theme(
-	(
-		color: (
-			primary: $solid-octo-couscous-primary,
-			accent: $solid-octo-couscous-accent,
-			warn: $solid-octo-couscous-warn,
-		),
-		typography: $solid-octo-couscous-typography,
-		density: 0,
-	)
-);
+@include mat.core-theme($solid-octo-couscous-dark-theme);
+@include mat.button-theme($solid-octo-couscous-dark-theme);
+@include mat.badge-theme($solid-octo-couscous-dark-theme);
+@include mat.card-theme($solid-octo-couscous-dark-theme);
+@include mat.datepicker-theme($solid-octo-couscous-dark-theme);
+@include mat.form-field-theme($solid-octo-couscous-dark-theme);
+@include mat.icon-theme($solid-octo-couscous-dark-theme);
+@include mat.slide-toggle-theme($solid-octo-couscous-dark-theme);
+@include mat.toolbar-theme($solid-octo-couscous-dark-theme);
 
-@include angular-material-theme($solid-octo-couscous-dark-theme);
-
-.solid-octo-couscous-light-theme {
-	@include angular-material-color($solid-octo-couscous-light-theme);
-}
-// ------------------------------- end: material theme setup. ------------------------------------------
+// @include mat.all-component-themes($solid-octo-couscous-dark-theme);
+@include mat.strong-focus-indicators-theme($solid-octo-couscous-dark-theme);
+/* ------------------------------- end: material theme setup. ------------------------------------------ */
