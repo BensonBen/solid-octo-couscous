@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SchwinIc4BluetoothConnectionService } from '../../core';
 
 @Component({
-	selector: 'solid-octo-couscous-main',
+	selector: 'soc-main',
 	templateUrl: './main.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
