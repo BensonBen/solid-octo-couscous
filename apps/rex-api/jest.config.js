@@ -10,4 +10,5 @@ module.exports = {
 	moduleFileExtensions: ['ts', 'js', 'html'],
 	coverageDirectory: '../../coverage/apps/rex-api',
 	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+	testEnvironment: 'node',
 };
