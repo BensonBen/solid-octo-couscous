@@ -26,21 +26,21 @@
 		}
 	},
 	"projects": {
+		"model": {
+			"tags": []
+		},
 		"rex": {
 			"tags": [],
 			"implicitDependencies": []
+		},
+		"rex-api": {
+			"tags": []
 		},
 		"rex-e2e": {
 			"tags": [],
 			"implicitDependencies": ["rex"]
 		},
-		"model": {
-			"tags": []
-		},
 		"ui": {
-			"tags": []
-		},
-		"rex-api": {
 			"tags": []
 		}
 	}

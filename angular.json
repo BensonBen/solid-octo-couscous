@@ -33,6 +33,27 @@
 		}
 	},
 	"projects": {
+		"model": {
+			"root": "libs/model",
+			"sourceRoot": "libs/model/src",
+			"projectType": "library",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["libs/model/**/*.ts"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/model"],
+					"options": {
+						"jestConfig": "libs/model/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
 		"rex": {
 			"projectType": "application",
 			"root": "apps/rex",
@@ -121,75 +142,6 @@
 				}
 			}
 		},
-		"rex-e2e": {
-			"root": "apps/rex-e2e",
-			"sourceRoot": "apps/rex-e2e/src",
-			"projectType": "application",
-			"architect": {
-				"e2e": {
-					"builder": "@nrwl/cypress:cypress",
-					"options": {
-						"cypressConfig": "apps/rex-e2e/cypress.json",
-						"tsConfig": "apps/rex-e2e/tsconfig.e2e.json",
-						"devServerTarget": "rex:serve"
-					},
-					"configurations": {
-						"production": {
-							"devServerTarget": "rex:serve:production"
-						}
-					}
-				},
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["apps/rex-e2e/**/*.{js,ts}"]
-					}
-				}
-			}
-		},
-		"model": {
-			"root": "libs/model",
-			"sourceRoot": "libs/model/src",
-			"projectType": "library",
-			"architect": {
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["libs/model/**/*.ts"]
-					}
-				},
-				"test": {
-					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/model"],
-					"options": {
-						"jestConfig": "libs/model/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			}
-		},
-		"ui": {
-			"projectType": "library",
-			"root": "libs/ui",
-			"sourceRoot": "libs/ui/src",
-			"prefix": "soc",
-			"architect": {
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
-					}
-				},
-				"test": {
-					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/ui"],
-					"options": {
-						"jestConfig": "libs/ui/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			}
-		},
 		"rex-api": {
 			"root": "apps/rex-api",
 			"sourceRoot": "apps/rex-api/src",
@@ -236,6 +188,54 @@
 					"outputs": ["coverage/apps/rex-api"],
 					"options": {
 						"jestConfig": "apps/rex-api/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"rex-e2e": {
+			"root": "apps/rex-e2e",
+			"sourceRoot": "apps/rex-e2e/src",
+			"projectType": "application",
+			"architect": {
+				"e2e": {
+					"builder": "@nrwl/cypress:cypress",
+					"options": {
+						"cypressConfig": "apps/rex-e2e/cypress.json",
+						"tsConfig": "apps/rex-e2e/tsconfig.e2e.json",
+						"devServerTarget": "rex:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "rex:serve:production"
+						}
+					}
+				},
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/rex-e2e/**/*.{js,ts}"]
+					}
+				}
+			}
+		},
+		"ui": {
+			"projectType": "library",
+			"root": "libs/ui",
+			"sourceRoot": "libs/ui/src",
+			"prefix": "soc",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/ui"],
+					"options": {
+						"jestConfig": "libs/ui/jest.config.js",
 						"passWithNoTests": true
 					}
 				}
