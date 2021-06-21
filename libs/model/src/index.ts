@@ -1,6 +1,9 @@
 export { User } from './lib/model/user';
+export { Unsubscriber } from './lib/util/unsubscriber';
 export { SocAuthenticationConfiguration } from './lib/util/soc-authentication-configuration';
-export { Transaction } from './lib/reponses/transaction';
+export { Transaction } from './lib/responses/transaction';
 export { NewUserRequest } from './lib/requests/new-user-request';
-export { LoginUserResponse } from './lib/reponses/login-user-response';
+export { LoginUserResponse } from './lib/responses/login-user-response';
 export { LoginUserRequest } from './lib/requests/login-user-request';
+export { SchwinIc4BluetoothCharacteristics } from './lib/model/schwin-ic4-bluetooth-characteristics';
+export { SchwinIc4BluetoothServices } from './lib/model/schwin-ic4-bluetooth-services';
