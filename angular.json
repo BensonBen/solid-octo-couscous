@@ -71,7 +71,7 @@
 						"assets": [
 							"apps/rex/src/favicon.ico",
 							"apps/rex/src/assets",
-							"apps/rex/src/manifest.json"
+							"apps/rex/src/manifest.webmanifest"
 						],
 						"styles": ["apps/rex/src/styles.scss"],
 						"scripts": [],
@@ -80,7 +80,9 @@
 						"buildOptimizer": false,
 						"sourceMap": true,
 						"optimization": false,
-						"namedChunks": true
+						"namedChunks": true,
+						"serviceWorker": true,
+						"ngswConfigPath": "apps/rex/ngsw-config.json"
 					},
 					"configurations": {
 						"production": {
