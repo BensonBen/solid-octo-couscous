@@ -71,7 +71,8 @@
 						"assets": [
 							"apps/rex/src/favicon.ico",
 							"apps/rex/src/assets",
-							"apps/rex/src/manifest.webmanifest"
+							"apps/rex/src/manifest.webmanifest",
+							"apps/rex/src/ngsw-worker.js"
 						],
 						"styles": ["apps/rex/src/styles.scss"],
 						"scripts": [],

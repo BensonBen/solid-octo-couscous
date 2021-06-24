@@ -14,8 +14,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { RootStoreModule } from './root-state/root-state.module';
 import { httpInterceptorProviders } from './interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
+const rexServiceWorkerOptions: SwRegistrationOptions = {
+	enabled: environment.production,
+	registrationStrategy: `registerWithDelay:5000`,
+};
 
 @NgModule({
 	declarations: [AppComponent],
@@ -31,12 +36,7 @@ import { environment } from '../environments/environment';
 		MatGridListModule,
 		HttpClientModule,
 		RootStoreModule,
-		ServiceWorkerModule.register('ngsw-worker.js', {
-			enabled: environment.production,
-			// Register the ServiceWorker as soon as the app is stable
-			// or after 30 seconds (whichever comes first).
-			registrationStrategy: 'registerWhenStable:30000',
-		}),
+		ServiceWorkerModule.register('ngsw-worker.js', rexServiceWorkerOptions),
 	],
 	providers: [httpInterceptorProviders],
 	bootstrap: [AppComponent],
