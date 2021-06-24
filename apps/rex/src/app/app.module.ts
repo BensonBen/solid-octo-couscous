@@ -14,6 +14,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { RootStoreModule } from './root-state/root-state.module';
 import { httpInterceptorProviders } from './interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
+const rexServiceWorkerOptions: SwRegistrationOptions = {
+	enabled: environment.production,
+	registrationStrategy: `registerWithDelay:5000`,
+};
 
 @NgModule({
 	declarations: [AppComponent],
@@ -29,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		MatGridListModule,
 		HttpClientModule,
 		RootStoreModule,
+		ServiceWorkerModule.register('ngsw-worker.js', rexServiceWorkerOptions),
 	],
 	providers: [httpInterceptorProviders],
 	bootstrap: [AppComponent],
