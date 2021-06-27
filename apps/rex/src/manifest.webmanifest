@@ -6,6 +6,23 @@
 	"display": "minimal-ui",
 	"scope": "./",
 	"start_url": "./index.html",
+	"categories": ["fitness"],
+	"orientation": "natural",
+	"lang": "en-US",
+	"prefer_related_applications": true,
+	"shortcuts": [
+		{
+			"name": "Login",
+			"url": "/login",
+			"description": "Login to User's Account"
+		},
+		{
+			"name": "Workout",
+			"url": "/main",
+			"description": "Quickly go-to a workout"
+		}
+	],
+	"description": "REX is a fitness application designed to work with Schwinn IC4 Exercise Equiptment with web bluetooth.",
 	"icons": [
 		{
 			"src": "assets/icons/icon-72x72.png",
