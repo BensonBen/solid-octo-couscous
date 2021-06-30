@@ -6,7 +6,6 @@ declare const navigator: Navigator;
 
 @Injectable()
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
-
 	private readonly dataLogger: Array<string> = [];
 	constructor(private readonly renderer: Renderer2) {
 		super(
@@ -55,19 +54,18 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		const { value } = event?.target;
 		const dataView = value as DataView;
 		const view = new Uint8Array(dataView.buffer);
-		this.dataLogger.push(this.toBinString(view))
+		this.dataLogger.push(this.toBinString(view));
 		console.log(`some real data: ${dataView.getUint16(0, true)}`);
 		console.log(`some other real data: ${dataView.getUint16(2, true)}`);
 	};
 
-	private readonly toBinString = (bytes) =>
-		bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
+	private readonly toBinString = bytes => bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
 
 	private saveFile(name, type, data): void {
 		debugger;
 		const element = this.renderer.createElement('a');
 		this.renderer.setStyle(element, 'display', 'none');
-		// element.attr 
+		// element.attr
 		const url = window.URL.createObjectURL(new Blob([data], { type: type }));
 		// a.attr("href", url);
 		// a.attr("download", name);
@@ -76,5 +74,4 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		window.URL.revokeObjectURL(url);
 		// a.remove();
 	}
-
 }
