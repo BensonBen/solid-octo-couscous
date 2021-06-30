@@ -6,7 +6,7 @@ describe('AuthService', () => {
 	let authService: AuthService;
 
 	beforeEach(async () => {
-		authService = await new AuthService((authDataProvider as unknown) as AuthDataProvider);
+		authService = await new AuthService(authDataProvider as unknown as AuthDataProvider);
 	});
 
 	it('should create', async () => {

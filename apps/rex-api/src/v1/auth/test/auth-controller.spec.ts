@@ -9,7 +9,7 @@ describe('AuthController', () => {
 	let authController: AuthController;
 
 	beforeEach(() => {
-		authController = new AuthController((authService as unknown) as AuthService);
+		authController = new AuthController(authService as unknown as AuthService);
 	});
 
 	it('should create', () => {

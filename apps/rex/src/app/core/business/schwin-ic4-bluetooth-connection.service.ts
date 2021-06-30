@@ -24,16 +24,14 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		const cyclingSpeedCadenceService = primaryBluetoothServices?.find(
 			service => service.uuid === SchwinIc4BluetoothServices.cyclingSpeedAndCadenceUUID
 		);
-		const cscMeasurementChararacteristic:
-			| BluetoothRemoteGATTCharacteristic
-			| undefined = await cyclingSpeedCadenceService?.getCharacteristic(
-			// CSC Measurement feature. csc = cycling speed cadence.
-			SchwinIc4BluetoothCharacteristics.cscMeasurement
-		);
+		const cscMeasurementChararacteristic: BluetoothRemoteGATTCharacteristic | undefined =
+			await cyclingSpeedCadenceService?.getCharacteristic(
+				// CSC Measurement feature. csc = cycling speed cadence.
+				SchwinIc4BluetoothCharacteristics.cscMeasurement
+			);
 
-		const result:
-			| BluetoothRemoteGATTCharacteristic
-			| undefined = await cscMeasurementChararacteristic?.startNotifications();
+		const result: BluetoothRemoteGATTCharacteristic | undefined =
+			await cscMeasurementChararacteristic?.startNotifications();
 		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime);
 	}
 
@@ -44,9 +42,8 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		);
 		this.bluetoothDevice$.next(userSelectedSchwinIc4Bike);
 
-		const serverConnection:
-			| BluetoothRemoteGATTServer
-			| undefined = await userSelectedSchwinIc4Bike?.gatt?.connect();
+		const serverConnection: BluetoothRemoteGATTServer | undefined =
+			await userSelectedSchwinIc4Bike?.gatt?.connect();
 		this.bluetoothServer$.next(serverConnection);
 
 		return (await serverConnection?.getPrimaryServices()) ?? [];
