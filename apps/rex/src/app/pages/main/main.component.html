@@ -5,6 +5,10 @@
 		aria-label="Example icon button with a delete icon"
 		(click)="connectHeartRateDevice($event)"
 	>
-		<mat-icon>delete</mat-icon>
+		<mat-icon aria-hidden="false" aria-label="home icon">home</mat-icon>
 	</button>
+		<button mat-fab color="primary" aria-label="Example icon button with a delete icon"
+			(click)="saveFile()">
+			<mat-icon aria-hidden="false" aria-label="home icon">home</mat-icon>
+		</button>
 </section>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
@@ -6,7 +6,9 @@ declare const navigator: Navigator;
 
 @Injectable()
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
-	constructor() {
+
+	private readonly dataLogger: Array<string> = [];
+	constructor(private readonly renderer: Renderer2) {
 		super(
 			[{ name: 'IC Bike' }],
 			[
@@ -52,7 +54,27 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	private readonly parseCadenceWheelSpeedWheelTime = event => {
 		const { value } = event?.target;
 		const dataView = value as DataView;
+		const view = new Uint8Array(dataView.buffer);
+		this.dataLogger.push(this.toBinString(view))
 		console.log(`some real data: ${dataView.getUint16(0, true)}`);
 		console.log(`some other real data: ${dataView.getUint16(2, true)}`);
 	};
+
+	private readonly toBinString = (bytes) =>
+		bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
+
+	private saveFile(name, type, data): void {
+		debugger;
+		const element = this.renderer.createElement('a');
+		this.renderer.setStyle(element, 'display', 'none');
+		// element.attr 
+		const url = window.URL.createObjectURL(new Blob([data], { type: type }));
+		// a.attr("href", url);
+		// a.attr("download", name);
+		// $("body").append(a);
+		// a[0].click();
+		window.URL.revokeObjectURL(url);
+		// a.remove();
+	}
+
 }
