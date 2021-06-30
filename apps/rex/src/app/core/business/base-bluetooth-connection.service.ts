@@ -5,9 +5,8 @@ import { Unsubscriber } from '@solid-octo-couscous/model';
 @Injectable()
 export class BaseBluetoothConnectionService extends Unsubscriber {
 	protected readonly bluetoothDevice$: ReplaySubject<BluetoothDevice> = new ReplaySubject<BluetoothDevice>(1);
-	protected readonly bluetoothServer$: ReplaySubject<BluetoothRemoteGATTServer> = new ReplaySubject<BluetoothRemoteGATTServer>(
-		1
-	);
+	protected readonly bluetoothServer$: ReplaySubject<BluetoothRemoteGATTServer> =
+		new ReplaySubject<BluetoothRemoteGATTServer>(1);
 
 	protected readonly bluetoothDeviceSearchOptions: RequestDeviceOptions = {
 		filters: [],
