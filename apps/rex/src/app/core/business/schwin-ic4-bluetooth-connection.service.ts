@@ -1,13 +1,18 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
 declare const navigator: Navigator;
+declare const document: Document;
 
 @Injectable()
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
 	private readonly dataLogger: Array<string> = [];
-	constructor(private readonly renderer: Renderer2) {
+
+	private renderer: Renderer2;
+
+	constructor(rendererFactory: RendererFactory2) {
 		super(
 			[{ name: 'IC Bike' }],
 			[
@@ -18,6 +23,8 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 				SchwinIc4BluetoothServices.heartRate,
 			]
 		);
+
+		this.renderer = rendererFactory.createRenderer(null, null);
 	}
 
 	public async connectToCyclingSpeedAndCadenceService(): Promise<void> {
@@ -55,23 +62,22 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		const dataView = value as DataView;
 		const view = new Uint8Array(dataView.buffer);
 		this.dataLogger.push(this.toBinString(view));
-		console.log(`some real data: ${dataView.getUint16(0, true)}`);
-		console.log(`some other real data: ${dataView.getUint16(2, true)}`);
+		// TODO: remove this from my project.
+		// console.log(`some real data: ${dataView.getUint16(0, true)}`);
+		// console.log(`some other real data: ${dataView.getUint16(2, true)}`);
 	};
 
 	private readonly toBinString = bytes => bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
 
-	private saveFile(name, type, data): void {
-		debugger;
+	public saveFile(): void {
 		const element = this.renderer.createElement('a');
 		this.renderer.setStyle(element, 'display', 'none');
-		// element.attr
-		const url = window.URL.createObjectURL(new Blob([data], { type: type }));
-		// a.attr("href", url);
-		// a.attr("download", name);
-		// $("body").append(a);
-		// a[0].click();
+		const url = window.URL.createObjectURL(new Blob([this.dataLogger.join('\n')], { type: 'octet/stream' }));
+		this.renderer.setProperty(element, 'href', url);
+		this.renderer.setProperty(element, 'download', 'somefile.txt');
+		this.renderer.appendChild(document.body, element);
+		element.click();
 		window.URL.revokeObjectURL(url);
-		// a.remove();
+		this.renderer.removeChild(document.body, element);
 	}
 }

@@ -12,4 +12,8 @@ export class MainComponent {
 	public async connectHeartRateDevice(event: Event): Promise<void> {
 		await this.schwinIc4BluetoothConnectionService.connectToCyclingSpeedAndCadenceService();
 	}
+
+	public saveFile(): void {
+		this.schwinIc4BluetoothConnectionService.saveFile();
+	}
 }
