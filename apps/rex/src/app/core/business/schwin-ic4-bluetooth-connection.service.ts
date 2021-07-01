@@ -11,6 +11,7 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	private readonly dataLogger: Array<string> = [];
 
 	private renderer: Renderer2;
+	private prev = 0;
 
 	constructor(rendererFactory: RendererFactory2) {
 		super(
@@ -60,8 +61,27 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	private readonly parseCadenceWheelSpeedWheelTime = event => {
 		const { value } = event?.target;
 		const dataView = value as DataView;
-		const view = new Uint8Array(dataView.buffer);
-		this.dataLogger.push(this.toBinString(view));
+		const littleEndian = true;
+		const derp: Array<number> = [];
+		const rerp: Array<number> = [];
+
+		const thing = dataView.getInt32(1, littleEndian);
+		this.prev = -(this.prev) + thing;
+		rerp.push(this.prev);
+		rerp.push(dataView.getUint16(1, littleEndian));
+		rerp.push(dataView.getUint16(3, littleEndian));
+		rerp.push(thing)
+
+		derp.push(dataView.getUint32(1, littleEndian));
+		// derp.push(dataView.getUint16(3, littleEndian));
+		// some time measurement
+		derp.push(dataView.getUint16(5, littleEndian));
+		// amount of times the wheel went around.
+		derp.push(dataView.getUint16(7, littleEndian));
+		// some time measurment
+		derp.push(dataView.getUint16(9, littleEndian));
+
+		console.table(rerp);
 		// TODO: remove this from my project.
 		// console.log(`some real data: ${dataView.getUint16(0, true)}`);
 		// console.log(`some other real data: ${dataView.getUint16(2, true)}`);
