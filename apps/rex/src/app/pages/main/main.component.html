@@ -1,13 +1,14 @@
-<section>
+<div class="d-flex">
 	<button
 		mat-fab
-		color="primary"
+		color="secondary"
 		aria-label="Example icon button with a delete icon"
 		(click)="connectHeartRateDevice($event)"
 	>
-		<mat-icon aria-hidden="false" aria-label="home icon">home</mat-icon>
+		<mat-icon aria-hidden="false" aria-label="home icon">bluetooth</mat-icon>
 	</button>
-	<button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="saveFile()">
-		<mat-icon aria-hidden="false" aria-label="home icon">delete</mat-icon>
-	</button>
-</section>
+</div>
+<h3>{{ schwinIc4BluetoothConnectionService.deltaWheelRevolution$ | async }}</h3>
+<h3>{{ schwinIc4BluetoothConnectionService.deltaLastWheelEventTime$ | async }}</h3>
+<h3>{{ schwinIc4BluetoothConnectionService.deltaCrankRevolution$ | async }}</h3>
+<h3>{{ schwinIc4BluetoothConnectionService.deltaLastCrankEventTime$ | async }}</h3>

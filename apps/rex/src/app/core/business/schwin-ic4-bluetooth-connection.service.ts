@@ -1,19 +1,26 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, pairwise } from 'rxjs/operators';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
 declare const navigator: Navigator;
-declare const document: Document;
 
 @Injectable()
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
-	private readonly dataLogger: Array<string> = [];
+	private readonly replay = 2;
+	private readonly maxUnsignedSixteenBitInteger = 65536;
+	public readonly wheelRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
+	public readonly lastWheelEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
+	public readonly crankRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
+	public readonly lastCrankEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 
-	private renderer: Renderer2;
-	private prev = 0;
+	public readonly deltaWheelRevolution$: Observable<number>;
+	public readonly deltaLastWheelEventTime$: Observable<number>;
+	public readonly deltaCrankRevolution$: Observable<number>;
+	public readonly deltaLastCrankEventTime$: Observable<number>;
 
-	constructor(rendererFactory: RendererFactory2) {
+	constructor() {
 		super(
 			[{ name: 'IC Bike' }],
 			[
@@ -25,7 +32,25 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			]
 		);
 
-		this.renderer = rendererFactory.createRenderer(null, null);
+		this.deltaWheelRevolution$ = this.wheelRevolutions$.pipe(
+			pairwise(),
+			map(([previous, current]) => {
+				console.log(`previous: ${previous} current: ${current}`);
+				if (previous < current) {
+					return current - previous;
+				} else if (previous > current) {
+					return current + this.maxUnsignedSixteenBitInteger - previous;
+				} else {
+					return 0;
+				}
+			})
+		);
+
+		this.deltaLastWheelEventTime$ = this.lastWheelEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+
+		this.deltaCrankRevolution$ = this.crankRevolutions$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+
+		this.deltaLastCrankEventTime$ = this.lastCrankEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
 	}
 
 	public async connectToCyclingSpeedAndCadenceService(): Promise<void> {
@@ -45,7 +70,6 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	}
 
 	private readonly connectToSchwinBike = async (): Promise<BluetoothRemoteGATTService[]> => {
-		// TODO: add a check in here to notify the user if they're using a non-supported browser.
 		const userSelectedSchwinIc4Bike: BluetoothDevice = await navigator.bluetooth.requestDevice(
 			this.bluetoothDeviceSearchOptions
 		);
@@ -62,42 +86,23 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		const { value } = event?.target;
 		const dataView = value as DataView;
 		const littleEndian = true;
-		const derp: Array<number> = [];
-		const rerp: Array<number> = [];
-
-		const thing = dataView.getInt32(1, littleEndian);
-		this.prev = -(this.prev) + thing;
-		rerp.push(this.prev);
-		rerp.push(dataView.getUint16(1, littleEndian));
-		rerp.push(dataView.getUint16(3, littleEndian));
-		rerp.push(thing)
-
-		derp.push(dataView.getUint32(1, littleEndian));
-		// derp.push(dataView.getUint16(3, littleEndian));
-		// some time measurement
-		derp.push(dataView.getUint16(5, littleEndian));
+		// wheel revolutions.
+		this.wheelRevolutions$.next(dataView.getUint32(1, littleEndian));
+		// some time measurement.
+		this.lastWheelEventTime$.next(dataView.getUint16(5, littleEndian));
 		// amount of times the wheel went around.
-		derp.push(dataView.getUint16(7, littleEndian));
-		// some time measurment
-		derp.push(dataView.getUint16(9, littleEndian));
-
-		console.table(rerp);
-		// TODO: remove this from my project.
-		// console.log(`some real data: ${dataView.getUint16(0, true)}`);
-		// console.log(`some other real data: ${dataView.getUint16(2, true)}`);
+		this.crankRevolutions$.next(dataView.getUint16(7, littleEndian));
+		// some time measurment.
+		this.lastCrankEventTime$.next(dataView.getUint16(9, littleEndian));
 	};
 
-	private readonly toBinString = bytes => bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
-
-	public saveFile(): void {
-		const element = this.renderer.createElement('a');
-		this.renderer.setStyle(element, 'display', 'none');
-		const url = window.URL.createObjectURL(new Blob([this.dataLogger.join('\n')], { type: 'octet/stream' }));
-		this.renderer.setProperty(element, 'href', url);
-		this.renderer.setProperty(element, 'download', 'somefile.txt');
-		this.renderer.appendChild(document.body, element);
-		element.click();
-		window.URL.revokeObjectURL(url);
-		this.renderer.removeChild(document.body, element);
-	}
+	private readonly deltaUnsignedInteger = ([previous, current]) => {
+		if (previous < current) {
+			return current - previous;
+		} else if (previous > current) {
+			return current + this.maxUnsignedSixteenBitInteger - previous;
+		} else {
+			return 0;
+		}
+	};
 }

@@ -7,13 +7,9 @@ import { SchwinIc4BluetoothConnectionService } from '../../core';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent {
-	constructor(private readonly schwinIc4BluetoothConnectionService: SchwinIc4BluetoothConnectionService) {}
+	constructor(public readonly schwinIc4BluetoothConnectionService: SchwinIc4BluetoothConnectionService) {}
 
 	public async connectHeartRateDevice(event: Event): Promise<void> {
 		await this.schwinIc4BluetoothConnectionService.connectToCyclingSpeedAndCadenceService();
-	}
-
-	public saveFile(): void {
-		this.schwinIc4BluetoothConnectionService.saveFile();
 	}
 }
