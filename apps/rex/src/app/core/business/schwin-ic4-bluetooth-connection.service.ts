@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
-import { Observable, ReplaySubject } from 'rxjs';
-import { map, pairwise } from 'rxjs/operators';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { map, pairwise, tap } from 'rxjs/operators';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
 declare const navigator: Navigator;
@@ -10,6 +10,12 @@ declare const navigator: Navigator;
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
 	private readonly replay = 2;
 	private readonly maxUnsignedSixteenBitInteger = 65536;
+	private readonly millisecondInSecond = 1000;
+	private readonly sixtySeconds = 60;
+	private readonly schwinIc4WheelCircumferenceInInches = 5;
+	private readonly feetInMile = 5280;
+	// 1056.
+	private readonly revolutionsRequiredPerMile = this.feetInMile / this.schwinIc4WheelCircumferenceInInches;
 	public readonly wheelRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 	public readonly lastWheelEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 	public readonly crankRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
@@ -19,6 +25,9 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	public readonly deltaLastWheelEventTime$: Observable<number>;
 	public readonly deltaCrankRevolution$: Observable<number>;
 	public readonly deltaLastCrankEventTime$: Observable<number>;
+
+	public readonly mph$: Observable<number>;
+	public readonly kph$: Observable<number>;
 
 	constructor() {
 		super(
@@ -32,25 +41,21 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			]
 		);
 
-		this.deltaWheelRevolution$ = this.wheelRevolutions$.pipe(
-			pairwise(),
-			map(([previous, current]) => {
-				console.log(`previous: ${previous} current: ${current}`);
-				if (previous < current) {
-					return current - previous;
-				} else if (previous > current) {
-					return current + this.maxUnsignedSixteenBitInteger - previous;
-				} else {
-					return 0;
-				}
-			})
+		this.deltaWheelRevolution$ = this.wheelRevolutions$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+		this.deltaLastWheelEventTime$ = this.lastWheelEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+		this.deltaCrankRevolution$ = this.crankRevolutions$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+		this.deltaLastCrankEventTime$ = this.lastCrankEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+
+		this.mph$ = combineLatest([this.deltaLastWheelEventTime$, this.deltaWheelRevolution$]).pipe(
+			map(this.calculateMphGivenDeltaWheelTimeAndDeltaRevolutions),
+			tap(e => console.log(`mph: ${e}`))
+		);
+		this.kph$ = this.mph$.pipe(
+			map(v => v * 1.6),
+			tap(e => console.log(`kph: ${e}`))
 		);
 
-		this.deltaLastWheelEventTime$ = this.lastWheelEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
-
-		this.deltaCrankRevolution$ = this.crankRevolutions$.pipe(pairwise(), map(this.deltaUnsignedInteger));
-
-		this.deltaLastCrankEventTime$ = this.lastCrankEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
+		console.log(`${this.revolutionsRequiredPerMile}`);
 	}
 
 	public async connectToCyclingSpeedAndCadenceService(): Promise<void> {
@@ -66,7 +71,8 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 
 		const result: BluetoothRemoteGATTCharacteristic | undefined =
 			await cscMeasurementChararacteristic?.startNotifications();
-		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime);
+		// TODO: typed as any for now to avoid annoying type checking will look into later
+		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime as any);
 	}
 
 	private readonly connectToSchwinBike = async (): Promise<BluetoothRemoteGATTService[]> => {
@@ -82,21 +88,20 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		return (await serverConnection?.getPrimaryServices()) ?? [];
 	};
 
-	private readonly parseCadenceWheelSpeedWheelTime = event => {
-		const { value } = event?.target;
-		const dataView = value as DataView;
+	private readonly parseCadenceWheelSpeedWheelTime = (event: { target: { value: DataView } }) => {
+		const { value: dataView } = event?.target;
 		const littleEndian = true;
-		// wheel revolutions.
+		// wheel revolutions in unsigned 16 bit numbers.
 		this.wheelRevolutions$.next(dataView.getUint32(1, littleEndian));
-		// some time measurement.
+		// last wheel event time in unsigned 16 bit numbers.
 		this.lastWheelEventTime$.next(dataView.getUint16(5, littleEndian));
-		// amount of times the wheel went around.
+		// amount of times the wheel went around in unsigned 16 bit numbers.
 		this.crankRevolutions$.next(dataView.getUint16(7, littleEndian));
-		// some time measurment.
+		// last crank event time in unsigned 16 bit numbers.
 		this.lastCrankEventTime$.next(dataView.getUint16(9, littleEndian));
 	};
 
-	private readonly deltaUnsignedInteger = ([previous, current]) => {
+	private readonly deltaUnsignedInteger = ([previous, current]: Array<number>) => {
 		if (previous < current) {
 			return current - previous;
 		} else if (previous > current) {
@@ -104,5 +109,25 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		} else {
 			return 0;
 		}
+	};
+
+	private readonly calculateMphGivenDeltaWheelTimeAndDeltaRevolutions = ([
+		deltaWheelTime,
+		deltaWheelRevolutions,
+	]: Array<number>) => {
+		console.log(`delta wheel time: ${deltaWheelTime} delta wheel revolution: ${deltaWheelRevolutions}`);
+		let result = 0;
+		if (deltaWheelTime < this.millisecondInSecond) {
+			console.log(`idk: ${deltaWheelTime / this.millisecondInSecond}`);
+			const a = deltaWheelTime / this.millisecondInSecond;
+			console.log(a * deltaWheelRevolutions);
+			const normalizeForOneSecond = a * deltaWheelRevolutions * this.sixtySeconds;
+			result = (normalizeForOneSecond / this.revolutionsRequiredPerMile) * 60;
+		} else if (deltaWheelTime > this.millisecondInSecond) {
+			result = 0;
+		} else {
+			result = 0;
+		}
+		return result;
 	};
 }
