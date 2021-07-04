@@ -51,8 +51,8 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			tap(e => console.log(`mph: ${e}`))
 		);
 		this.kph$ = this.mph$.pipe(
-			map(v => v * 1.6),
-			tap(e => console.log(`kph: ${e}`))
+			map(v => v * 1.6)
+			// tap(e => console.log(`kph: ${e}`))
 		);
 
 		console.log(`${this.revolutionsRequiredPerMile}`);
@@ -115,14 +115,16 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		deltaWheelTime,
 		deltaWheelRevolutions,
 	]: Array<number>) => {
-		console.log(`delta wheel time: ${deltaWheelTime} delta wheel revolution: ${deltaWheelRevolutions}`);
 		let result = 0;
 		if (deltaWheelTime < this.millisecondInSecond) {
-			console.log(`idk: ${deltaWheelTime / this.millisecondInSecond}`);
-			const a = deltaWheelTime / this.millisecondInSecond;
-			console.log(a * deltaWheelRevolutions);
-			const normalizeForOneSecond = a * deltaWheelRevolutions * this.sixtySeconds;
-			result = (normalizeForOneSecond / this.revolutionsRequiredPerMile) * 60;
+			const normalizeForSecondsCuzItsInMilliseconds = deltaWheelTime / this.millisecondInSecond;
+			const something = deltaWheelRevolutions / normalizeForSecondsCuzItsInMilliseconds 
+			console.log(deltaWheelRevolutions);
+			console.log(something);
+			const rpm = something * this.sixtySeconds;
+			console.log(normalizeForSecondsCuzItsInMilliseconds);
+			result = rpm;
+			// result = (normalizeForOneSecond / this.revolutionsRequiredPerMile) * 60;
 		} else if (deltaWheelTime > this.millisecondInSecond) {
 			result = 0;
 		} else {
