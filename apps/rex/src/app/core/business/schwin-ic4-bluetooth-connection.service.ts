@@ -118,7 +118,7 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		let result = 0;
 		if (deltaWheelTime < this.millisecondInSecond) {
 			const normalizeForSecondsCuzItsInMilliseconds = deltaWheelTime / this.millisecondInSecond;
-			const something = deltaWheelRevolutions / normalizeForSecondsCuzItsInMilliseconds 
+			const something = deltaWheelRevolutions / normalizeForSecondsCuzItsInMilliseconds;
 			console.log(deltaWheelRevolutions);
 			console.log(something);
 			const rpm = something * this.sixtySeconds;
