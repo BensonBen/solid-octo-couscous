@@ -11,17 +11,13 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 	protected readonly bluetoothDeviceSearchOptions: RequestDeviceOptions = {
 		filters: [],
 	};
+	protected readonly maxUnsignedSixteenBitInteger = 65536;
+	protected readonly millisecondInSecond = 1000;
+	protected readonly sixtySeconds = 60;
+	protected readonly feetInMile = 5280;
 
 	constructor(filters: Array<BluetoothRequestDeviceFilter>, optionalServices: Array<BluetoothServiceUUID>) {
 		super();
 		this.bluetoothDeviceSearchOptions = { ...this.bluetoothDeviceSearchOptions, filters, optionalServices };
 	}
-
-	public readonly handleGenericCharacteristicNotification = event => {
-		const { value } = event?.target;
-		const dataView = value as DataView;
-		console.log(`DataView buffer: ${dataView?.buffer}`);
-		console.log(`DataView byteLength: ${dataView?.byteLength}`);
-		console.log(`DataView byteOffset: ${dataView?.byteOffset}`);
-	};
 }

@@ -1,10 +1,29 @@
-<section>
+<div class="d-f f-row-reverse mr-2">
 	<button
 		mat-fab
-		color="primary"
-		aria-label="Example icon button with a delete icon"
+		color="secondary"
+		aria-label="Connect to a bluetooth device"
+		#tooltip="matTooltip"
+		matTooltip="Connect to a bluetooth device"
+		matTooltipPosition="left"
 		(click)="connectHeartRateDevice($event)"
 	>
-		<mat-icon>delete</mat-icon>
+		<mat-icon aria-hidden="false" aria-label="home icon">bluetooth</mat-icon>
 	</button>
-</section>
+</div>
+<div class="d-f f-row f-align-items-center f-align-content-center">
+	<mat-progress-spinner
+		[color]="progressSpinnerColor"
+		[mode]="spinnerMode"
+		[value]="schwinIc4BluetoothConnectionService.mph$ | async"
+	>
+	</mat-progress-spinner>
+</div>
+<div class="d-f f-row f-align-items-center f-align-content-center">
+	<mat-progress-spinner
+		[color]="progressSpinnerColor"
+		[mode]="spinnerMode"
+		[value]="schwinIc4BluetoothConnectionService.kph$ | async"
+	>
+	</mat-progress-spinner>
+</div>
