@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map, pairwise, tap } from 'rxjs/operators';
+import { map, pairwise } from 'rxjs/operators';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
 declare const navigator: Navigator;
@@ -9,12 +9,8 @@ declare const navigator: Navigator;
 @Injectable()
 export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnectionService {
 	private readonly replay = 2;
-	private readonly maxUnsignedSixteenBitInteger = 65536;
-	private readonly millisecondInSecond = 1000;
-	private readonly sixtySeconds = 60;
 	private readonly schwinIc4WheelCircumferenceInInches = 5;
-	private readonly feetInMile = 5280;
-	// 1056.
+	// should be 1056.
 	private readonly revolutionsRequiredPerMile = this.feetInMile / this.schwinIc4WheelCircumferenceInInches;
 	public readonly wheelRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 	public readonly lastWheelEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
@@ -47,13 +43,9 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		this.deltaLastCrankEventTime$ = this.lastCrankEventTime$.pipe(pairwise(), map(this.deltaUnsignedInteger));
 
 		this.mph$ = combineLatest([this.deltaLastWheelEventTime$, this.deltaWheelRevolution$]).pipe(
-			map(this.calculateMphGivenDeltaWheelTimeAndDeltaRevolutions),
-			tap(e => console.log(`mph: ${e}`))
+			map(this.calculateMphGivenDeltaWheelTimeAndDeltaRevolutions)
 		);
-		this.kph$ = this.mph$.pipe(
-			map(v => v * 1.6)
-			// tap(e => console.log(`kph: ${e}`))
-		);
+		this.kph$ = this.mph$.pipe(map(v => v * 1.6));
 
 		console.log(`${this.revolutionsRequiredPerMile}`);
 	}
@@ -111,20 +103,22 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		}
 	};
 
+	/**
+	 * Doesn't currenlty work and doing some more things for this function.
+	 *
+	 * @param Array containing delta wheel time and wheel revolutions
+	 * @returns, miles per hour given certain bike parameters at a given time.
+	 */
 	private readonly calculateMphGivenDeltaWheelTimeAndDeltaRevolutions = ([
 		deltaWheelTime,
 		deltaWheelRevolutions,
-	]: Array<number>) => {
+	]: Array<number>): number => {
 		let result = 0;
 		if (deltaWheelTime < this.millisecondInSecond) {
 			const normalizeForSecondsCuzItsInMilliseconds = deltaWheelTime / this.millisecondInSecond;
-			const something = deltaWheelRevolutions / normalizeForSecondsCuzItsInMilliseconds;
-			console.log(deltaWheelRevolutions);
-			console.log(something);
-			const rpm = something * this.sixtySeconds;
-			console.log(normalizeForSecondsCuzItsInMilliseconds);
+			const rps = deltaWheelRevolutions / normalizeForSecondsCuzItsInMilliseconds;
+			const rpm = rps * this.sixtySeconds;
 			result = rpm;
-			// result = (normalizeForOneSecond / this.revolutionsRequiredPerMile) * 60;
 		} else if (deltaWheelTime > this.millisecondInSecond) {
 			result = 0;
 		} else {
