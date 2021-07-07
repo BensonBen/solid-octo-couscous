@@ -67,7 +67,7 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime as any);
 	}
 
-	private readonly connectToSchwinBike = async (): Promise<BluetoothRemoteGATTService[]> => {
+	private readonly connectToSchwinBike = async (): Promise<Array<BluetoothRemoteGATTService>> => {
 		const userSelectedSchwinIc4Bike: BluetoothDevice = await navigator.bluetooth.requestDevice(
 			this.bluetoothDeviceSearchOptions
 		);
@@ -93,7 +93,7 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 		this.lastCrankEventTime$.next(dataView.getUint16(9, littleEndian));
 	};
 
-	private readonly deltaUnsignedInteger = ([previous, current]: Array<number>) => {
+	private readonly deltaUnsignedInteger = ([previous, current]: [number, number]) => {
 		if (previous < current) {
 			return current - previous;
 		} else if (previous > current) {
