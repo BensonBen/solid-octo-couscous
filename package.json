@@ -7,7 +7,7 @@
 		"ng": "nx",
 		"postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
 		"nx": "nx",
-		"rex-build-prod": "nx run rex:build:production",
+		"rex-build-prod": "ng build rex --prod --skip-nx-cache",
 		"start": "ng serve",
 		"build": "ng build",
 		"test": "ng test",
