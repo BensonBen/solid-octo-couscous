@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly animationService: AnimationService,
 		private readonly formBuilder: FormBuilder,
-		private readonly store$: Store<RootStoreState>,
-		private readonly workoutService: WorkoutService
+		private readonly store$: Store<RootStoreState>
 	) {}
 
 	ngOnInit(): void {
@@ -52,9 +51,5 @@ export class LoginComponent implements OnInit {
 
 	goToCreateAccount(): void {
 		this.animationService.toggleAnimationState();
-	}
-
-	getWorkout(): void {
-		this.workoutService.getWorkout();
 	}
 }

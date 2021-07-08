@@ -83,7 +83,10 @@
 						"optimization": false,
 						"namedChunks": true,
 						"serviceWorker": true,
-						"ngswConfigPath": "apps/rex/ngsw-config.json"
+						"ngswConfigPath": "apps/rex/ngsw-config.json",
+						"stylePreprocessorOptions": {
+							"includePaths": ["apps/rex/src/assets/sass/util"]
+						}
 					},
 					"configurations": {
 						"production": {

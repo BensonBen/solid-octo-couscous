@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatDrawerMode } from '@angular/material/sidenav';
 
 @Component({
 	selector: 'soc-root',
@@ -13,6 +14,5 @@ export class AppComponent {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 	title = 'rex';
-
-	constructor(private readonly renderer: Renderer2) {}
+	matDrawerMode: MatDrawerMode = 'over';
 }

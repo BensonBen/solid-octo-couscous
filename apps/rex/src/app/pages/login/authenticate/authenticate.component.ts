@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2 } from
 import { trigger, transition, style, animate, keyframes } from '@angular/animations';
 import { ThemePalette } from '@angular/material/core';
 import { AnimationService } from '../services/animation.service';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
 	selector: 'soc-authenticate',
@@ -11,9 +12,8 @@ import { AnimationService } from '../services/animation.service';
 	animations: [
 		trigger('login', [
 			transition(':enter', [
-				style({ position: 'absolute' }),
 				animate(
-					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
+					'5s cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({
 							opacity: 0,
@@ -25,9 +25,8 @@ import { AnimationService } from '../services/animation.service';
 				),
 			]),
 			transition(':leave', [
-				style({ position: 'absolute' }),
 				animate(
-					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
+					'5s cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
 						style({
@@ -41,9 +40,8 @@ import { AnimationService } from '../services/animation.service';
 		]),
 		trigger('create', [
 			transition(':enter', [
-				style({ position: 'absolute' }),
 				animate(
-					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
+					'5s cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({
 							opacity: 0,
@@ -55,9 +53,8 @@ import { AnimationService } from '../services/animation.service';
 				),
 			]),
 			transition(':leave', [
-				style({ position: 'absolute' }),
 				animate(
-					'250ms cubic-bezier(0.86, 0, 0.07, 1)',
+					'5s cubic-bezier(0.86, 0, 0.07, 1)',
 					keyframes([
 						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
 						style({
@@ -77,7 +74,11 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 
-	constructor(public readonly animationService: AnimationService, private readonly renderer: Renderer2) {}
+	constructor(
+		public readonly animationService: AnimationService,
+		private readonly renderer: Renderer2,
+		private readonly platform: Platform
+	) {}
 
 	ngOnInit(): void {
 		// this is for animations smoothly moving accross the screen.

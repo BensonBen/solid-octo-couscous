@@ -1,3 +1,33 @@
+// 0 - 600, 601 - 960, 961 - 1920 >
 :host {
-	width: 400px;
+	// TODO: figure out what screen sizes to break for, or use angular's platform utilities to change layouts.
+	@media (min-width: 1200px) {
+		.mat-card {
+			min-width: 36em;
+		}
+	}
+
+	@media (min-width: 980px) and (max-width: 1199) {
+		.mat-card {
+			min-width: 31.25em;
+		}
+	}
+
+	@media (min-width: 978px) {
+		.mat-card {
+			min-width: 28em;
+		}
+	}
+
+	@media (min-width: 481px) {
+		.mat-card {
+			min-width: 24em;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.mat-card {
+			min-width: 20em;
+		}
+	}
 }

@@ -14,11 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AnimationService } from './services/animation.service';
+import { PlatformModule } from '@angular/cdk/platform';
 
 @NgModule({
 	declarations: [CreateComponentComponent, LoginComponent, AuthenticateComponent],
 	imports: [
 		CommonModule,
+		PlatformModule,
 		ReactiveFormsModule,
 		LoginRoutingModule,
 		MatButtonModule,

@@ -8,7 +8,7 @@
 @include mat.strong-focus-indicators();
 /* ------------------------------- begin: material theme setup. ---------------------------------------- */
 $solid-octo-couscous-primary: mat.define-palette(colors.$mat-dark-indigo-blue, 400);
-$solid-octo-couscous-accent: mat.define-palette(colors.$mat-dark-mustard-secondary, A200, A100, A400);
+$solid-octo-couscous-accent: mat.define-palette(colors.$mat-dark-mustard-secondary, A50, A200, A300);
 $solid-octo-couscous-warn: mat.define-palette(colors.$mat-dark-triadic-error);
 $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 	(
@@ -33,7 +33,7 @@ $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 @include mat.table-theme($solid-octo-couscous-dark-theme);
 @include mat.tooltip-theme($solid-octo-couscous-dark-theme);
 @include mat.progress-spinner-theme($solid-octo-couscous-dark-theme);
+@include mat.sidenav-theme($solid-octo-couscous-dark-theme);
 
-// @include mat.all-component-themes($solid-octo-couscous-dark-theme);
 @include mat.strong-focus-indicators-theme($solid-octo-couscous-dark-theme);
 /* ------------------------------- end: material theme setup. ------------------------------------------ */
