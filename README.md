@@ -19,7 +19,9 @@ The user will connect their exercise bike through bluetooth, or possibly USB.
 
 ## Installation
 
-TODO: not yet implemented using electron.
+Installing involves visiting [REX](https://rex.fitness/) and selecting the install button as indicated in this screenshot.
+![Edge](https://user-images.githubusercontent.com/10961012/124972926-c4f4a300-dfdf-11eb-94e9-2384a0891d29.png)
+![Chrome](https://user-images.githubusercontent.com/10961012/124973075-eeadca00-dfdf-11eb-9c40-44fcadf219ce.png)
 
 ## Built With
 
@@ -32,8 +34,9 @@ TODO: not yet implemented using electron.
 -   [Nx](https://nx.dev) Complexity Management
 -   [NGINX](https://www.nginx.com/) Web Server
 -   [NgRx](https://ngrx.io/) Frontend State Management
--   [TensorFlowJS](https://www.tensorflow.org/js) Machine learning in the browser
 -   [Linode](https://linode.com) Deployment
+-   [PW2](https://pm2.keymetrics.io/) NodeJS Process Manager
+-   [Redis](https://redislabs.com/) Standalone Database
 
 ## Usage
 
