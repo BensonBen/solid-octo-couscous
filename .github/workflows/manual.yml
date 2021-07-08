@@ -27,6 +27,6 @@ jobs:
             - run: npm i --no-save
             - run: npm run affected:lint -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
             - run: npm run affected:test -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
-            - run: npm run affected:build -- --base=remotes/origin/develop --head=HEAD --target=build --parallel --skip-nx-cache
+            - run: npm run affected:build -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
               env:
                   CI: true
