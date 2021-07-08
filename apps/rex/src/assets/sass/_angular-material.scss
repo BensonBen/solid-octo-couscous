@@ -22,11 +22,14 @@ $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 );
 
 @include mat.core-theme($solid-octo-couscous-dark-theme);
+
 @include mat.button-theme($solid-octo-couscous-dark-theme);
 @include mat.badge-theme($solid-octo-couscous-dark-theme);
 @include mat.card-theme($solid-octo-couscous-dark-theme);
 @include mat.datepicker-theme($solid-octo-couscous-dark-theme);
 @include mat.form-field-theme($solid-octo-couscous-dark-theme);
+@include mat.divider-theme($solid-octo-couscous-dark-theme);
+@include mat.list-theme($solid-octo-couscous-dark-theme);
 @include mat.icon-theme($solid-octo-couscous-dark-theme);
 @include mat.slide-toggle-theme($solid-octo-couscous-dark-theme);
 @include mat.toolbar-theme($solid-octo-couscous-dark-theme);

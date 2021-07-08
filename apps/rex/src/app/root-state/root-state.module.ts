@@ -11,7 +11,6 @@ import { CurrentUserStoreModule } from './current-user/current-user.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
 		EffectsModule.forRoot([]),
 		EntityDataModule.forRoot(entityConfig),
 		StoreModule.forRoot(

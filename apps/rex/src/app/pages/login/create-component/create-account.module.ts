@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CreateComponentComponent } from './create-component.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login-component/login-component.component';
-import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { CreateAccountRoutingModule } from './create-account-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AnimationService } from './services/animation.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-	declarations: [LoginComponent, AuthenticateComponent],
+	declarations: [CreateComponentComponent],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
-		LoginRoutingModule,
+		CreateAccountRoutingModule,
 		MatButtonModule,
 		MatInputModule,
 		MatCardModule,
 		MatSelectModule,
 		MatFormFieldModule,
 		MatIconModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
 	],
-	providers: [AnimationService],
-	exports: [AuthenticateComponent],
 })
-export class LoginModule {}
+export class CreateAccountModule {}

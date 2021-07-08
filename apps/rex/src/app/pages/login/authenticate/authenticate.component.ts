@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { trigger, transition, style, animate, keyframes } from '@angular/animations';
 import { ThemePalette } from '@angular/material/core';
 import { AnimationService } from '../services/animation.service';
 import { Platform } from '@angular/cdk/platform';
@@ -9,64 +8,6 @@ import { Platform } from '@angular/cdk/platform';
 	templateUrl: './authenticate.component.html',
 	styleUrls: ['./authenticate.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	animations: [
-		trigger('login', [
-			transition(':enter', [
-				animate(
-					'5s cubic-bezier(0.86, 0, 0.07, 1)',
-					keyframes([
-						style({
-							opacity: 0,
-							transform: 'translate3d(-100vw, 0, 0)',
-							offset: 0,
-						}),
-						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 1 }),
-					])
-				),
-			]),
-			transition(':leave', [
-				animate(
-					'5s cubic-bezier(0.86, 0, 0.07, 1)',
-					keyframes([
-						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
-						style({
-							opacity: 0,
-							transform: 'translate3d(-100vw, 0, 0)',
-							offset: 1,
-						}),
-					])
-				),
-			]),
-		]),
-		trigger('create', [
-			transition(':enter', [
-				animate(
-					'5s cubic-bezier(0.86, 0, 0.07, 1)',
-					keyframes([
-						style({
-							opacity: 0,
-							transform: 'translate3d(100vw, 0, 0)',
-							offset: 0,
-						}),
-						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 1 }),
-					])
-				),
-			]),
-			transition(':leave', [
-				animate(
-					'5s cubic-bezier(0.86, 0, 0.07, 1)',
-					keyframes([
-						style({ opacity: 1, transform: 'translate3d(0, 0, 0)', offset: 0 }),
-						style({
-							opacity: 0,
-							transform: 'translate3d(100vw, 0, 0)',
-							offset: 1,
-						}),
-					])
-				),
-			]),
-		]),
-	],
 })
 export class AuthenticateComponent implements OnInit, OnDestroy {
 	color: ThemePalette = 'warn';

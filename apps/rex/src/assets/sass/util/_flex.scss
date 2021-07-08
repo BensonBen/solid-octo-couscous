@@ -135,7 +135,7 @@
 }
 
 .f-grow-1 {
-	flex: 1 1 0% !important; /* 1 */
+	flex: 1 1 0% !important;
 }
 
 .f-grow-2 {
@@ -208,15 +208,15 @@
 
 .f-initial {
 	flex: 0 1 auto !important;
-	flex-basis: auto !important; /* 1 */
+	flex-basis: auto !important;
 }
 
 .f-auto {
 	flex: 1 1 auto !important;
-	flex-basis: auto !important; /* 1 */
+	flex-basis: auto !important;
 }
 
 .f-none {
 	flex: 0 0 auto !important;
-	flex-basis: auto !important; /* 1 */
+	flex-basis: auto !important;
 }

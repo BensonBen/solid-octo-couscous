@@ -69,11 +69,7 @@ export class CreateComponentComponent implements OnInit {
 		const pass: string = group?.get('password')?.value ?? null;
 		const confirmPass: string = group?.get('retypedPassword')?.value ?? null;
 
-		if (!_isNil(pass) && !_isNil(confirmPass)) {
-			return pass === confirmPass ? null : { notSame: true };
-		}
-
-		return { notSame: true };
+		return !_isNil(pass) && !_isNil(confirmPass) ? null : { notSame: true };
 	};
 
 	createAccount(): void {

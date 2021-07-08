@@ -1,6 +1,17 @@
 <div class="app-frame mat-app-background">
 	<mat-drawer-container [hasBackdrop]="true">
-		<mat-drawer #drawer [mode]="matDrawerMode">I'm a drawer</mat-drawer>
+		<mat-drawer #drawer class="min-drawer-width" [mode]="matDrawerMode">
+			<mat-list>
+				<mat-list-item>Exercise 🚲</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>About REX 🦖</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>Supported Equiptment 🧰</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>Become a Sauropod 🦕 (supporter)</mat-list-item>
+				<mat-divider></mat-divider>
+			</mat-list>
+		</mat-drawer>
 		<mat-drawer-content>
 			<div class="d-grid">
 				<div class="header">

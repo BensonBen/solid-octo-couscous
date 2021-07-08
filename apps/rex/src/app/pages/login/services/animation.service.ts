@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -7,7 +6,7 @@ import { first } from 'rxjs/operators';
 export class AnimationService {
 	public readonly loginAnimationState$: ReplaySubject<'login' | 'create'> = new ReplaySubject(1);
 
-	constructor(private readonly httpClient: HttpClient) {
+	constructor() {
 		// the first animation state should be login.
 		this.loginAnimationState$.next('login');
 	}
