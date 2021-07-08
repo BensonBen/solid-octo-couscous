@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { SchwinIc4BluetoothConnectionService } from '../../core';
-
 @Component({
 	selector: 'soc-main',
 	templateUrl: './main.component.html',
