@@ -72,7 +72,8 @@
 							"apps/rex/src/favicon.ico",
 							"apps/rex/src/assets",
 							"apps/rex/src/manifest.webmanifest",
-							"apps/rex/src/ngsw-worker.js"
+							"apps/rex/src/ngsw-worker.js",
+							"apps/rex/src/robots.txt"
 						],
 						"styles": ["apps/rex/src/styles.scss"],
 						"scripts": [],
