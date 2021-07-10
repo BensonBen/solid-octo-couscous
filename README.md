@@ -64,7 +64,7 @@ Installing involves visiting [REX](https://rex.fitness/) and selecting the insta
 
 ## Credits
 
-[Benjamin Benson](https://github.com/BensonBen)
+[Benjamin Benson](https://github.com/BensonBen), 
 [Rick Astley](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 [MIT License](https://opensource.org/licenses/MIT) © [Benjamin Benson](https://github.com/BensonBen)
