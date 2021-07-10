@@ -1,7 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { AnimationService } from '../services/animation.service';
-import { Platform } from '@angular/cdk/platform';
 
 @Component({
 	selector: 'soc-authenticate',
@@ -15,11 +13,7 @@ export class AuthenticateComponent implements OnInit, OnDestroy {
 	toggleName: 'Login' | 'Create Account' = 'Create Account';
 	isDarkMode = true;
 
-	constructor(
-		public readonly animationService: AnimationService,
-		private readonly renderer: Renderer2,
-		private readonly platform: Platform
-	) {}
+	constructor(private readonly renderer: Renderer2) {}
 
 	ngOnInit(): void {
 		// this is for animations smoothly moving accross the screen.

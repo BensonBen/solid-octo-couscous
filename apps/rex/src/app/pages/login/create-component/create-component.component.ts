@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 
 import { CurrentUserStoreActions } from '../../../root-state/current-user';
 import { RootStoreState } from '../../../root-state/root-state';
-import { AnimationService } from '../services/animation.service';
 
 @Component({
 	selector: 'soc-create-component',
@@ -52,11 +51,7 @@ export class CreateComponentComponent implements OnInit {
 		dateOfBirth: [null, Validators.compose([Validators.required])],
 	};
 
-	constructor(
-		private readonly formBuilder: FormBuilder,
-		private readonly animationService: AnimationService,
-		private readonly store$: Store<RootStoreState>
-	) {}
+	constructor(private readonly formBuilder: FormBuilder, private readonly store$: Store<RootStoreState>) {}
 
 	ngOnInit(): void {
 		this.createGroup.loginName;
@@ -81,9 +76,5 @@ export class CreateComponentComponent implements OnInit {
 			loginName,
 		};
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
-	}
-
-	goToLogin(): void {
-		this.animationService.toggleAnimationState();
 	}
 }

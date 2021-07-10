@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 
 import { CoreServicesModule } from './core/core-services.module';
 import { AppRoutingModule } from './app-routing.module';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +31,6 @@ const rexServiceWorkerOptions: SwRegistrationOptions = {
 		BrowserModule,
 		BrowserAnimationsModule,
 		CoreServicesModule,
-		MatSlideToggleModule,
 		MatIconModule,
 		MatToolbarModule,
 		MatBadgeModule,
