@@ -19,8 +19,7 @@ The user will connect their exercise bike through bluetooth, or possibly USB.
 
 ## Installation
 
-Installing involves visiting [REX](https://rex.fitness/) and selecting the install button as indicated in this screenshot.
-![Edge](https://user-images.githubusercontent.com/10961012/124972926-c4f4a300-dfdf-11eb-94e9-2384a0891d29.png)
+Installing involves visiting [REX](https://rex.fitness/) and selecting the install button as indicated in this screenshot (using chrome).
 ![Chrome](https://user-images.githubusercontent.com/10961012/124973075-eeadca00-dfdf-11eb-9c40-44fcadf219ce.png)
 
 ## Built With
