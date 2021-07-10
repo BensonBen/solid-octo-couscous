@@ -7,8 +7,8 @@
 @include mat.core(typography.$solid-octo-couscous-typography);
 @include mat.strong-focus-indicators();
 /* ------------------------------- begin: material theme setup. ---------------------------------------- */
-$solid-octo-couscous-primary: mat.define-palette(colors.$mat-dark-indigo-blue, 400);
-$solid-octo-couscous-accent: mat.define-palette(colors.$mat-dark-mustard-secondary, A200, A100, A400);
+$solid-octo-couscous-primary: mat.define-palette(colors.$mat-dark-indigo-blue, 300);
+$solid-octo-couscous-accent: mat.define-palette(colors.$mat-dark-mustard-secondary, A400, A400, A500);
 $solid-octo-couscous-warn: mat.define-palette(colors.$mat-dark-triadic-error);
 $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 	(
@@ -22,18 +22,19 @@ $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 );
 
 @include mat.core-theme($solid-octo-couscous-dark-theme);
+
 @include mat.button-theme($solid-octo-couscous-dark-theme);
 @include mat.badge-theme($solid-octo-couscous-dark-theme);
 @include mat.card-theme($solid-octo-couscous-dark-theme);
 @include mat.datepicker-theme($solid-octo-couscous-dark-theme);
 @include mat.form-field-theme($solid-octo-couscous-dark-theme);
+@include mat.divider-theme($solid-octo-couscous-dark-theme);
 @include mat.icon-theme($solid-octo-couscous-dark-theme);
 @include mat.slide-toggle-theme($solid-octo-couscous-dark-theme);
 @include mat.toolbar-theme($solid-octo-couscous-dark-theme);
-@include mat.table-theme($solid-octo-couscous-dark-theme);
 @include mat.tooltip-theme($solid-octo-couscous-dark-theme);
 @include mat.progress-spinner-theme($solid-octo-couscous-dark-theme);
+@include mat.sidenav-theme($solid-octo-couscous-dark-theme);
 
-// @include mat.all-component-themes($solid-octo-couscous-dark-theme);
 @include mat.strong-focus-indicators-theme($solid-octo-couscous-dark-theme);
 /* ------------------------------- end: material theme setup. ------------------------------------------ */

@@ -1,6 +1,3 @@
 <div class="login-section">
-	<soc-login-component *ngIf="(animationService.loginAnimationState$ | async) === 'login'" @login>
-	</soc-login-component>
-	<soc-create-component *ngIf="(animationService.loginAnimationState$ | async) === 'create'" @create>
-	</soc-create-component>
+	<router-outlet></router-outlet>
 </div>

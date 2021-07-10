@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -15,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 		MainRoutingModule,
 		MatButtonModule,
 		MatIconModule,
-		MatTableModule,
 		MatTooltipModule,
 		MatProgressSpinnerModule,
 	],

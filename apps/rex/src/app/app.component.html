@@ -1,28 +1,43 @@
 <div class="app-frame mat-app-background">
-	<div class="d-grid">
-		<div class="header">
-			<mat-toolbar [color]="'primary'">
-				<button mat-icon-button aria-label="menu">
-					<mat-icon>menu</mat-icon>
-				</button>
-				<span>🦖 REX</span>
-				<span class="spacer"></span>
-				<mat-slide-toggle [labelPosition]="'before'" [color]="color">
-					{{ isDarkMode ? 'light theme' : 'dark theme' }}
-				</mat-slide-toggle>
-				<button mat-icon-button class="favorite-icon" aria-label="bookmark rex">
-					<mat-icon>favorite</mat-icon>
-				</button>
-				<button mat-icon-button aria-label="share on social media">
-					<mat-icon>share</mat-icon>
-				</button>
-			</mat-toolbar>
-		</div>
-		<div class="main">
-			<router-outlet></router-outlet>
-		</div>
-		<div class="footer">
-			<mat-toolbar [color]="'accent'"> </mat-toolbar>
-		</div>
-	</div>
+	<mat-drawer-container [hasBackdrop]="true">
+		<mat-drawer #drawer class="min-drawer-width" [mode]="matDrawerMode">
+			<mat-list>
+				<mat-list-item>Exercise 🚲</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>About REX 🦖</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>Supported Equiptment 🧰</mat-list-item>
+				<mat-divider></mat-divider>
+				<mat-list-item>Become a Sauropod 🦕 (supporter)</mat-list-item>
+				<mat-divider></mat-divider>
+			</mat-list>
+		</mat-drawer>
+		<mat-drawer-content>
+			<div class="d-grid">
+				<div class="header">
+					<mat-toolbar [color]="'primary'">
+						<button mat-icon-button aria-label="menu" (click)="drawer.toggle()">
+							<mat-icon>menu</mat-icon>
+						</button>
+						<span class="spacer"></span>
+						<button mat-icon-button class="favorite-icon" aria-label="bookmark rex">
+							<mat-icon>settings</mat-icon>
+						</button>
+						<button mat-icon-button matBadge="7" matBadgeColor="warn">
+							<mat-icon>notifications</mat-icon>
+						</button>
+						<button mat-icon-button aria-label="share on social media">
+							<mat-icon>share</mat-icon>
+						</button>
+					</mat-toolbar>
+				</div>
+				<div class="main">
+					<router-outlet></router-outlet>
+				</div>
+				<div class="footer">
+					<mat-toolbar [color]="'accent'"> </mat-toolbar>
+				</div>
+			</div>
+		</mat-drawer-content>
+	</mat-drawer-container>
 </div>

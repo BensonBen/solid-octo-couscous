@@ -2,10 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
-import { WorkoutService } from '../../../core';
 import { CurrentUserStoreActions } from '../../../root-state/current-user';
 import { RootStoreState } from '../../../root-state/root-state';
-import { AnimationService } from '../services/animation.service';
 
 @Component({
 	selector: 'soc-login-component',
@@ -34,12 +32,7 @@ export class LoginComponent implements OnInit {
 		],
 	};
 
-	constructor(
-		private readonly animationService: AnimationService,
-		private readonly formBuilder: FormBuilder,
-		private readonly store$: Store<RootStoreState>,
-		private readonly workoutService: WorkoutService
-	) {}
+	constructor(private readonly formBuilder: FormBuilder, private readonly store$: Store<RootStoreState>) {}
 
 	ngOnInit(): void {
 		this.form = this.formBuilder.group(this.loginGroup);
@@ -48,13 +41,5 @@ export class LoginComponent implements OnInit {
 	signIn(): void {
 		const { loginName, password } = this.form.value;
 		this.store$.dispatch(CurrentUserStoreActions.loginUserRequest({ loginName, password }));
-	}
-
-	goToCreateAccount(): void {
-		this.animationService.toggleAnimationState();
-	}
-
-	getWorkout(): void {
-		this.workoutService.getWorkout();
 	}
 }

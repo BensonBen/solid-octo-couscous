@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EntityDataModule } from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
@@ -11,7 +10,6 @@ import { CurrentUserStoreModule } from './current-user/current-user.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
 		EffectsModule.forRoot([]),
 		EntityDataModule.forRoot(entityConfig),
 		StoreModule.forRoot(
