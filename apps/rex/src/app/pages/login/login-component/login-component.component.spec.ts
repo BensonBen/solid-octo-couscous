@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { provideMockStore } from '@ngrx/store/testing';
 import { WorkoutService } from '../../../core';
-import { AnimationService } from '../services/animation.service';
 
 import { LoginComponent } from './login-component.component';
 
@@ -20,10 +19,6 @@ describe('LoginComponent', () => {
 				imports: [MatCardModule, ReactiveFormsModule],
 				declarations: [LoginComponent],
 				providers: [
-					{
-						provide: AnimationService,
-						useValue: animationService,
-					},
 					{
 						provide: WorkoutService,
 						useValue: workoutService,
