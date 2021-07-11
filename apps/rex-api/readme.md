@@ -50,27 +50,24 @@ Built With
 * [helmet](https://helmetjs.github.io/) express middlewear to aid in setting common HTTP headers.
 * [http-status](https://github.com/adaltas/node-http-status) set common HTTP statuses.
 * [ioredis](https://github.com/luin/ioredis) database interface.
-* [bcrypt](https://github.com/imagerelay/imagerelay-php) password hashing.
-* [bcrypt](https://github.com/imagerelay/imagerelay-php) password hashing.
+* [joi](https://github.com/sideway/joi) JSON validation.
+* [lodash](https://lodash.com/) javascript utility library (seriously the only thing is doesn't do it cook you breakfast 🍳).
+* [morgan](https://github.com/expressjs/morgan) HTTP response logging.
+* [reflect-metadata](https://rbuckton.github.io/reflect-metadata/) implementation of RFC proposal for token injection.
+* [tsyringe](https://github.com/Microsoft/tsyringe) allows for dependency injection architecture.
 
 Errors
 -------------
-The actions you can access in the API are dependant upon the permission levels assigned to your Image Relay account.
-For instance, not all users are permitted to upload files or create folders, or see a list of users. If you find yourself
-receiving "401 Unauthorized" errors, please confirm your permission level with your Image Relay Administrator.
 
-If you find a typo or an error in the documentation, we welcome pull requests. You can also [submit an issue](https://github.com/imagerelay/API/issues) (will require a github account) and we will look into it.
-
-If you have questions or trouble implementing the API, you can reach out to support@imagerelay.com and we'll help you out.
-Need general help with Image Relay? Checkout our [online support center](http://support.imagerelay.com).
+If you find a typo or an error, I'm welcome pull requests. You can also [submit an issue](https://github.com/BensonBen/solid-octo-couscous/issues) (will require a github account) and I'll will look into it.
 
 Status Code Explanations
--------
+-------------
 
-* 401: Invalid or unauthorized API user – verify your API user is valid and authorized to access the API. Contact support if you'd like assistance.
-* 403: Missing User-Agent header - all API requests require an User-Agent header, please identify yourself appropriately
-* 405: Unknown HTTP method - we only support standard HTTP requests, please double-check your request verb
-* 429: Too many requests (throttling) – slow down your request frequency
-* 502: Under heavy load – slow down your request frequency
+* 401: Invalid or unauthorized API user – verify your API user is valid and authorized to access the API.
+* 403: Missing User-Agent header - all API requests require an User-Agent header, please identify yourself appropriately.
+* 405: Unknown HTTP method - we only support standard HTTP requests, please double-check your request verb.
+* 429: Too many requests (throttling) – slow down your request frequency.
+* 502: Under heavy load – slow down your request frequency.
 * 5xx: Server error - please double-check your JSON payload for formatting errors, data integrity, etc.
 
