@@ -1,268 +1,256 @@
 {
-  "version": 1,
-  "cli": {
-    "defaultCollection": "@ngrx/schematics"
-  },
-  "defaultProject": "rex",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
-  "projects": {
-    "rex": {
-      "projectType": "application",
-      "root": "apps/rex",
-      "sourceRoot": "apps/rex/src",
-      "prefix": "solid-octo-couscous",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/rex",
-            "index": "apps/rex/src/index.html",
-            "main": "apps/rex/src/main.ts",
-            "polyfills": "apps/rex/src/polyfills.ts",
-            "tsConfig": "apps/rex/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "apps/rex/src/favicon.ico",
-              "apps/rex/src/assets"
-            ],
-            "styles": [
-              "apps/rex/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/rex/src/environments/environment.ts",
-                  "with": "apps/rex/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "rex:build",
-            "proxyConfig": "apps/rex/proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "rex:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "rex:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/rex/src/**/*.ts",
-              "apps/rex/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/rex"
-          ],
-          "options": {
-            "jestConfig": "apps/rex/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "rex-e2e": {
-      "root": "apps/rex-e2e",
-      "sourceRoot": "apps/rex-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/rex-e2e/cypress.json",
-            "tsConfig": "apps/rex-e2e/tsconfig.e2e.json",
-            "devServerTarget": "rex:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "rex:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/rex-e2e/**/*.{js,ts}"
-            ]
-          }
-        }
-      }
-    },
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
-      "projectType": "application",
-      "prefix": "api",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/api/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/api"
-          ],
-          "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "model": {
-      "root": "libs/model",
-      "sourceRoot": "libs/model/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/model/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/model"
-          ],
-          "options": {
-            "jestConfig": "libs/model/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ui": {
-      "projectType": "library",
-      "root": "libs/ui",
-      "sourceRoot": "libs/ui/src",
-      "prefix": "solid-octo-couscous",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/ui/src/**/*.ts",
-              "libs/ui/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui"
-          ],
-          "options": {
-            "jestConfig": "libs/ui/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    }
-  }
+	"version": 1,
+	"cli": {
+		"defaultCollection": "@ngrx/schematics",
+		"analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
+	},
+	"defaultProject": "rex",
+	"schematics": {
+		"@nrwl/angular": {
+			"application": {
+				"linter": "eslint"
+			},
+			"library": {
+				"linter": "eslint"
+			},
+			"storybook-configuration": {
+				"linter": "eslint"
+			}
+		},
+		"@nrwl/angular:application": {
+			"style": "scss",
+			"linter": "eslint",
+			"unitTestRunner": "jest",
+			"e2eTestRunner": "cypress"
+		},
+		"@nrwl/angular:library": {
+			"style": "scss",
+			"linter": "eslint",
+			"unitTestRunner": "jest"
+		},
+		"@nrwl/angular:component": {
+			"style": "scss"
+		}
+	},
+	"projects": {
+		"model": {
+			"root": "libs/model",
+			"sourceRoot": "libs/model/src",
+			"projectType": "library",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["libs/model/**/*.ts"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/model"],
+					"options": {
+						"jestConfig": "libs/model/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"rex": {
+			"projectType": "application",
+			"root": "apps/rex",
+			"sourceRoot": "apps/rex/src",
+			"prefix": "soc",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:browser",
+					"options": {
+						"outputPath": "dist/apps/rex",
+						"index": "apps/rex/src/index.html",
+						"main": "apps/rex/src/main.ts",
+						"polyfills": "apps/rex/src/polyfills.ts",
+						"tsConfig": "apps/rex/tsconfig.app.json",
+						"assets": [
+							"apps/rex/src/favicon.ico",
+							"apps/rex/src/assets",
+							"apps/rex/src/manifest.webmanifest",
+							"apps/rex/src/ngsw-worker.js",
+							"apps/rex/src/robots.txt"
+						],
+						"styles": ["apps/rex/src/styles.scss"],
+						"scripts": [],
+						"vendorChunk": true,
+						"extractLicenses": false,
+						"buildOptimizer": false,
+						"sourceMap": true,
+						"optimization": false,
+						"namedChunks": true,
+						"serviceWorker": true,
+						"ngswConfigPath": "apps/rex/ngsw-config.json",
+						"stylePreprocessorOptions": {
+							"includePaths": ["apps/rex/src/assets/sass/util"]
+						}
+					},
+					"configurations": {
+						"production": {
+							"fileReplacements": [
+								{
+									"replace": "apps/rex/src/environments/environment.ts",
+									"with": "apps/rex/src/environments/environment.prod.ts"
+								}
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": false,
+							"namedChunks": false,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "6kb",
+									"maximumError": "10kb"
+								}
+							]
+						}
+					}
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"options": {
+						"browserTarget": "rex:build",
+						"proxyConfig": "apps/rex/proxy.conf.json"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "rex:build:production"
+						}
+					}
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"browserTarget": "rex:build"
+					}
+				},
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/rex/src/**/*.ts", "apps/rex/src/**/*.html"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/apps/rex"],
+					"options": {
+						"jestConfig": "apps/rex/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"rex-api": {
+			"root": "apps/rex-api",
+			"sourceRoot": "apps/rex-api/src",
+			"projectType": "application",
+			"prefix": "rex-api",
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:build",
+					"outputs": ["{options.outputPath}"],
+					"options": {
+						"outputPath": "dist/apps/rex-api",
+						"main": "apps/rex-api/src/main.ts",
+						"tsConfig": "apps/rex-api/tsconfig.app.json",
+						"assets": ["apps/rex-api/src/assets"]
+					},
+					"configurations": {
+						"production": {
+							"optimization": true,
+							"extractLicenses": true,
+							"inspect": false,
+							"fileReplacements": [
+								{
+									"replace": "apps/rex-api/src/environments/environment.ts",
+									"with": "apps/rex-api/src/environments/environment.prod.ts"
+								}
+							]
+						}
+					}
+				},
+				"serve": {
+					"builder": "@nrwl/node:execute",
+					"options": {
+						"buildTarget": "rex-api:build"
+					}
+				},
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/rex-api/**/*.ts"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/apps/rex-api"],
+					"options": {
+						"jestConfig": "apps/rex-api/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"rex-e2e": {
+			"root": "apps/rex-e2e",
+			"sourceRoot": "apps/rex-e2e/src",
+			"projectType": "application",
+			"architect": {
+				"e2e": {
+					"builder": "@nrwl/cypress:cypress",
+					"options": {
+						"cypressConfig": "apps/rex-e2e/cypress.json",
+						"tsConfig": "apps/rex-e2e/tsconfig.e2e.json",
+						"devServerTarget": "rex:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "rex:serve:production"
+						}
+					}
+				},
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/rex-e2e/**/*.{js,ts}"]
+					}
+				}
+			}
+		},
+		"ui": {
+			"projectType": "library",
+			"root": "libs/ui",
+			"sourceRoot": "libs/ui/src",
+			"prefix": "soc",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/ui"],
+					"options": {
+						"jestConfig": "libs/ui/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		}
+	}
 }

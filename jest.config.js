@@ -1,8 +1,3 @@
 module.exports = {
-  projects: [
-    "<rootDir>/apps/rex",
-    "<rootDir>/apps/api",
-    "<rootDir>/libs/model",
-    "<rootDir>/libs/ui",
-  ],
+	projects: ['<rootDir>/apps/rex', '<rootDir>/libs/model', '<rootDir>/libs/ui', '<rootDir>/apps/rex-api'],
 };

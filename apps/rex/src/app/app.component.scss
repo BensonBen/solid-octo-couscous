@@ -1,7 +1,42 @@
+@use 'mixins'as mixins;
+
 .app-frame {
 	min-height: calc(100vh);
 }
 
 .soc-logo {
 	font-size: 2em;
+}
+
+.min-drawer-width {
+	min-width: 20em;
+}
+
+div.d-grid {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: minmax(0, 4em) minmax(0, calc(100% - 10em)) minmax(0, 4em);
+	row-gap: 0.7em;
+	height: 100vh;
+	width: 100vw;
+
+	.header {
+		@include mixins.grid-position(1, 1, 1, 1);
+	}
+
+	.main {
+		@include mixins.grid-position(2, 2, 1, 1);
+		display: flex;
+		overflow-y: auto;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.footer {
+		@include mixins.grid-position(3, 3, 1, 1);
+	}
+}
+
+.spacer {
+	flex: 1 1 auto;
 }

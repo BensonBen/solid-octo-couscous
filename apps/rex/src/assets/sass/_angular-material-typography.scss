@@ -1,0 +1,5 @@
+@use '~@angular/material'as mat;
+
+$solid-octo-couscous-typography: mat.define-typography-config(
+	$font-family: '"Arvo"',
+);

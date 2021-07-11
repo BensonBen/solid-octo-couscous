@@ -1,3 +1,7 @@
 export const environment = {
-  production: true,
+	production: true,
+	baseUrl: `/rex-api`,
+	apiVersionOne: `v1`,
+	authApi: `auth`,
+	workoutApi: `workout`,
 };
