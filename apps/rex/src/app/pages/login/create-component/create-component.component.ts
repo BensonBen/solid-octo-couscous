@@ -24,7 +24,7 @@ export class CreateComponentComponent implements OnInit {
 	private readonly minPasswordLength: number = 1;
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
-	private readonly createGroup: any = {
+	private readonly createGroup: Record<string, Validators> = {
 		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
@@ -60,7 +60,7 @@ export class CreateComponentComponent implements OnInit {
 		});
 	}
 
-	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
+	readonly checkPasswords = (group: FormGroup): { [key: string]: unknown } | null => {
 		const pass: string = group?.get('password')?.value ?? null;
 		const confirmPass: string = group?.get('retypedPassword')?.value ?? null;
 

@@ -15,7 +15,7 @@ export const signInRequestSuccess = createAction(
 
 export const currentUserGenericError = createAction(
 	`${currentUserPreamble} Login Request Error`,
-	props<{ error: any; message }>()
+	props<{ error: Record<string, string>; message }>()
 );
 
 export const createUserRequest = createAction(

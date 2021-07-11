@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, pairwise } from 'rxjs/operators';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
 
@@ -25,6 +25,8 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	public readonly mph$: Observable<number>;
 	public readonly kph$: Observable<number>;
 
+	public readonly deviceName$: Subject<string>;
+
 	constructor() {
 		super(
 			[{ name: 'IC Bike' }],
@@ -32,7 +34,6 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 				SchwinIc4BluetoothServices.cyclingSpeedAndCadence,
 				SchwinIc4BluetoothServices.deviceInformation,
 				SchwinIc4BluetoothServices.fitnessMachine,
-				SchwinIc4BluetoothServices.genericAccess,
 				SchwinIc4BluetoothServices.heartRate,
 			]
 		);
@@ -46,15 +47,21 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			map(this.calculateMphGivenDeltaWheelTimeAndDeltaRevolutions)
 		);
 		this.kph$ = this.mph$.pipe(map(v => v * 1.6));
-
-		console.log(`${this.revolutionsRequiredPerMile}`);
 	}
 
 	public async connectToCyclingSpeedAndCadenceService(): Promise<void> {
-		const primaryBluetoothServices = await this.connectToSchwinBike();
+		// bluetooth connection to schwinn server.
+		const bluetoothRemoteGattServer = await this.connectToSchwinBike();
+		const primaryBluetoothServices = await bluetoothRemoteGattServer?.getPrimaryServices();
+		const derp = await bluetoothRemoteGattServer?.getPrimaryService(SchwinIc4BluetoothServices.deviceInformation);
+		const characteristic = await derp?.getCharacteristic(SchwinIc4BluetoothCharacteristics.manufacturerNameString);
+		const deviceNameDataView = await characteristic?.readValue();
+		this.parseDeviceName(deviceNameDataView);
+
 		const cyclingSpeedCadenceService = primaryBluetoothServices?.find(
 			service => service.uuid === SchwinIc4BluetoothServices.cyclingSpeedAndCadenceUUID
 		);
+
 		const cscMeasurementChararacteristic: BluetoothRemoteGATTCharacteristic | undefined =
 			await cyclingSpeedCadenceService?.getCharacteristic(
 				// CSC Measurement feature. csc = cycling speed cadence.
@@ -63,21 +70,35 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 
 		const result: BluetoothRemoteGATTCharacteristic | undefined =
 			await cscMeasurementChararacteristic?.startNotifications();
-		// TODO: typed as any for now to avoid annoying type checking will look into later
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime as any);
 	}
 
-	private readonly connectToSchwinBike = async (): Promise<Array<BluetoothRemoteGATTService>> => {
-		const userSelectedSchwinIc4Bike: BluetoothDevice = await navigator.bluetooth.requestDevice(
-			this.bluetoothDeviceSearchOptions
+	private readonly connectToSchwinBike = async (): Promise<BluetoothRemoteGATTServer | undefined> => {
+		const userSelectedSchwinIc4Bike = await navigator.bluetooth.requestDevice(this.bluetoothDeviceSearchOptions);
+
+		return await userSelectedSchwinIc4Bike?.gatt?.connect();
+	};
+
+	private readonly parseDeviceName = (dataViewContainingDeviceName: DataView | undefined) => {
+		// 0x007402020000;
+		const a = dataViewContainingDeviceName?.getUint8(0) ?? 0;
+		const b = dataViewContainingDeviceName?.getUint8(1) ?? 0;
+		const c = dataViewContainingDeviceName?.getUint8(2) ?? 0;
+		const firstPart = dataViewContainingDeviceName?.getUint8(3) ?? 0;
+		const secondPart = dataViewContainingDeviceName?.getUint8(4) ?? 0;
+		const thirdPart = dataViewContainingDeviceName?.getUint8(5) ?? 0;
+		const fourthPart = dataViewContainingDeviceName?.getUint8(6) ?? 0;
+		const fifthPart = dataViewContainingDeviceName?.getUint8(7) ?? 0;
+		const sixthPart = dataViewContainingDeviceName?.getUint8(8) ?? 0;
+		const d = dataViewContainingDeviceName?.getUint8(9) ?? 0;
+		const e = dataViewContainingDeviceName?.getUint8(10) ?? 0;
+		const f = dataViewContainingDeviceName?.getUint8(11) ?? 0;
+		const g = dataViewContainingDeviceName?.getUint8(12) ?? 0;
+
+		console.log(
+			String.fromCharCode(a, b, c, firstPart, secondPart, thirdPart, fourthPart, fifthPart, sixthPart, d, e, f, g)
 		);
-		this.bluetoothDevice$.next(userSelectedSchwinIc4Bike);
-
-		const serverConnection: BluetoothRemoteGATTServer | undefined =
-			await userSelectedSchwinIc4Bike?.gatt?.connect();
-		this.bluetoothServer$.next(serverConnection);
-
-		return (await serverConnection?.getPrimaryServices()) ?? [];
 	};
 
 	private readonly parseCadenceWheelSpeedWheelTime = (event: { target: { value: DataView } }) => {

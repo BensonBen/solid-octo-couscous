@@ -10,7 +10,6 @@ import { LoginComponent } from './login-component.component';
 describe('LoginComponent', () => {
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
-	const animationService = {};
 	const workoutService = {};
 
 	beforeEach(

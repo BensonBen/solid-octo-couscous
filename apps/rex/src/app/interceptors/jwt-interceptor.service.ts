@@ -7,7 +7,10 @@ declare const window: Window;
 
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
-	public intercept(req: HttpRequest<any>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
+	public intercept(
+		req: HttpRequest<Record<string, string>>,
+		httpHandler: HttpHandler
+	): Observable<HttpEvent<Record<string, string>>> {
 		const jwtToken: string = window.sessionStorage.getItem('jwtToken') ?? '';
 		let authReq = req;
 		if (!_isEmpty(jwtToken)) {

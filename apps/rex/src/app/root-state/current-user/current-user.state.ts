@@ -2,7 +2,7 @@ import { User } from '@solid-octo-couscous/model';
 export interface State extends Omit<User, 'password'> {
 	isLoaded: boolean;
 	loading: boolean;
-	error: any;
+	error: Record<string, string>;
 }
 
 export const initialState: State = {

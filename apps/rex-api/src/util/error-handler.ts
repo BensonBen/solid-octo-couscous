@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import { NOT_FOUND, INTERNAL_SERVER_ERROR } from 'http-status';
 import { singleton } from 'tsyringe';
@@ -13,7 +14,12 @@ export class ErrorHandler {
 		res.end();
 	}
 
-	public internalServerError(err: any, req: Request, res: Response, _: NextFunction): void {
+	public internalServerError(
+		err: { status: number; message: string; extra: string },
+		req: Request,
+		res: Response,
+		_: NextFunction
+	): void {
 		res.status(err.status || INTERNAL_SERVER_ERROR);
 		res.json({
 			message: err.message,

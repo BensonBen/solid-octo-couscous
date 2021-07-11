@@ -1,4 +1,4 @@
-<div class="d-f f-row-reverse mr-2">
+<div class="d-f f-row-reverse tooltip-position">
 	<button
 		mat-fab
 		color="secondary"
@@ -6,7 +6,7 @@
 		#tooltip="matTooltip"
 		matTooltip="Connect to a bluetooth device"
 		matTooltipPosition="left"
-		(click)="connectHeartRateDevice($event)"
+		(click)="connectHeartRateDevice()"
 	>
 		<mat-icon aria-hidden="false" aria-label="home icon">bluetooth</mat-icon>
 	</button>
