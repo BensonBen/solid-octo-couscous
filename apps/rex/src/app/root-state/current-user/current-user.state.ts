@@ -11,7 +11,7 @@ export const initialState: State = {
 	dateOfBirth: 0,
 	description: '',
 	email: '',
-	error: null,
+	error: {},
 	id: '',
 	isApproved: 0,
 	isLoaded: false,

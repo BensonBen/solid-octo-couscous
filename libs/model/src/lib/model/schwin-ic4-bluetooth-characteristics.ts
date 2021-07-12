@@ -10,11 +10,11 @@ export enum SchwinIc4BluetoothCharacteristics {
 	scControlPoint = 0x2a55, // indicate, write properties
 	// end: corresponds to 0x1816 Cycling Speed and Cadence Service  ------------------------------------
 	// begin: corresponds to 0x1816 Device Information  -------------------------------------------------
-	manufacturerNameString = 0x2a29,
-	modelNumberString = 0x2a24,
-	hardwareRevisionString = 0x2a27,
-	firmwareRevisionString = 0x2a26,
-	softwareRevisionString = 0x2a28,
+	manufacturerName = 0x2a29,
+	modelNumber = 0x2a24,
+	hardwareRevision = 0x2a27,
+	firmwareRevision = 0x2a26,
+	softwareRevision = 0x2a28,
 	pnpId = 0x2a50,
 	// end: corresponds to 0x1816 Device Information ----------------------------------------------------
 }

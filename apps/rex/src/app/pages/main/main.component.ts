@@ -23,6 +23,6 @@ export class MainComponent implements AfterViewInit {
 	}
 
 	public async connectHeartRateDevice(): Promise<void> {
-		await this.schwinIc4BluetoothConnectionService.connectToCyclingSpeedAndCadenceService();
+		await this.schwinIc4BluetoothConnectionService.connectToBluetoothDevice();
 	}
 }
