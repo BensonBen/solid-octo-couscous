@@ -17,8 +17,8 @@
 	</mat-card-content>
 	<mat-card-actions>
 		<div class="d-f f-justify-around">
-			<button mat-stroked-button color="primary" (click)="signIn()" [disabled]="form?.invalid">Sign In</button>
-			<button mat-stroked-button color="primary">Create Account</button>
+			<button mat-stroked-button color="primary" (click)="signIn()">Sign In</button>
+			<button mat-stroked-button color="primary" (click)="createAccount($event)">Create Account</button>
 		</div>
 	</mat-card-actions>
 </mat-card>
