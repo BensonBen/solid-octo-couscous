@@ -12,16 +12,16 @@ The user will connect their exercise bike through bluetooth, or possibly USB.
 ## Current State
 
 #### Capabilities of REX include
-[x] Reading Delta Crank Event Time
-[x] Reading Delta Crank Revolution(s)
-[x] Reading Delta Wheel Event Time
-[x] Reading Delta Wheel Revolution(s)
+- [x] Reading Delta Crank Event Time
+- [x] Reading Delta Crank Revolution(s)
+- [x] Reading Delta Wheel Event Time
+- [x] Reading Delta Wheel Revolution(s)
 
-[x] Reading Manufacterer Name
-[x] Reading Software Revision
-[x] Reading Firmware Revision
-[x] Reading Bike Model Revision
-[x] Reading Bike Model
+- [x] Reading Manufacterer Name
+- [x] Reading Software Revision
+- [x] Reading Firmware Revision
+- [x] Reading Bike Model Revision
+- [x] Reading Bike Model
 
 ![image](https://user-images.githubusercontent.com/10961012/125396098-143d2980-e37a-11eb-94a5-4c8536e58d8f.png)
 
