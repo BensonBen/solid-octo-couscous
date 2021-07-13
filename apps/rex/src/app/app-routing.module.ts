@@ -14,6 +14,15 @@ const routes: Routes = [
 		path: 'main',
 		loadChildren: () => import('./pages/main/main.module').then(mod => mod.MainModule),
 	},
+	{
+		path: 'supporter',
+		loadChildren: () => import('./pages/supporter/supporter.module').then(mod => mod.SupporterModule),
+	},
+	{
+		path: 'supported-equipment',
+		loadChildren: () =>
+			import('./pages/supported equipment/supported-equipment.module').then(mod => mod.SupportedEquipmentModule),
+	},
 	{ path: '**', redirectTo: 'auth' },
 ];
 
