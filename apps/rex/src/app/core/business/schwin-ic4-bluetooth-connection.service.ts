@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { SchwinIc4BluetoothCharacteristics, SchwinIc4BluetoothServices } from '@solid-octo-couscous/model';
-import { bgRed } from 'chalk';
+import {
+	SchwinIc4BluetoothCharacteristics,
+	SchwinIc4BluetoothDeviceInformation,
+	SchwinIc4BluetoothServices,
+} from '@solid-octo-couscous/model';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, pairwise } from 'rxjs/operators';
 import { BaseBluetoothConnectionService } from './base-bluetooth-connection.service';
-import { isNil as _isNil } from 'lodash-es';
 
 declare const navigator: Navigator;
 
@@ -18,6 +20,9 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 	public readonly lastWheelEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 	public readonly crankRevolutions$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
 	public readonly lastCrankEventTime$: ReplaySubject<number> = new ReplaySubject<number>(this.replay);
+	public readonly deviceInformation$: Subject<SchwinIc4BluetoothDeviceInformation | undefined> = new Subject<
+		SchwinIc4BluetoothDeviceInformation | undefined
+	>();
 
 	public readonly deltaWheelRevolution$: Observable<number>;
 	public readonly deltaLastWheelEventTime$: Observable<number>;
@@ -64,41 +69,12 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			service => service.uuid === SchwinIc4BluetoothServices.cyclingSpeedAndCadenceUUID
 		);
 
-		// characteristics.
-		const [cscMeasurement, manufacturerName, modelNumber, hardwareRev, firmwareRev, softwareRev, pnpId] =
-			await Promise.all([
-				cyclingSpeedCadenceService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.cscMeasurement),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.manufacturerName),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.modelNumber),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.hardwareRevision),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.firmwareRevision),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.softwareRevision),
-				deviceInformationService?.getCharacteristic(SchwinIc4BluetoothCharacteristics.pnpId),
-			]);
-		debugger;
-		const [
-			nameDataView,
-			modelDataView,
-			hardwareRevDataView,
-			firmwareRevDataView,
-			softwareRevDataView,
-			pnpIdDataView,
-		] = await Promise.all([
-			manufacturerName?.readValue(),
-			modelNumber?.readValue(),
-			hardwareRev?.readValue(),
-			firmwareRev?.readValue(),
-			softwareRev?.readValue(),
-			pnpId?.readValue(),
-		]);
+		const cscMeasurement = await cyclingSpeedCadenceService?.getCharacteristic(
+			SchwinIc4BluetoothCharacteristics.cscMeasurement
+		);
 
-		console.log(this.parseUnsignedIntegersToAsciiEncodedString(nameDataView));
-		console.log(this.parseUnsignedIntegersToAsciiEncodedString(modelDataView));
-		console.log(this.parseUnsignedIntegersToAsciiEncodedString(hardwareRevDataView));
-		console.log(this.parseUnsignedIntegersToAsciiEncodedString(firmwareRevDataView));
-		console.log(this.parseUnsignedIntegersToAsciiEncodedString(softwareRevDataView));
-		debugger;
-		this.parsePnpId(pnpIdDataView).forEach(e => console.log(e));
+		const stupid = await this.collectBikeInformation(deviceInformationService);
+		this.deviceInformation$.next(stupid);
 
 		const result: BluetoothRemoteGATTCharacteristic | undefined = await cscMeasurement?.startNotifications();
 		result?.addEventListener('characteristicvaluechanged', this.parseCadenceWheelSpeedWheelTime);
@@ -145,5 +121,37 @@ export class SchwinIc4BluetoothConnectionService extends BaseBluetoothConnection
 			result = 0;
 		}
 		return result;
+	};
+
+	private readonly collectBikeInformation = async (
+		gattServiceForBikeInfo: BluetoothRemoteGATTService | undefined
+	): Promise<SchwinIc4BluetoothDeviceInformation> => {
+		// characteristics.
+		const [manufacturerName, modelNumber, hardwareRev, firmwareRev, softwareRev] = await Promise.all([
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.manufacturerName),
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.modelNumber),
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.hardwareRevision),
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.firmwareRevision),
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.softwareRevision),
+			gattServiceForBikeInfo?.getCharacteristic(SchwinIc4BluetoothCharacteristics.pnpId),
+		]);
+
+		// values of characteristics.
+		const [nameDataView, modelDataView, hardwareRevDataView, firmwareRevDataView, softwareRevDataView] =
+			await Promise.all([
+				manufacturerName?.readValue(),
+				modelNumber?.readValue(),
+				hardwareRev?.readValue(),
+				firmwareRev?.readValue(),
+				softwareRev?.readValue(),
+			]);
+
+		return {
+			firmwareRevision: this.parseUnsignedIntegersToAsciiEncodedString(firmwareRevDataView),
+			softwareRevision: this.parseUnsignedIntegersToAsciiEncodedString(softwareRevDataView),
+			hardwareRevision: this.parseUnsignedIntegersToAsciiEncodedString(hardwareRevDataView),
+			manufacturerName: this.parseUnsignedIntegersToAsciiEncodedString(nameDataView),
+			modelNumber: this.parseUnsignedIntegersToAsciiEncodedString(modelDataView),
+		} as SchwinIc4BluetoothDeviceInformation;
 	};
 }

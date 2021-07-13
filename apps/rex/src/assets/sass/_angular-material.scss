@@ -33,8 +33,9 @@ $solid-octo-couscous-dark-theme: mat.define-dark-theme(
 @include mat.slide-toggle-theme($solid-octo-couscous-dark-theme);
 @include mat.toolbar-theme($solid-octo-couscous-dark-theme);
 @include mat.tooltip-theme($solid-octo-couscous-dark-theme);
-@include mat.progress-spinner-theme($solid-octo-couscous-dark-theme);
 @include mat.sidenav-theme($solid-octo-couscous-dark-theme);
+@include mat.dialog-theme($solid-octo-couscous-dark-theme);
+@include mat.progress-bar-theme($solid-octo-couscous-dark-theme);
 
 @include mat.strong-focus-indicators-theme($solid-octo-couscous-dark-theme);
 /* ------------------------------- end: material theme setup. ------------------------------------------ */

@@ -4,5 +4,5 @@ export interface SchwinIc4BluetoothDeviceInformation {
 	hardwareRevision: string;
 	firmwareRevision: string;
 	softwareRevision: string;
-	pnpId: string;
+	pnpId?: string;
 }

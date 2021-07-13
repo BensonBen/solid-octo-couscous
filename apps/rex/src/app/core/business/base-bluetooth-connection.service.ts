@@ -29,10 +29,9 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 				result.push((dataView as DataView).getUint8(i));
 			}
 			return String.fromCharCode(...(result ?? []));
-		} else {
-			console.log(bgRed('whoops, looks like something went awry when parsing unsigned integers.'));
-			return '';
 		}
+		console.log(bgRed('whoops, looks like something went awry when parsing unsigned integers.'));
+		return '';
 	};
 
 	protected readonly deltaUnsignedInteger = ([previous, current]: [number, number]) => {
@@ -47,6 +46,8 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 
 	/**
 	 * https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.pnp_id.xml.
+	 *
+	 * Currently this isn't working.
 	 *
 	 * @param dataView, the raw binary from the device containing pnp id info.
 	 * @returns, an array of length 4 with the parsed pnp id's from bluetooths standard spec.
