@@ -15,14 +15,14 @@ export class WorkoutController {
 	};
 	private readonly somethingWentWrong: string = 'Whoops! something went wrong.';
 
-	public readonly getWorkout = async ({ body }: Request, response: Response) => {
+	public readonly getWorkout = async (request: Request, response: Response) => {
 		try {
 			return response.status(OK).send({
 				...this.baseTransaction,
 				data: 'Workout Datas',
 				success: true,
 			} as Transaction<string>);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
 			return response
 				.status(INTERNAL_SERVER_ERROR)

@@ -27,7 +27,7 @@ export class AuthController {
 				data: newUser,
 				success: true,
 			} as Transaction<LoginUserResponse>);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
 			return response
 				.status(INTERNAL_SERVER_ERROR)
@@ -44,7 +44,7 @@ export class AuthController {
 				data: loggedInUser,
 				success: true,
 			} as Transaction<LoginUserResponse>);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to login account with reason: ${JSON.stringify(error)}`));
 			return response
 				.status(INTERNAL_SERVER_ERROR)

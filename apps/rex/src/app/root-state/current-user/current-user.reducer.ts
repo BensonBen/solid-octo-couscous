@@ -7,12 +7,13 @@ export const currentUserStoreReducer = createReducer(
 	on(CurrentUserStoreActions.createUserRequest, CurrentUserStoreActions.loginUserRequest, state => ({
 		...state,
 		loading: true,
-		error: null,
+		error: {},
 		isLoaded: false,
 	})),
 	on(CurrentUserStoreActions.signInRequestSuccess, (state, action) => ({
 		...state,
 		...action.user,
+		error: {},
 		isLoaded: true,
 		loading: false,
 	})),

@@ -2,13 +2,13 @@
 	<mat-drawer-container [hasBackdrop]="true">
 		<mat-drawer #drawer class="min-drawer-width" [mode]="matDrawerMode">
 			<mat-list>
-				<mat-list-item>Exercise 🚲</mat-list-item>
+				<mat-list-item (click)="main($event)">Exercise 🚲</mat-list-item>
 				<mat-divider></mat-divider>
-				<mat-list-item>About REX 🦖</mat-list-item>
+				<mat-list-item (click)="github($event)">About REX 🦖</mat-list-item>
 				<mat-divider></mat-divider>
-				<mat-list-item>Supported Equiptment 🧰</mat-list-item>
+				<mat-list-item (click)="supportedEquipment($event)">Supported Equiptment 🧰</mat-list-item>
 				<mat-divider></mat-divider>
-				<mat-list-item>Become a Sauropod 🦕 (supporter)</mat-list-item>
+				<mat-list-item (click)="supporter($event)">Become a Sauropod 🦕 (supporter)</mat-list-item>
 				<mat-divider></mat-divider>
 			</mat-list>
 		</mat-drawer>

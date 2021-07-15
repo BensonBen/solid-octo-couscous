@@ -1,4 +1,4 @@
-<div class="d-f f-row-reverse mr-2">
+<div class="d-f f-row-reverse tooltip-position">
 	<button
 		mat-fab
 		color="secondary"
@@ -6,24 +6,60 @@
 		#tooltip="matTooltip"
 		matTooltip="Connect to a bluetooth device"
 		matTooltipPosition="left"
-		(click)="connectHeartRateDevice($event)"
+		(click)="connectToBluetoothDevice()"
 	>
 		<mat-icon aria-hidden="false" aria-label="home icon">bluetooth</mat-icon>
 	</button>
 </div>
-<div class="d-f f-row f-align-items-center f-align-content-center">
-	<mat-progress-spinner
-		[color]="progressSpinnerColor"
-		[mode]="spinnerMode"
-		[value]="schwinIc4BluetoothConnectionService.mph$ | async"
-	>
-	</mat-progress-spinner>
+<div class="d-f f-row f-justify-evenly ml-2 mr-2 mt-2 mb-2">
+	<mat-card class="min-card-length">
+		<mat-card-content>
+			<h2>Delta Crank Event Time</h2>
+			<mat-progress-bar
+				[color]="progressBarColor"
+				[mode]="'buffer'"
+				[value]="schwinIc4BluetoothConnectionService?.deltaLastCrankEventTime$ | async"
+				[bufferValue]="10"
+			>
+			</mat-progress-bar>
+		</mat-card-content>
+	</mat-card>
+	<mat-card class="min-card-length">
+		<mat-card-content>
+			<h2>Delta Crank Revolution(s)</h2>
+			<mat-progress-bar
+				[color]="progressBarColor"
+				[mode]="'buffer'"
+				[value]="schwinIc4BluetoothConnectionService?.deltaCrankRevolution$ | async"
+				[bufferValue]="10"
+			>
+			</mat-progress-bar>
+		</mat-card-content>
+	</mat-card>
 </div>
-<div class="d-f f-row f-align-items-center f-align-content-center">
-	<mat-progress-spinner
-		[color]="progressSpinnerColor"
-		[mode]="spinnerMode"
-		[value]="schwinIc4BluetoothConnectionService.kph$ | async"
-	>
-	</mat-progress-spinner>
+<div class="d-f f-row f-justify-evenly ml-2 mr-2 mt-2">
+	<mat-card class="min-card-length">
+		<mat-card-content>
+			<h2>Delta Last Wheel Event Time</h2>
+			<mat-progress-bar
+				[color]="progressBarColor"
+				[mode]="'buffer'"
+				[value]="schwinIc4BluetoothConnectionService?.deltaLastWheelEventTime$ | async"
+				[bufferValue]="10"
+			>
+			</mat-progress-bar>
+		</mat-card-content>
+	</mat-card>
+	<mat-card class="min-card-length">
+		<mat-card-content>
+			<h2>Delta Wheel Revolution(s)</h2>
+			<mat-progress-bar
+				[color]="progressBarColor"
+				[mode]="'buffer'"
+				[value]="schwinIc4BluetoothConnectionService?.deltaWheelRevolution$ | async"
+				[bufferValue]="10"
+			>
+			</mat-progress-bar>
+		</mat-card-content>
+	</mat-card>
 </div>

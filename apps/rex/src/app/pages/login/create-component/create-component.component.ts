@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
@@ -24,7 +25,7 @@ export class CreateComponentComponent implements OnInit {
 	private readonly minPasswordLength: number = 1;
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
-	private readonly createGroup: any = {
+	private readonly createGroup: Record<string, Validators> = {
 		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
@@ -51,7 +52,12 @@ export class CreateComponentComponent implements OnInit {
 		dateOfBirth: [null, Validators.compose([Validators.required])],
 	};
 
-	constructor(private readonly formBuilder: FormBuilder, private readonly store$: Store<RootStoreState>) {}
+	constructor(
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly formBuilder: FormBuilder,
+		private readonly store$: Store<RootStoreState>,
+		private readonly router: Router
+	) {}
 
 	ngOnInit(): void {
 		this.createGroup.loginName;
@@ -60,7 +66,7 @@ export class CreateComponentComponent implements OnInit {
 		});
 	}
 
-	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
+	readonly checkPasswords = (group: FormGroup): { [key: string]: unknown } | null => {
 		const pass: string = group?.get('password')?.value ?? null;
 		const confirmPass: string = group?.get('retypedPassword')?.value ?? null;
 
@@ -76,5 +82,10 @@ export class CreateComponentComponent implements OnInit {
 			loginName,
 		};
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
+	}
+
+	login(event: Event): void {
+		event.preventDefault();
+		this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
 	}
 }

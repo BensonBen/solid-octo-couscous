@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { Store } from '@ngrx/store';
-import { CurrentUserStoreActions } from '../../../root-state/current-user';
-import { RootStoreState } from '../../../root-state/root-state';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'soc-login-component',
@@ -32,14 +30,24 @@ export class LoginComponent implements OnInit {
 		],
 	};
 
-	constructor(private readonly formBuilder: FormBuilder, private readonly store$: Store<RootStoreState>) {}
+	constructor(
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly formBuilder: FormBuilder,
+		private readonly router: Router
+	) {}
 
 	ngOnInit(): void {
 		this.form = this.formBuilder.group(this.loginGroup);
 	}
 
 	signIn(): void {
-		const { loginName, password } = this.form.value;
-		this.store$.dispatch(CurrentUserStoreActions.loginUserRequest({ loginName, password }));
+		// const { loginName, password } = this.form.value;
+		// this.store$.dispatch(CurrentUserStoreActions.loginUserRequest({ loginName, password }));
+		this.router.navigate(['../main'], { relativeTo: this.activatedRoute });
+	}
+
+	createAccount(event: Event): void {
+		event.preventDefault();
+		this.router.navigate(['../createAccount'], { relativeTo: this.activatedRoute });
 	}
 }
