@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { Unsubscriber } from '@solid-octo-couscous/model';
-import { bgRed } from 'chalk';
 import { isNil as _isNil } from 'lodash-es';
 
 @Injectable()
@@ -30,7 +29,7 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 			}
 			return String.fromCharCode(...(result ?? []));
 		}
-		console.log(bgRed('whoops, looks like something went awry when parsing unsigned integers.'));
+		console.warn('whoops, looks like something went awry when parsing unsigned integers.');
 		return '';
 	};
 
@@ -65,7 +64,7 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 			rawUnsigned.push((dataView as DataView).getUint16(5, true));
 			return rawUnsigned;
 		} else {
-			console.log(bgRed('whoops, looks like something went awry when parsing unsigned integers.'));
+			console.warn('whoops, looks like something went awry when parsing unsigned integers.');
 			return [0, 0, 0, 0];
 		}
 	};

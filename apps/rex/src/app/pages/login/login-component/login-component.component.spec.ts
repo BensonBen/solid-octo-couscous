@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { provideMockStore } from '@ngrx/store/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { WorkoutService } from '../../../core';
 
 import { LoginComponent } from './login-component.component';
@@ -15,7 +16,7 @@ describe('LoginComponent', () => {
 	beforeEach(
 		waitForAsync(() => {
 			TestBed.configureTestingModule({
-				imports: [MatCardModule, ReactiveFormsModule],
+				imports: [MatCardModule, ReactiveFormsModule, RouterTestingModule],
 				declarations: [LoginComponent],
 				providers: [
 					{

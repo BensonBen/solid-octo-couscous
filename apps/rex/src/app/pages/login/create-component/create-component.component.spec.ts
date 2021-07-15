@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { provideMockStore } from '@ngrx/store/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { CreateComponentComponent } from './create-component.component';
 
 describe('CreateComponentComponent', () => {
@@ -13,7 +13,7 @@ describe('CreateComponentComponent', () => {
 	beforeEach(
 		waitForAsync(() => {
 			TestBed.configureTestingModule({
-				imports: [MatCardModule, ReactiveFormsModule],
+				imports: [MatCardModule, ReactiveFormsModule, RouterTestingModule],
 				declarations: [CreateComponentComponent],
 				providers: [provideMockStore({})],
 				schemas: [NO_ERRORS_SCHEMA],

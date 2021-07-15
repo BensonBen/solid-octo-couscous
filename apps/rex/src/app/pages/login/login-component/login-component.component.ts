@@ -2,9 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { CurrentUserStoreActions } from '../../../root-state/current-user';
-import { RootStoreState } from '../../../root-state/root-state';
 
 @Component({
 	selector: 'soc-login-component',
@@ -36,7 +33,6 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly formBuilder: FormBuilder,
-		private readonly store$: Store<RootStoreState>,
 		private readonly router: Router
 	) {}
 

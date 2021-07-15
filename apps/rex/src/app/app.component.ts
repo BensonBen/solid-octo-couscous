@@ -27,14 +27,17 @@ export class AppComponent {
 	}
 
 	public main(event: Event): void {
+		event.preventDefault();
 		this.router.navigate(['main'], { relativeTo: this.activatedRoute });
 	}
 
 	public supporter(event: Event): void {
+		event.preventDefault();
 		this.router.navigate(['supporter'], { relativeTo: this.activatedRoute });
 	}
 
 	public supportedEquipment(event: Event): void {
+		event.preventDefault();
 		this.router.navigate(['supported-equipment'], { relativeTo: this.activatedRoute });
 	}
 }

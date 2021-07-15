@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthenticateComponent } from './authenticate.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AuthenticateComponent', () => {
 	let component: AuthenticateComponent;
@@ -13,7 +14,7 @@ describe('AuthenticateComponent', () => {
 		waitForAsync(() => {
 			TestBed.configureTestingModule({
 				schemas: [NO_ERRORS_SCHEMA],
-				imports: [NoopAnimationsModule],
+				imports: [NoopAnimationsModule, RouterTestingModule],
 				declarations: [AuthenticateComponent],
 				providers: [
 					{
