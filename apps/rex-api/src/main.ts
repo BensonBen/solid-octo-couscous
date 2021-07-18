@@ -1,7 +1,3 @@
-// only needs to be imported once per tsyringe's instructions.
-import 'reflect-metadata';
-
-// according to the dotenv documentation this should be invoked as early as possible
 import { config } from 'dotenv';
 import { green } from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
