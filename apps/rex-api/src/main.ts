@@ -1,9 +1,12 @@
+import 'reflect-metadata';
+
 import { config } from 'dotenv';
+import * as findConfig from 'find-config';
 import { green } from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
 import { autheniticationConfiguration } from './config/auth-api-config';
 
-config();
+config({ path: findConfig('.env') });
 
 const { port, hostName } = autheniticationConfiguration;
 
