@@ -1,12 +1,11 @@
 import 'reflect-metadata';
 
 import { config } from 'dotenv';
-import * as findConfig from 'find-config';
 import { green } from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
 import { autheniticationConfiguration } from './config/auth-api-config';
 
-config({ path: findConfig('.env') });
+config();
 
 const { port, hostName } = autheniticationConfiguration;
 
@@ -16,9 +15,19 @@ const logger = console;
 
 serverFactory.bootstrap().listen(port as number, hostName, () => {
 	logger.log(
-		green(`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${autheniticationConfiguration?.whiteList?.join(' ')}.`)
+		green(
+			`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${
+				autheniticationConfiguration?.whiteList?.join(' ') ?? 'NO WHITELISTED DOMAIN(S)'
+			}.`
+		)
 	);
-	logger.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}`));
-	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
-	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
+	logger.log(
+		green(
+			`${loggerPrefix} APPLICATION NAME: ${
+				autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'
+			}`
+		)
+	);
+	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName ?? 'NO HOST NAME'}.`));
+	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port ?? 'NO PORT'}.`));
 });
