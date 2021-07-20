@@ -1,7 +1,5 @@
-// only needs to be imported once per tsyringe's instructions.
 import 'reflect-metadata';
 
-// according to the dotenv documentation this should be invoked as early as possible
 import { config } from 'dotenv';
 import { green } from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
@@ -17,9 +15,19 @@ const logger = console;
 
 serverFactory.bootstrap().listen(port as number, hostName, () => {
 	logger.log(
-		green(`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${autheniticationConfiguration?.whiteList?.join(' ')}.`)
+		green(
+			`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${
+				autheniticationConfiguration?.whiteList?.join(' ') ?? 'NO WHITELISTED DOMAIN(S)'
+			}.`
+		)
 	);
-	logger.log(green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName}`));
-	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName}.`));
-	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port}.`));
+	logger.log(
+		green(
+			`${loggerPrefix} APPLICATION NAME: ${
+				autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'
+			}`
+		)
+	);
+	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName ?? 'NO HOST NAME'}.`));
+	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port ?? 'NO PORT'}.`));
 });
