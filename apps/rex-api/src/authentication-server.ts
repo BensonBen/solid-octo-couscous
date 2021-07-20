@@ -32,7 +32,7 @@ export class AuthenticationServerFactory {
 
 		if (_isEmpty(secret) || _isEmpty(audience) || _isEmpty(issuer)) {
 			// uncaught fatal exception kill the node process prevent it from starting.
-			// process.exit(1);
+			process.exit(1);
 		}
 
 		authenticationServer.use(

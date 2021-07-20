@@ -20,6 +20,7 @@
 | AUTH_API_SALT_ROUNDS       | 10                           |
 | AUTH_API_CRT               | /path/to/cert/bundle         |
 | AUTH_API_SALT_ROUNDS       | /path/to/original/key        |
+
 ---
 
 ## Build REX API using NX tooling
@@ -51,4 +52,27 @@
 -   ensure the application is running by inspecting the monitoring functionaly provided by pm2.
     ```bash
     pm2 monit
+    ```
+-   _note_ there may be a need to install `npm` dependencies for the application. Suggest to generate a `package.json` for the build once and install these packages on the server for express.
+-   _note_ there may also be a need to manually install packages with your flavor of package manager
+
+---
+
+## Configuring NGINX
+
+-   Using the reverse proxy functionaltiy of [NGINX](https://nginx.org/) segment off a portion of the URL spectrum. Such as, `https://rex.fitness/rex-api/**/*` where any traffice on this portion of the URL will be reverse proxied to the locally installed `PM2` managed application.
+-   ```
+      # NGINX server block may look something like.
+      location /rex-api {
+          proxy_pass http://localhost:3333;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-Ip $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          rewrite ^/rex-api/?(.*) /$1 break;
+          proxy_redirect off;
+      }
     ```

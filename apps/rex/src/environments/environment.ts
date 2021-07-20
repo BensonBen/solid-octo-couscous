@@ -9,7 +9,7 @@ export const environment = {
 	apiVersionOne: `v1`,
 	authApi: `auth`,
 	workoutApi: `workout`,
-	alive: `alive`
+	alive: `alive`,
 };
 
 /*
