@@ -60,7 +60,7 @@
 
 ## Configuring NGINX
 
--   Using the reverse proxy functionaltiy of [NGINX](https://nginx.org/) segment off a portion of the URL spectrum. Such as, `https://rex.fitness/rex-api/**/*` where any traffice on this portion of the URL will be reverse proxied to the locally installed `PM2` managed application.
+-   Using the reverse proxy functionaltiy of [NGINX](https://nginx.org/) segment off a portion of the URL spectrum. Such as, `https://rex.fitness/rex-api/**/*` where any traffic on this portion of the URL will be reverse proxied to the locally installed `PM2` managed application.
 -   ```
       # NGINX server block may look something like.
       location /rex-api {
