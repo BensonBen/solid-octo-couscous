@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "solid-octo-couscous",
-	"version": "11.2.0",
+	"version": "12.2.0",
 	"license": "MIT",
 	"scripts": {
 		"ng": "nx",
@@ -71,9 +71,9 @@
 	},
 	"devDependencies": {
 		"@angular-devkit/build-angular": "~12.1.2",
-		"@angular-eslint/eslint-plugin": "~12.0.0",
-		"@angular-eslint/eslint-plugin-template": "~12.3.0",
-		"@angular-eslint/template-parser": "~12.3.0",
+		"@angular-eslint/eslint-plugin": "~12.3.1",
+		"@angular-eslint/eslint-plugin-template": "~12.3.1",
+		"@angular-eslint/template-parser": "~12.3.1",
 		"@angular/cli": "~12.1.2",
 		"@angular/compiler-cli": "~12.1.2",
 		"@angular/language-service": "~12.1.2",
@@ -86,7 +86,7 @@
 		"@nrwl/linter": "12.5.8",
 		"@nrwl/nest": "12.5.8",
 		"@nrwl/node": "12.5.8",
-		"@nrwl/nx-cloud": "12.2.7",
+		"@nrwl/nx-cloud": "~12.2.7",
 		"@nrwl/tao": "12.5.8",
 		"@nrwl/workspace": "12.5.8",
 		"@types/bcrypt": "~5.0.0",

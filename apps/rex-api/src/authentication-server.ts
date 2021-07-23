@@ -1,6 +1,7 @@
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as expressServer from 'express';
+import * as morgan from 'morgan';
 
 import { autheniticationConfiguration } from './config/auth-api-config';
 import { json, urlencoded } from 'body-parser';
@@ -41,13 +42,15 @@ export class AuthenticationServerFactory {
 				audience,
 				issuer,
 				algorithms: [this.jwtTokenAlgorithm],
-			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login', '/v1/alive/server', '/v1/alive/redis'] })
+			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login', '/v1/alive/server'] })
 		);
 
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
 		authenticationServer.use(json());
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
+		authenticationServer.use(morgan());
+
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 
 		// Setup auto-injected dependencies.

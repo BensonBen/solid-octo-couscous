@@ -5,20 +5,5 @@
 		"types": []
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["**/*.spec.ts"],
-	"angularCompilerOptions": {
-		"strictMetadataEmit": true,
-		"fullTemplateTypeCheck": true,
-		"strictInputTypes": true,
-		"strictNullChecks": true,
-		"strictInputAccessModifiers": true,
-		"strictNullInputTypes": false,
-		"strictAttributeTypes": true,
-		"strictSafeNavigationTypes": true,
-		"strictDomLocalRefTypes": true,
-		"strictOutputEventTypes": true,
-		"strictDomEventTypes": true,
-		"strictContextGenerics": true,
-		"strictLiteralTypes": true
-	}
+	"exclude": ["**/*.spec.ts"]
 }
