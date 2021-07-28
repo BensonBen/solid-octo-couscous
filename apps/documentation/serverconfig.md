@@ -10,3 +10,4 @@
 -   [configure NGINX](https://www.linode.com/docs/guides/how-to-install-and-use-nginx-on-ubuntu-20-04/)
     -   reconfigured NGINX using old configuration file.
     -   enabled ports 80 and 443 for HTTP and HTTPS traffic
+-   [configure Docker](https://www.linode.com/docs/guides/installing-and-using-docker-on-ubuntu-and-debian/)
