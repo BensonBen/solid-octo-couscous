@@ -1,2 +1,0 @@
-# syntax=docker/dockerfile:1
-FROM golang:6.2.5 AS redis
