@@ -17,6 +17,7 @@ module.exports = {
 				AUTH_API_JWT_ALG: `HS256`,
 				AUTH_API_REDIS_PORT: `6379`,
 				AUTH_API_REDIS_HOST: `0.0.0.0`,
+				AUTH_API_REDIS_PASS: `nrjjjfdC6tsIrHf4mXdMykCLQbkgfNUUaC4dmwsZ7Qj8HMzpg3zQQCQBcjsSje/0/QEGdxPsqG5M2Bhu%`,
 				AUTH_API_SALT_ROUNDS: `10`,
 			},
 		},

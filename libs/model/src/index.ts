@@ -1,6 +1,6 @@
 export { User } from './lib/model/user';
 export { Unsubscriber } from './lib/util/unsubscriber';
-export { SocAuthenticationConfiguration } from './lib/util/soc-authentication-configuration';
+export { SocApiConfiguration } from './lib/util/soc-api-config';
 export { Transaction } from './lib/responses/transaction';
 export { NewUserRequest } from './lib/requests/new-user-request';
 export { LoginUserResponse } from './lib/responses/login-user-response';
