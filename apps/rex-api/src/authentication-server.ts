@@ -49,7 +49,7 @@ export class AuthenticationServerFactory {
 		authenticationServer.use(json());
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
-		authenticationServer.use(morgan());
+		authenticationServer.use(morgan('tiny'));
 
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 

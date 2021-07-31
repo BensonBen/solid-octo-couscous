@@ -9,5 +9,5 @@ services:
               protocol: tcp
               mode: host
         volumes:
-            - ./:/redis.conf
+            - ./redis.conf:/redis.conf
         command: ['redis-server', '/redis.conf']

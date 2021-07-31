@@ -21,8 +21,15 @@ export class AuthService {
 	 * @returns, a Promise that stores the Transactional data from the new account created.
 	 */
 	public readonly createAccount = async (userRequest: Readonly<NewUserRequest>): Promise<LoginUserResponse> => {
+		// prevent logging of sensitive information.
 		this.logger(
-			green(`${this.loggerPrefix} Attempting to create new user account using: ${JSON.stringify(userRequest)}`)
+			green(
+				`${this.loggerPrefix} Attempting to create new user account using: ${JSON.stringify({
+					...userRequest,
+					password: null,
+					email: null,
+				})}`
+			)
 		);
 
 		const user: LoginUserResponse = _omit(await this.authDataProvider.createAccount(userRequest), [

@@ -15,6 +15,7 @@ export class RedisDatabaseService {
 		const options: RedisOptions = {
 			port: +process?.env?.AUTH_API_REDIS_PORT,
 			host: process?.env?.AUTH_API_REDIS_HOST,
+			password: process?.env?.AUTH_API_REDIS_PASS,
 		};
 
 		this.redisDatabase = new IORedis(options);
