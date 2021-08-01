@@ -39,16 +39,15 @@ export class CurrentUserStoreEffects {
 		)
 	);
 
-	// public signInRequestSuccess$ = createEffect(() =>
-	// 	this.actions$.pipe(
-	// 		ofType(CurrentUserActions.signInRequestSuccess),
-	// 		switchMap(({ user }) => {
-	// 			debugger;
-	// 			const message = `Welcome ${user?.loginName ?? 'blank'}!`;
-	// 			return of(ToastActions.openSnackBar({ message, action: '' }));
-	// 		})
-	// 	)
-	// );
+	public signInRequestSuccess$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(CurrentUserActions.signInRequestSuccess),
+			switchMap(({ user }) => {
+				const message = `Welcome ${user?.loginName ?? 'blank'}!`;
+				return of(ToastActions.openSnackBar({ message, action: 'dismiss' }));
+			})
+		)
+	);
 
 	constructor(private readonly actions$: Actions, private readonly authService: AuthService) {}
 

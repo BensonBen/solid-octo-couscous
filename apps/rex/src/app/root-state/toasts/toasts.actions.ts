@@ -4,7 +4,7 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 const toastStorePreamble = `[Toast]`;
 
 export const openSnackBar = createAction(
-	`${toastStorePreamble} SUPER SECRET ACTION`,
+	`${toastStorePreamble} Add Toast`,
 	props<{ message: string; action: string; config?: MatSnackBarConfig }>()
 );
 

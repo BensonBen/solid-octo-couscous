@@ -14,7 +14,7 @@ export const initialState: State = {
 	error: {},
 };
 
-export const entityAdapter: EntityAdapter<any> = createEntityAdapter<any>({
-	selectId: a => a?.id,
-	sortComparer: false,
-});
+// export const entityAdapter: EntityAdapter<any> = createEntityAdapter<any>({
+// 	selectId: a => a?.id,
+// 	sortComparer: false,
+// });

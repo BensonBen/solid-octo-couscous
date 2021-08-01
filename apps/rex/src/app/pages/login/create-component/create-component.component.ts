@@ -83,7 +83,7 @@ export class CreateComponentComponent implements OnInit {
 			loginName,
 		};
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
-		this.store$.dispatch(ToastStoreActions.openSnackBar({ message: 'fk me', action: '' }));
+		// this.store$.dispatch(ToastStoreActions.openSnackBar({ message: 'fk me', action: '' }));
 	}
 
 	login(event: Event): void {

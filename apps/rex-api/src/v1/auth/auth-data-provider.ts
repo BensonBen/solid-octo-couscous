@@ -51,13 +51,11 @@ export class AuthDataProvider {
 		);
 
 		if (newUserHashCreationResult === 'OK') {
-			return this.redisDatabaseService.redisDatabase.hgetall(id);
+			return this.redisDatabaseService.redisDatabase.hgetall(loginName);
 		}
 
 		this.logger.log(
-			red(
-				`${this.loggerPrefix} login name: ${loginName}, password: ${password}, email: ${email}, date of birth: ${dateOfBirth}`
-			)
+			red(`${this.loggerPrefix} login name: ${loginName}, email: ${email}, date of birth: ${dateOfBirth}`)
 		);
 		// just throw an exception if something went wrong. don't give information that's not needed.
 		throw new Error();

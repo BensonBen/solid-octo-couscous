@@ -31,10 +31,9 @@ export class AuthService {
 				})}`
 			)
 		);
-
-		const user: LoginUserResponse = _omit(await this.authDataProvider.createAccount(userRequest), [
-			'password',
-		] as Array<keyof User>);
+		
+		const omission: keyof User = 'password';
+		const user: LoginUserResponse = _omit(await this.authDataProvider.createAccount(userRequest), omission);
 
 		const jwtToken = jwtSign(user, process?.env?.AUTH_API_JWT_KEY, {
 			algorithm: this.jwtTokenAlgorithm,
@@ -57,9 +56,8 @@ export class AuthService {
 			green(`${this.loggerPrefix} Attempting to log a user in by using: ${JSON.stringify(loginRequest)}`)
 		);
 
-		const user: LoginUserResponse = _omit(await this.authDataProvider.login(loginRequest), ['password'] as Array<
-			keyof User
-		>);
+		const omission: keyof User = 'password';
+		const user: LoginUserResponse = _omit(await this.authDataProvider.login(loginRequest), omission);
 
 		const jwtToken = jwtSign(user, process?.env?.AUTH_API_JWT_KEY, {
 			algorithm: this.jwtTokenAlgorithm,
