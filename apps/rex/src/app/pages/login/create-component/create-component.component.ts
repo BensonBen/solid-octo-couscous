@@ -7,7 +7,7 @@ import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
 import { Observable } from 'rxjs';
 
-import { CurrentUserStoreActions } from '../../../root-state/current-user';
+import { CurrentUserStoreActions, ToastStoreActions } from '../../../root-state';
 import { RootStoreState } from '../../../root-state/root-state';
 
 @Component({
@@ -74,6 +74,7 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	createAccount(): void {
+		console.log('idk anymore');
 		const { email, password, dateOfBirth, loginName } = this.form.value;
 		const newUserRequest: NewUserRequest = {
 			email,
@@ -82,6 +83,7 @@ export class CreateComponentComponent implements OnInit {
 			loginName,
 		};
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
+		this.store$.dispatch(ToastStoreActions.openSnackBar({ message: 'fk me', action: '' }));
 	}
 
 	login(event: Event): void {

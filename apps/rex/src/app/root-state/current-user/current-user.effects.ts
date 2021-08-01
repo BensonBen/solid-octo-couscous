@@ -5,7 +5,8 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../core';
 
 import * as CurrentUserActions from './current-user.actions';
-
+import * as ToastActions from '../toasts/toasts.actions';
+import { of } from 'rxjs';
 @Injectable()
 export class CurrentUserStoreEffects {
 	readonly createUser$ = createEffect(() =>
@@ -37,6 +38,17 @@ export class CurrentUserStoreEffects {
 			})
 		)
 	);
+
+	// public signInRequestSuccess$ = createEffect(() =>
+	// 	this.actions$.pipe(
+	// 		ofType(CurrentUserActions.signInRequestSuccess),
+	// 		switchMap(({ user }) => {
+	// 			debugger;
+	// 			const message = `Welcome ${user?.loginName ?? 'blank'}!`;
+	// 			return of(ToastActions.openSnackBar({ message, action: '' }));
+	// 		})
+	// 	)
+	// );
 
 	constructor(private readonly actions$: Actions, private readonly authService: AuthService) {}
 

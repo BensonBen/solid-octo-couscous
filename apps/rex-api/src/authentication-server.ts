@@ -24,25 +24,25 @@ export class AuthenticationServerFactory {
 	public readonly logger = console.log;
 	private readonly loggerPrefix: string = `[AuthenticationServerFactory]`;
 	private readonly jwtTokenAlgorithm: Algorithm = process?.env?.AUTH_API_JWT_ALG as Algorithm;
+	private readonly secret = process?.env?.AUTH_API_JWT_KEY;
+	private readonly audience = process?.env?.AUTH_API_JWT_AUDIENCE;
+	private readonly issuer = process?.env?.AUTH_API_JWT_ISSUER;
 
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
 	public bootstrap(): Application {
 		const authenticationServer = expressServer();
-		const secret = process?.env?.AUTH_API_JWT_KEY;
-		const audience = process?.env?.AUTH_API_JWT_AUDIENCE;
-		const issuer = process?.env?.AUTH_API_JWT_ISSUER;
 
-		if (_isEmpty(secret) || _isEmpty(audience) || _isEmpty(issuer)) {
+		if (_isEmpty(this.secret) || _isEmpty(this.audience) || _isEmpty(this.issuer)) {
 			// uncaught fatal exception kill the node process prevent it from starting.
 			process.exit(1);
 		}
 
 		authenticationServer.use(
 			jwt({
-				secret,
-				audience,
-				issuer,
+				secret: this.secret,
+				audience: this.audience,
+				issuer: this.issuer,
 				algorithms: [this.jwtTokenAlgorithm],
 			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login', '/v1/alive/server'] })
 		);
@@ -53,7 +53,7 @@ export class AuthenticationServerFactory {
 		authenticationServer.use(helmet());
 		authenticationServer.use(
 			morgan('common', {
-				skip: environment.production ? (req, res) => res.statusCode < NOT_FOUND : (req, res) => false,
+				skip: environment.production ? (req, res) => res.statusCode < NOT_FOUND : () => false,
 			})
 		);
 

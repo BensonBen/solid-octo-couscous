@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ofType, createEffect, Actions } from '@ngrx/effects';
-import { tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as ToastActions from './toasts.actions';
 
 @Injectable()
 export class ToastStoreEffects {
-	readonly createUser$ = createEffect(() =>
+	public readonly openToast$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(ToastActions.openSnackBar),
-			tap(({ action, message, config }) => this.matSnackBar.open(message, action, config))
+			take(3),
+			tap(({ action, message, config }) => {
+				debugger;
+				// this.matSnackBar.open(message, action, config);
+			})
 		)
 	);
 

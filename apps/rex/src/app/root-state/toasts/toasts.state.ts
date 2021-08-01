@@ -1,22 +1,20 @@
-import { User } from '@solid-octo-couscous/model';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface State extends Omit<User, 'password'> {
+export interface State extends EntityState<any> {
 	isLoaded: boolean;
 	loading: boolean;
 	error: Record<string, string>;
 }
 
 export const initialState: State = {
-	approvalNotes: '',
-	createdOn: 0,
-	dateOfBirth: 0,
-	description: '',
-	email: '',
-	error: {},
-	id: '',
-	isApproved: 0,
+	ids: [],
+	entities: {},
 	isLoaded: false,
 	loading: false,
-	loginName: '',
-	modifiedOn: 0,
+	error: {},
 };
+
+export const entityAdapter: EntityAdapter<any> = createEntityAdapter<any>({
+	selectId: a => a?.id,
+	sortComparer: false,
+});
