@@ -15,6 +15,8 @@ import { AuthController } from './v1/auth/auth-controller';
 import { WorkoutController } from './v1/workout/workout-controller';
 import { Algorithm } from 'jsonwebtoken';
 import { AliveController } from './v1/alive/alive-controller';
+import { environment } from './environments/environment';
+import { NOT_FOUND } from 'http-status';
 
 /** This class is designed to produce express servers with a default configuration depending on the environment file. */
 @autoInjectable()
@@ -49,7 +51,11 @@ export class AuthenticationServerFactory {
 		authenticationServer.use(json());
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
-		authenticationServer.use(morgan('tiny'));
+		authenticationServer.use(
+			morgan('common', {
+				skip: environment.production ? (req, res) => res.statusCode < NOT_FOUND : (req, res) => false,
+			})
+		);
 
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 

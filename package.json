@@ -96,6 +96,7 @@
 		"@types/find-config": "^1.0.1",
 		"@types/jest": "~26.0.24",
 		"@types/jsonwebtoken": "~8.5.4",
+		"@types/morgan": "^1.9.3",
 		"@types/node": "^16.4.1",
 		"@types/web-bluetooth": "~0.0.10",
 		"@typescript-eslint/eslint-plugin": "4.28.4",
