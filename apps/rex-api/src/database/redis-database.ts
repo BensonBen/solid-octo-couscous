@@ -1,4 +1,4 @@
-import { green } from 'chalk';
+import { green, red } from 'chalk';
 
 import { Redis, RedisOptions } from 'ioredis';
 import { singleton } from 'tsyringe';
@@ -21,7 +21,7 @@ export class RedisDatabaseService {
 		this.redisDatabase = new IORedis(options);
 		this.redisDatabase.on('error', err => {
 			if (!environment.production) {
-				this.logger.log(JSON.stringify(err));
+				this.logger.log(red(JSON.stringify(err)));
 				this.logger.trace();
 			}
 		});
