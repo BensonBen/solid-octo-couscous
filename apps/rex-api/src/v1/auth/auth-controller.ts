@@ -38,7 +38,6 @@ export class AuthController {
 	public readonly login = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
 			const loggedInUser = await this.authService.login(body);
-			console.log(body);
 			return response.status(OK).send({
 				...this.baseTransaction,
 				data: loggedInUser,

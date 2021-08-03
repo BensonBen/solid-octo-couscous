@@ -3,16 +3,16 @@ import { green, cyan } from 'chalk';
 import { inject, singleton } from 'tsyringe';
 import { AuthDataProvider } from './auth-data-provider';
 import { omit as _omit } from 'lodash';
-import { sign as jwtSign, verify as jwtVerify, Algorithm, SignOptions } from 'jsonwebtoken';
+import { sign as jwtSign, verify as jwtVerify, Algorithm, SignOptions, JwtPayload } from 'jsonwebtoken';
 import { IncomingHttpHeaders } from 'http';
+import { isEmpty as _isEmpty } from 'lodash';
 
 @singleton()
 export class AuthService {
 	private readonly logger = console.log;
 	private readonly loggerPrefix = '[AuthService]';
-	private readonly jwtTokenAlgorithm: Algorithm = process?.env?.AUTH_API_JWT_ALG as Algorithm;
 	private readonly jwtSignOptions: SignOptions = {
-		algorithm: this.jwtTokenAlgorithm,
+		algorithm: process?.env?.AUTH_API_JWT_ALG as Algorithm,
 		audience: process?.env?.AUTH_API_JWT_AUDIENCE,
 		issuer: process?.env?.AUTH_API_JWT_ISSUER,
 		expiresIn: '1h',
@@ -77,18 +77,18 @@ export class AuthService {
 	};
 
 	public readonly isLoggedIn = async (headers: IncomingHttpHeaders): Promise<boolean> => {
-		console.log(cyan(headers));
-		const authorization = headers?.authorization;
-		console.log(cyan(authorization));
+		const authorization = headers?.authorization?.substr(7);
 		const issuer = {
-			algorithm: this.jwtTokenAlgorithm,
+			algorithm: process?.env?.AUTH_API_JWT_ALG as Algorithm,
 			audience: process?.env?.AUTH_API_JWT_AUDIENCE,
 			issuer: process?.env?.AUTH_API_JWT_ISSUER,
 		};
-		const verifiedToken = await jwtVerify(authorization, process?.env?.AUTH_API_JWT_KEY, issuer);
-		console.log(cyan(verifiedToken));
-		// this.logger(green(`${this.loggerPrefix} Attempting to find user name: ${userName}`));
-		return Promise.resolve(true);
-		// return await this.authDataProvider.userNameExists(userName);
+		const decryptedToken: JwtPayload = (await jwtVerify(
+			authorization,
+			process?.env?.AUTH_API_JWT_KEY,
+			issuer
+		)) as JwtPayload;
+		console.log(cyan(JSON.stringify(decryptedToken)));
+		return !_isEmpty(decryptedToken?.iss);
 	};
 }

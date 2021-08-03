@@ -81,6 +81,7 @@ export class AuthenticationServerFactory {
 		// auth sub routes.
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
+		authRouter.post('/isLoggedIn', authController.isLoggedIn);
 		authRouter.get('/userNameExists', authController.userNameExists);
 
 		// workout sub routes.

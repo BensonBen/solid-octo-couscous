@@ -69,11 +69,9 @@ export class AuthDataProvider {
 	 */
 	public readonly login = async (loginRequest: Readonly<LoginUserRequest>): Promise<Record<string, string>> => {
 		const { loginName, password } = loginRequest;
-		console.log('here');
 		const potentialUserEntry: Record<string, string> = await this.redisDatabaseService.redisDatabase.hgetall(
 			loginName
 		);
-		console.log(potentialUserEntry);
 
 		if (compareSync(password, potentialUserEntry?.password)) {
 			return potentialUserEntry;

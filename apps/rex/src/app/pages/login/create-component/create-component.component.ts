@@ -74,7 +74,6 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	createAccount(): void {
-		console.log('idk anymore');
 		const { email, password, dateOfBirth, loginName } = this.form.value;
 		const newUserRequest: NewUserRequest = {
 			email,
