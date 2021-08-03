@@ -1,8 +1,8 @@
-import { LoginUserRequest, NewUserRequest } from '@solid-octo-couscous/model';
+import { LoginUserRequest, NewUserRequest, User } from '@solid-octo-couscous/model';
 import { inject, singleton } from 'tsyringe';
 import { RedisDatabaseService } from '../../database/redis-database';
 import { genSalt, hash, compareSync } from 'bcrypt';
-import { red } from 'chalk';
+import { green, red } from 'chalk';
 import { nanoid } from 'nanoid';
 @singleton()
 export class AuthDataProvider {
@@ -69,9 +69,11 @@ export class AuthDataProvider {
 	 */
 	public readonly login = async (loginRequest: Readonly<LoginUserRequest>): Promise<Record<string, string>> => {
 		const { loginName, password } = loginRequest;
+		console.log('here');
 		const potentialUserEntry: Record<string, string> = await this.redisDatabaseService.redisDatabase.hgetall(
 			loginName
 		);
+		console.log(potentialUserEntry);
 
 		if (compareSync(password, potentialUserEntry?.password)) {
 			return potentialUserEntry;
@@ -79,5 +81,22 @@ export class AuthDataProvider {
 
 		// if the passwords don't match simply throw an exception and don't give away details.
 		throw new Error();
+	};
+
+	/**
+	 * Checks if a given user name exists.
+	 *
+	 * @param userName, the request is assumed to be validated by this point in time.
+	 * @returns boolean, if the user name exists or not.
+	 */
+	public readonly userNameExists = async (userName: Readonly<string>): Promise<boolean> => {
+		const loginNameField: keyof User = 'loginName';
+		const result = await this.redisDatabaseService.redisDatabase.hget(userName, loginNameField);
+
+		this.logger.log(
+			green(`${this.loggerPrefix} finding by field ${loginNameField} to check ${result} against ${userName}`)
+		);
+
+		return userName === result;
 	};
 }

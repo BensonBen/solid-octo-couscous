@@ -44,7 +44,15 @@ export class AuthenticationServerFactory {
 				audience: this.audience,
 				issuer: this.issuer,
 				algorithms: [this.jwtTokenAlgorithm],
-			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login', '/v1/alive/server'] })
+			}).unless({
+				path: [
+					'/v1/auth/createAccount',
+					'/v1/auth/login',
+					'/v1/alive/server',
+					'/v1/auth/userNameExists',
+					'/v1/auth/isLoggedIn',
+				],
+			})
 		);
 
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
@@ -73,6 +81,7 @@ export class AuthenticationServerFactory {
 		// auth sub routes.
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
+		authRouter.get('/userNameExists', authController.userNameExists);
 
 		// workout sub routes.
 		workoutRouter.get('/get', workoutController.getWorkout);
