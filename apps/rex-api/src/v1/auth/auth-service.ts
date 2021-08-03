@@ -1,5 +1,5 @@
 import { LoginUserRequest, NewUserRequest, User, LoginUserResponse } from '@solid-octo-couscous/model';
-import { green, cyan } from 'chalk';
+import { green, cyan, red } from 'chalk';
 import { inject, singleton } from 'tsyringe';
 import { AuthDataProvider } from './auth-data-provider';
 import { omit as _omit } from 'lodash';
@@ -9,7 +9,7 @@ import { isEmpty as _isEmpty } from 'lodash';
 
 @singleton()
 export class AuthService {
-	private readonly logger = console.log;
+	private readonly logger = console;
 	private readonly loggerPrefix = '[AuthService]';
 	private readonly jwtSignOptions: SignOptions = {
 		algorithm: process?.env?.AUTH_API_JWT_ALG as Algorithm,
@@ -29,7 +29,7 @@ export class AuthService {
 	 */
 	public readonly createAccount = async (userRequest: Readonly<NewUserRequest>): Promise<LoginUserResponse> => {
 		// prevent logging of sensitive information.
-		this.logger(
+		this.logger.log(
 			green(
 				`${this.loggerPrefix} Attempting to create new user account using: ${JSON.stringify({
 					...userRequest,
@@ -55,7 +55,7 @@ export class AuthService {
 	 * @returns, a Promise that stores the Transactional data from the new account created.
 	 */
 	public readonly login = async (loginRequest: Readonly<LoginUserRequest>): Promise<LoginUserResponse> => {
-		this.logger(
+		this.logger.log(
 			green(`${this.loggerPrefix} Attempting to log a user in by using: ${JSON.stringify(loginRequest)}`)
 		);
 
@@ -70,10 +70,10 @@ export class AuthService {
 	/**
 	 * Checks if a given user name exists.
 	 */
-	public readonly userNameExists = async (userName: Readonly<string>): Promise<boolean> => {
-		this.logger(green(`${this.loggerPrefix} Attempting to find user name: ${userName}`));
+	public readonly isDuplicateUserName = async (userName: Readonly<string>): Promise<boolean> => {
+		this.logger.log(green(`${this.loggerPrefix} Attempting to find user name: ${userName}`));
 
-		return await this.authDataProvider.userNameExists(userName);
+		return await this.authDataProvider.isDuplicateUserName(userName);
 	};
 
 	public readonly isLoggedIn = async (headers: IncomingHttpHeaders): Promise<boolean> => {
@@ -83,12 +83,18 @@ export class AuthService {
 			audience: process?.env?.AUTH_API_JWT_AUDIENCE,
 			issuer: process?.env?.AUTH_API_JWT_ISSUER,
 		};
-		const decryptedToken: JwtPayload = (await jwtVerify(
-			authorization,
-			process?.env?.AUTH_API_JWT_KEY,
-			issuer
-		)) as JwtPayload;
-		console.log(cyan(JSON.stringify(decryptedToken)));
-		return !_isEmpty(decryptedToken?.iss);
+		try {
+			const decryptedToken: JwtPayload = (await jwtVerify(
+				authorization,
+				process?.env?.AUTH_API_JWT_KEY,
+				issuer
+			)) as JwtPayload;
+			return !_isEmpty(decryptedToken?.iss);
+		} catch (error) {
+			this.logger.log(
+				red(`${this.loggerPrefix} Failed to check if a user is logged in for reason: ${JSON.stringify(error)}`)
+			);
+			return false;
+		}
 	};
 }

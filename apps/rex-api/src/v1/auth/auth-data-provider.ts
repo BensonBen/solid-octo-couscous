@@ -87,7 +87,7 @@ export class AuthDataProvider {
 	 * @param userName, the request is assumed to be validated by this point in time.
 	 * @returns boolean, if the user name exists or not.
 	 */
-	public readonly userNameExists = async (userName: Readonly<string>): Promise<boolean> => {
+	public readonly isDuplicateUserName = async (userName: Readonly<string>): Promise<boolean> => {
 		const loginNameField: keyof User = 'loginName';
 		const result = await this.redisDatabaseService.redisDatabase.hget(userName, loginNameField);
 

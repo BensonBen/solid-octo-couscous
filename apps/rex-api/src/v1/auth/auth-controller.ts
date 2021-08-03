@@ -51,13 +51,13 @@ export class AuthController {
 		}
 	};
 
-	public readonly userNameExists = async ({ query }: Readonly<Request>, response: Readonly<Response>) => {
+	public readonly isDuplicateUserName = async ({ query }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
-			const userNameExists = await this.authService.userNameExists(query?.userName as string);
+			const isDuplicateUserName = await this.authService.isDuplicateUserName(query?.userName as string);
 
 			return response.status(OK).send({
 				...this.baseTransaction,
-				data: userNameExists,
+				data: isDuplicateUserName,
 				success: true,
 			} as Transaction<boolean>);
 		} catch (error: unknown) {

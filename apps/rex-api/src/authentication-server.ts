@@ -82,7 +82,7 @@ export class AuthenticationServerFactory {
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
 		authRouter.post('/isLoggedIn', authController.isLoggedIn);
-		authRouter.get('/userNameExists', authController.userNameExists);
+		authRouter.get('/isDuplicateUserName', authController.isDuplicateUserName);
 
 		// workout sub routes.
 		workoutRouter.get('/get', workoutController.getWorkout);
