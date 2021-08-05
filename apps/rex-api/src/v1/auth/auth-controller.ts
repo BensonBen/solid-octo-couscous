@@ -19,7 +19,7 @@ export class AuthController {
 
 	constructor(@inject(AuthService) public authService?: AuthService) {}
 
-	public readonly createAccount = async ({ body }: Request, response: Response) => {
+	public readonly createAccount = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
 			const newUser = await this.authService.createAccount(body);
 			return response.status(OK).send({

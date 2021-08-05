@@ -5,7 +5,16 @@ describe('AuthController', () => {
 	const createAccount = jest.fn(() => {
 		// no-op.
 	});
-	const authService = { createAccount };
+	const login = jest.fn(() => {
+		// no-op.
+	});
+	const isDuplicateUserName = jest.fn(() => {
+		// no-op.
+	});
+	const isLoggedIn = jest.fn(() => {
+		// no-op.
+	});
+	const authService = { createAccount, login, isDuplicateUserName, isLoggedIn };
 	let authController: AuthController;
 
 	beforeEach(() => {
