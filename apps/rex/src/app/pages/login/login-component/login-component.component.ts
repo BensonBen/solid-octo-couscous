@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
 	signIn(): void {
 		const { loginName, password } = this.form.value;
 		this.store$.dispatch(CurrentUserStoreActions.loginUserRequest({ loginName, password }));
-		// this.router.navigate(['../main'], { relativeTo: this.activatedRoute });
 	}
 
 	createAccount(event: Event): void {

@@ -77,24 +77,21 @@ export class AuthService {
 	};
 
 	public readonly isLoggedIn = async (headers: IncomingHttpHeaders): Promise<boolean> => {
-		const authorization = headers?.authorization?.substr(7);
+		const skipOverBearerForJwtTokenInAuthHeader = 7;
+		const authorization = headers?.authorization?.substr(skipOverBearerForJwtTokenInAuthHeader);
 		const issuer = {
 			algorithm: process?.env?.AUTH_API_JWT_ALG as Algorithm,
 			audience: process?.env?.AUTH_API_JWT_AUDIENCE,
 			issuer: process?.env?.AUTH_API_JWT_ISSUER,
 		};
 		try {
-			const decryptedToken: JwtPayload = (await jwtVerify(
-				authorization,
-				process?.env?.AUTH_API_JWT_KEY,
-				issuer
-			)) as JwtPayload;
-			return !_isEmpty(decryptedToken?.iss);
+			const { iss } = (await jwtVerify(authorization, process?.env?.AUTH_API_JWT_KEY, issuer)) as JwtPayload;
+			return !_isEmpty(iss);
 		} catch (error) {
 			this.logger.log(
 				red(`${this.loggerPrefix} Failed to check if a user is logged in for reason: ${JSON.stringify(error)}`)
 			);
-			return false;
+			return Promise.resolve(false);
 		}
 	};
 }
