@@ -16,10 +16,13 @@ describe('AuthController', () => {
 	const isLoggedIn = jest.fn(() => {
 		// no-op.
 	});
-	const status = jest.fn(() => {
-		// no-op.
+	const status = jest.fn((status: number) => {
+		console.log(status);
+		const result: Response<any, Record<string, any>> = {} as Response<any, Record<string, any>>;
+		return result;
 	});
 	const send = jest.fn(() => {
+		console.log('send');
 		// no-op.
 	});
 	const response: Readonly<Response> = {
@@ -32,17 +35,17 @@ describe('AuthController', () => {
 
 	beforeEach(() => {
 		authController = new AuthController(authService as unknown as AuthService);
-		status.mockReset();
-		status.mockClear();
-		send.mockReset();
-		send.mockReset();
+		// status.mockReset();
+		// status.mockClear();
+		// send.mockReset();
+		// send.mockReset();
 	});
 
 	it('should create', () => {
 		expect(authController).toBeDefined();
 	});
 
-	it('should call create account', () => {
+	it('should call create account', async done => {
 		const loginUserRequest: LoginUserRequest = {
 			loginName: `chaoz133`,
 			password: `someNotSecurePassword`,
@@ -51,9 +54,11 @@ describe('AuthController', () => {
 			body: loginUserRequest,
 		} as Readonly<Request>;
 
-		authController.createAccount(request, response);
+		const createdUser = await authController.createAccount(request, response);
 		expect(createAccount).toHaveBeenCalled();
 		expect(status).toHaveBeenCalled();
 		expect(send).toHaveBeenCalled();
+
+		done();
 	});
 });

@@ -21,6 +21,7 @@ export class AuthController {
 
 	public readonly createAccount = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
+			debugger;
 			const newUser = await this.authService.createAccount(body);
 			const data: Transaction<LoginUserResponse> = {
 				...this.baseTransaction,
