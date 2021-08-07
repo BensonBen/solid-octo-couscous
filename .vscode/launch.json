@@ -10,8 +10,8 @@
 	"configurations": [
 		{
 			"type": "node",
-			"request": "attach",
-			"name": "debug-jest-ubuntu-20.04",
+			"request": "launch",
+			"name": "rex-api debug-jest-ubuntu-20.04",
 			"presentation": {
 				"hidden": false,
 				"group": "jest",
@@ -24,11 +24,12 @@
 			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng", // program or file to run when debugging.
 			"args": [
 				"test",
+				"rex-api",
 				"--codeCoverage=false",
 				"--runInBand",
 				"--ci",
 				"--silent",
-				"--no-cache",
+				"--no-cache"
 				// "--env=jsdom"
 			],
 			"console": "integratedTerminal",
