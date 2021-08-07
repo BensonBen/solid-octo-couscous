@@ -1,20 +1,38 @@
 {
+	"version": "0.2.0",
+	"compounds": [
+		{
+			"name": "Compound",
+			"configurations": []
+		}
+	],
+	"inputs": [],
 	"configurations": [
 		{
-			"name": "debug-jest-lib",
 			"type": "node",
-			"request": "launch",
-			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+			"request": "attach",
+			"name": "debug-jest-ubuntu-20.04",
+			"presentation": {
+				"hidden": false,
+				"group": "jest",
+				"order": 1
+			},
+			"preLaunchTask": "",
+			"postDebugTask": "",
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng", // program or file to run when debugging.
 			"args": [
 				"test",
-				"rex-api",
 				"--codeCoverage=false",
 				"--runInBand",
 				"--ci",
-				"--silent"
+				"--silent",
+				"--no-cache",
+				// "--env=jsdom"
 			],
-			"cwd": "${workspaceFolder}",
-			"console": "internalConsole"
+			"console": "integratedTerminal",
+			"port": 9229
 		}
 	]
 }
