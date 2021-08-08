@@ -21,7 +21,7 @@
 			"postDebugTask": "",
 			"internalConsoleOptions": "neverOpen",
 			"skipFiles": ["<node_internals>/**"],
-			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng", // program or file to run when debugging.
+			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
 			"args": [
 				"test",
 				"rex-api",
@@ -30,7 +30,33 @@
 				"--ci",
 				"--silent",
 				"--no-cache"
-				// "--env=jsdom"
+			],
+			"console": "integratedTerminal",
+			"port": 9229
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "rex debug-jest-ubuntu-20.04",
+			"presentation": {
+				"hidden": false,
+				"group": "jest",
+				"order": 2
+			},
+			"preLaunchTask": "",
+			"postDebugTask": "",
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+			"args": [
+				"test",
+				"rex",
+				"--codeCoverage=false",
+				"--runInBand",
+				"--ci",
+				"--silent",
+				"--no-cache",
+				"--env=jsdom"
 			],
 			"console": "integratedTerminal",
 			"port": 9229

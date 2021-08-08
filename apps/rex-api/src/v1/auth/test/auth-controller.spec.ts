@@ -16,15 +16,9 @@ describe('AuthController', () => {
 	const isLoggedIn = jest.fn(() => {
 		// no-op.
 	});
-	const status = jest.fn((status: number) => {
-		console.log(status);
-		const result: Response<any, Record<string, any>> = {} as Response<any, Record<string, any>>;
-		return result;
-	});
-	const send = jest.fn(() => {
-		console.log('send');
-		// no-op.
-	});
+	const send = jest.fn(() => {});
+	const status = jest.fn((status: number) => {});
+
 	const response: Readonly<Response> = {
 		status,
 		send,
@@ -55,6 +49,7 @@ describe('AuthController', () => {
 		} as Readonly<Request>;
 
 		const createdUser = await authController.createAccount(request, response);
+		status.mockReturnValueOnce(send);
 		expect(createAccount).toHaveBeenCalled();
 		expect(status).toHaveBeenCalled();
 		expect(send).toHaveBeenCalled();
