@@ -1,14 +1,30 @@
-import { LoginUserRequest } from '@solid-octo-couscous/model';
+import { LoginUserRequest, LoginUserResponse } from '@solid-octo-couscous/model';
 import { AuthController } from '../auth-controller';
 import { AuthService } from '../auth-service';
 import { Request, Response } from 'express';
+import { finance, internet } from 'faker';
+import { cyan } from 'chalk';
+import { nanoid } from 'nanoid';
 
 describe('AuthController', () => {
+	const fakeLoginResponse: LoginUserResponse = {
+		approvalNotes: '',
+		createdOn: 1,
+		dateOfBirth: 1,
+		description: '',
+		email: internet.email(),
+		id: nanoid(),
+		isApproved: 1,
+		jwtToken: `123.345.562`,
+		loginName: internet.userName(),
+		modifiedOn: 0,
+	};
+
 	const createAccount = jest.fn(() => {
-		// no-op.
+		return Promise.resolve(fakeLoginResponse);
 	});
 	const login = jest.fn(() => {
-		// no-op.
+		return Promise.resolve(fakeLoginResponse);
 	});
 	const isDuplicateUserName = jest.fn(() => {
 		// no-op.
@@ -16,12 +32,20 @@ describe('AuthController', () => {
 	const isLoggedIn = jest.fn(() => {
 		// no-op.
 	});
-	const send = jest.fn(() => {});
-	const status = jest.fn((status: number) => {});
+
+	const send = jest.fn(() => {
+		// no-op
+	});
+
+	const status = jest.fn(() => {
+		console.log(cyan('fake status'));
+		return {
+			send,
+		};
+	});
 
 	const response: Readonly<Response> = {
 		status,
-		send,
 	} as unknown as Readonly<Response>;
 
 	const authService = { createAccount, login, isDuplicateUserName, isLoggedIn };
@@ -29,10 +53,6 @@ describe('AuthController', () => {
 
 	beforeEach(() => {
 		authController = new AuthController(authService as unknown as AuthService);
-		// status.mockReset();
-		// status.mockClear();
-		// send.mockReset();
-		// send.mockReset();
 	});
 
 	it('should create', () => {
@@ -41,15 +61,15 @@ describe('AuthController', () => {
 
 	it('should call create account', async done => {
 		const loginUserRequest: LoginUserRequest = {
-			loginName: `chaoz133`,
-			password: `someNotSecurePassword`,
+			loginName: finance.accountName(),
+			password: internet.password(),
 		};
 		const request: Readonly<Request> = {
 			body: loginUserRequest,
 		} as Readonly<Request>;
 
-		const createdUser = await authController.createAccount(request, response);
-		status.mockReturnValueOnce(send);
+		await authController.login(request, response);
+
 		expect(createAccount).toHaveBeenCalled();
 		expect(status).toHaveBeenCalled();
 		expect(send).toHaveBeenCalled();
