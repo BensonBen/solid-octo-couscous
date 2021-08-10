@@ -33,19 +33,12 @@ describe('AuthController', () => {
 		// no-op.
 	});
 
-	const send = jest.fn((statusCode: number) => {
-		console.log(cyan(`send called`));
-		this;
-	});
-
-	const status = jest.fn(() => {
-		console.log(cyan(`status called`));
-		this;
-	});
+	const send = jest.fn();
+	const status = jest.fn();
 
 	const response: Readonly<Response> = {
-		status: jest.fn(() => response),
-		send: jest.fn(() => response),
+		status,
+		send,
 	} as unknown as Readonly<Response>;
 
 	const authService = { createAccount, login, isDuplicateUserName, isLoggedIn };
@@ -59,21 +52,26 @@ describe('AuthController', () => {
 		expect(authController).toBeDefined();
 	});
 
-	it('should call create account', async done => {
+	it('should call create account', () => {
 		const loginUserRequest: LoginUserRequest = {
 			loginName: finance.accountName(),
 			password: internet.password(),
 		};
+
 		const request: Readonly<Request> = {
 			body: loginUserRequest,
 		} as Readonly<Request>;
 
+		// send.mockRejectedValueOnce(JSON.stringify(fakeLoginResponse));
+		send.mockReturnThis();
+		status.mockReturnThis();
+
 		authController.login(request, response);
 
 		expect(login).toHaveBeenCalled();
-		expect(status).toHaveBeenCalled();
-		expect(send).toHaveBeenCalled();
-
-		done();
+		console.log('assertion time');
+		debugger;
+		expect(response.status).toHaveBeenCalled();
+		expect(response.send).toHaveBeenCalled();
 	});
 });

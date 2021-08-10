@@ -38,13 +38,13 @@ export class AuthController {
 
 	public readonly login = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
-			debugger;
 			const loggedInUser = await this.authService.login(body);
 			const data: Transaction<LoginUserResponse> = {
 				...this.baseTransaction,
 				data: loggedInUser,
 				success: true,
 			};
+			console.log('get response time');
 			return response.status(OK).send(data);
 		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to login account with reason: ${JSON.stringify(error)}`));
