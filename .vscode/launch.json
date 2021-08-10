@@ -22,7 +22,7 @@
 			"internalConsoleOptions": "neverOpen",
 			"skipFiles": ["<node_internals>/**"],
 			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
-			"args": ["test", "rex-api", "--codeCoverage=false", "--runInBand", "--ci", "--silent", "--no-cache"],
+			"args": ["test", "rex-api", "--codeCoverage=false", "--runInBand", "--ci", "--silent", "--no-cache", "--detectOpenHandles"],
 			"console": "integratedTerminal",
 			"port": 9229
 		},

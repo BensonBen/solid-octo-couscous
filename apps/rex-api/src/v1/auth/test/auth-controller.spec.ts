@@ -33,19 +33,19 @@ describe('AuthController', () => {
 		// no-op.
 	});
 
-	const send = jest.fn(() => {
-		// no-op
+	const send = jest.fn((statusCode: number) => {
+		console.log(cyan(`send called`));
+		this;
 	});
 
 	const status = jest.fn(() => {
-		console.log(cyan('fake status'));
-		return {
-			send,
-		};
+		console.log(cyan(`status called`));
+		this;
 	});
 
 	const response: Readonly<Response> = {
-		status,
+		status: jest.fn(() => response),
+		send: jest.fn(() => response),
 	} as unknown as Readonly<Response>;
 
 	const authService = { createAccount, login, isDuplicateUserName, isLoggedIn };
@@ -68,9 +68,9 @@ describe('AuthController', () => {
 			body: loginUserRequest,
 		} as Readonly<Request>;
 
-		await authController.login(request, response);
+		authController.login(request, response);
 
-		expect(createAccount).toHaveBeenCalled();
+		expect(login).toHaveBeenCalled();
 		expect(status).toHaveBeenCalled();
 		expect(send).toHaveBeenCalled();
 

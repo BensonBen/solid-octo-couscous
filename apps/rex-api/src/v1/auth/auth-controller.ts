@@ -38,6 +38,7 @@ export class AuthController {
 
 	public readonly login = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
+			debugger;
 			const loggedInUser = await this.authService.login(body);
 			const data: Transaction<LoginUserResponse> = {
 				...this.baseTransaction,
