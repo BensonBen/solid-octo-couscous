@@ -16,7 +16,7 @@ export class BaseBluetoothConnectionService extends Unsubscriber {
 	protected readonly sixtySeconds = 60;
 	protected readonly feetInMile = 5280;
 
-	constructor(filters: Array<BluetoothRequestDeviceFilter>, optionalServices: Array<BluetoothServiceUUID>) {
+	constructor(filters: Array<BluetoothLEScanFilter>, optionalServices: Array<BluetoothServiceUUID>) {
 		super();
 		this.bluetoothDeviceSearchOptions = { ...this.bluetoothDeviceSearchOptions, filters, optionalServices };
 	}
