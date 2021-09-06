@@ -3,8 +3,7 @@ import { inject, singleton } from 'tsyringe';
 import { RedisDatabaseService } from '../../database/redis-database';
 import { genSalt, hash, compareSync } from 'bcrypt';
 import { red } from 'chalk';
-import { v4 as uuidv4 } from 'uuid';
-
+import { nanoid } from 'nanoid';
 @singleton()
 export class AuthDataProvider {
 	private readonly logger = console;
@@ -27,7 +26,7 @@ export class AuthDataProvider {
 			hash(password, await genSalt(+this.authDataProviderSaltRounds)),
 		]);
 		const createdOnModifiedOnTime: number = new Date().getTime();
-		const id = uuidv4();
+		const id = nanoid();
 
 		const newUserHashCreationResult = await this.redisDatabaseService.redisDatabase.hmset(
 			loginName,

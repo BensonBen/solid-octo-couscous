@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
@@ -8,7 +9,6 @@ import { Observable } from 'rxjs';
 
 import { CurrentUserStoreActions } from '../../../root-state/current-user';
 import { RootStoreState } from '../../../root-state/root-state';
-import { AnimationService } from '../services/animation.service';
 
 @Component({
 	selector: 'soc-create-component',
@@ -25,7 +25,7 @@ export class CreateComponentComponent implements OnInit {
 	private readonly minPasswordLength: number = 1;
 	private readonly maxPasswordLength: number = 12;
 	private readonly strongPasswordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?!.*(.)\1\1)[a-zA-Z0-9@]{6,12}$/;
-	private readonly createGroup: any = {
+	private readonly createGroup: Record<string, Validators> = {
 		loginName: [null, Validators.compose([Validators.required, Validators.minLength(0)])],
 		email: [
 			null,
@@ -53,9 +53,10 @@ export class CreateComponentComponent implements OnInit {
 	};
 
 	constructor(
+		private readonly activatedRoute: ActivatedRoute,
 		private readonly formBuilder: FormBuilder,
-		private readonly animationService: AnimationService,
-		private readonly store$: Store<RootStoreState>
+		private readonly store$: Store<RootStoreState>,
+		private readonly router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -65,15 +66,11 @@ export class CreateComponentComponent implements OnInit {
 		});
 	}
 
-	readonly checkPasswords = (group: FormGroup): { [key: string]: any } | null => {
+	readonly checkPasswords = (group: FormGroup): { [key: string]: unknown } | null => {
 		const pass: string = group?.get('password')?.value ?? null;
 		const confirmPass: string = group?.get('retypedPassword')?.value ?? null;
 
-		if (!_isNil(pass) && !_isNil(confirmPass)) {
-			return pass === confirmPass ? null : { notSame: true };
-		}
-
-		return { notSame: true };
+		return !_isNil(pass) && !_isNil(confirmPass) ? null : { notSame: true };
 	};
 
 	createAccount(): void {
@@ -87,7 +84,8 @@ export class CreateComponentComponent implements OnInit {
 		this.store$.dispatch(CurrentUserStoreActions.createUserRequest({ newUserRequest }));
 	}
 
-	goToLogin(): void {
-		this.animationService.toggleAnimationState();
+	login(event: Event): void {
+		event.preventDefault();
+		this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
 	}
 }

@@ -1,3 +1,3 @@
-module.exports = {
-	projects: ['<rootDir>/apps/rex', '<rootDir>/libs/model', '<rootDir>/libs/ui', '<rootDir>/apps/rex-api'],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };

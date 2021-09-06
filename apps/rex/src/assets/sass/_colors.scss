@@ -1,24 +1,24 @@
-$primary900: #1a237e;
-$primary800: #283493;
-$primary700: #303e9f;
-$primary600: #3948ab;
-$primary500: #3f50b5;
+$primary900: #1b217e;
+$primary800: #283393;
+$primary700: #303d9f;
+$primary600: #3947ab;
+$primary500: #3f4fb5;
 $primary400: #5c6ac0;
-$primary300: #7986cb;
-$primary200: #9fa8da;
-$primary100: #c5cae9;
+$primary300: #7985cb;
+$primary200: #9fa7da;
+$primary100: #c5c9e9;
 $primary50: #e8eaf6;
 
-$secondary900: #7e761a;
-$secondary800: #9a9c27;
-$secondary700: #aab32e;
-$secondary600: #bbc936;
-$secondary500: #c7db3c;
-$secondary400: #d8e676;
-$secondary300: #d8e676;
-$secondary200: #e3ed9d;
-$secondary100: #eef4c3;
-$secondary50: #f8fbe7;
+$secondary900: #1f1f1f;
+$secondary800: #404040;
+$secondary700: #5e5e5e;
+$secondary600: #727272;
+$secondary500: #9b9b9b;
+$secondary400: #bababa;
+$secondary300: #dedede;
+$secondary200: #ececec;
+$secondary100: #f4f4f4;
+$secondary50: #fafafa;
 
 $error900: #7e1a22;
 $error800: #8e1f2b;
@@ -30,6 +30,9 @@ $error300: #b6656d;
 $error200: #cc8e94;
 $error100: #e9c5cc;
 $error50: #f5e8eb;
+
+$primaryTextColorGivenSmallText: rgba(255, 255, 255, 0.9);
+$secondaryTextColorGivenSmallText: rgba(0, 0, 0, 0.6);
 
 /* custom created primary map of colors for SOC. */
 $mat-dark-indigo-blue: (
@@ -44,16 +47,16 @@ $mat-dark-indigo-blue: (
 	800: $primary800,
 	900: $primary900,
 	contrast: (
-		50: rgba($primary50, 0.87),
-		100: rgba($primary100, 0.87),
-		200: rgba($primary200, 0.87),
-		300: rgba($primary300, 0.87),
-		400: rgba($primary400, 0.87),
-		500: rgba($primary500, 0.87),
-		600: rgba($primary600, 0.87),
-		700: rgba($primary700, 0.87),
-		800: rgba($primary800, 0.87),
-		900: rgba($primary900, 0.87),
+		50: $primaryTextColorGivenSmallText,
+		100: $primaryTextColorGivenSmallText,
+		200: $primaryTextColorGivenSmallText,
+		300: $primaryTextColorGivenSmallText,
+		400: $primaryTextColorGivenSmallText,
+		500: $primaryTextColorGivenSmallText,
+		600: $primaryTextColorGivenSmallText,
+		700: $primaryTextColorGivenSmallText,
+		800: $primaryTextColorGivenSmallText,
+		900: $primaryTextColorGivenSmallText,
 	),
 );
 
@@ -69,18 +72,20 @@ $mat-dark-mustard-secondary: (
 	700: $secondary700,
 	800: $secondary800,
 	900: $secondary900,
-	contrast: (
-		50: rgba($secondary50, 0.87),
-		100: rgba($secondary100, 0.87),
-		200: rgba($secondary200, 0.87),
-		300: rgba($secondary300, 0.87),
-		400: rgba($secondary400, 0.87),
-		500: rgba($secondary500, 0.87),
-		600: rgba($secondary600, 0.87),
-		700: rgba($secondary700, 0.87),
-		800: rgba($secondary800, 0.87),
-		900: rgba($secondary900, 0.87),
-	),
+	// TODO: choose a contrast color that isn't completely illegable for text reasons
+	contrast:
+		(
+			50: $secondaryTextColorGivenSmallText,
+			100: $secondaryTextColorGivenSmallText,
+			200: $secondaryTextColorGivenSmallText,
+			300: $secondaryTextColorGivenSmallText,
+			400: $secondaryTextColorGivenSmallText,
+			500: $secondaryTextColorGivenSmallText,
+			600: $secondaryTextColorGivenSmallText,
+			700: $secondaryTextColorGivenSmallText,
+			800: $secondaryTextColorGivenSmallText,
+			900: $secondaryTextColorGivenSmallText,
+		),
 );
 
 $mat-dark-triadic-error: (
@@ -95,15 +100,15 @@ $mat-dark-triadic-error: (
 	800: $error800,
 	900: $error900,
 	contrast: (
-		50: rgba($error50, 0.87),
-		100: rgba($error100, 0.87),
-		200: rgba($error200, 0.87),
-		300: rgba($error300, 0.87),
-		400: rgba($error400, 0.87),
-		500: rgba($error500, 0.87),
-		600: rgba($error600, 0.87),
-		700: rgba($error700, 0.87),
-		800: rgba($error800, 0.87),
-		900: rgba($error900, 0.87),
+		50: $primaryTextColorGivenSmallText,
+		100: $primaryTextColorGivenSmallText,
+		200: $primaryTextColorGivenSmallText,
+		300: $primaryTextColorGivenSmallText,
+		400: $primaryTextColorGivenSmallText,
+		500: $primaryTextColorGivenSmallText,
+		600: $primaryTextColorGivenSmallText,
+		700: $primaryTextColorGivenSmallText,
+		800: $primaryTextColorGivenSmallText,
+		900: $primaryTextColorGivenSmallText,
 	),
 );

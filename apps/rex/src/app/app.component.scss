@@ -1,8 +1,4 @@
-:host {
-	.mat-toolbar.mat-primary {
-		color: #ffffff;
-	}
-}
+@use 'mixins'as mixins;
 
 .app-frame {
 	min-height: calc(100vh);
@@ -12,36 +8,32 @@
 	font-size: 2em;
 }
 
-// TODO: consider moving this into its own mixins scss file, but thats for later.
-@mixin grid-position($rowStart, $rowEnd, $colStart, $colEnd) {
-	grid-column-start: $colStart;
-	grid-column-end: $colEnd;
-	grid-row-start: $rowStart;
-	grid-row-end: $rowEnd;
+.min-drawer-width {
+	min-width: 20em;
 }
 
 div.d-grid {
 	display: grid;
-	grid-template-columns: 100vw;
+	grid-template-columns: 100%;
 	grid-template-rows: minmax(0, 4em) minmax(0, calc(100% - 10em)) minmax(0, 4em);
-	row-gap: 1em;
+	row-gap: 0.7em;
 	height: 100vh;
 	width: 100vw;
 
-	// header.
 	.header {
-		@include grid-position(1, 1, 1, 1);
+		@include mixins.grid-position(1, 1, 1, 1);
 	}
 
 	.main {
-		@include grid-position(2, 2, 1, 1);
+		@include mixins.grid-position(2, 2, 1, 1);
 		display: flex;
-		justify-content: center;
 		overflow-y: auto;
+		justify-content: center;
+		width: 100%;
 	}
 
 	.footer {
-		@include grid-position(3, 3, 1, 1);
+		@include mixins.grid-position(3, 3, 1, 1);
 	}
 }
 

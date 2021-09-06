@@ -1,19 +1,5 @@
-@use '~@angular/material'as material;
-@use '../fonts/fonts'as fonts;
+@use '~@angular/material'as mat;
 
-$solid-octo-couscous-typography: material.define-typography-config(
+$solid-octo-couscous-typography: mat.define-typography-config(
 	$font-family: '"Arvo"',
-	$display-4: material.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
-	$display-3: material.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
-	$display-2: material.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
-	$display-1: material.define-typography-level(34px, 40px, 400),
-	$headline: material.define-typography-level(24px, 32px, 400),
-	$title: material.define-typography-level(20px, 32px, 500),
-	$subheading-2: material.define-typography-level(16px, 28px, 400),
-	$subheading-1: material.define-typography-level(15px, 24px, 400),
-	$body-2: material.define-typography-level(14px, 24px, 500),
-	$body-1: material.define-typography-level(14px, 20px, 400),
-	$caption: material.define-typography-level(12px, 20px, 400),
-	$button: material.define-typography-level(14px, 14px, 500),
-	$input: material.define-typography-level(inherit, 1.125, 400),
 );

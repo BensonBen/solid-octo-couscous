@@ -7,6 +7,9 @@ export const currentUser: keyof RootStoreState = 'currentUser';
 
 export const currentUserStoreState: MemoizedSelector<RootStoreState, State> = createFeatureSelector<State>(currentUser);
 
-export const hasError: MemoizedSelector<RootStoreState, any> = createSelector(currentUserStoreState, getError);
+export const hasError: MemoizedSelector<RootStoreState, Record<string, string>> = createSelector(
+	currentUserStoreState,
+	getError
+);
 
 export const isLoading: MemoizedSelector<RootStoreState, boolean> = createSelector(currentUserStoreState, getIsLoading);

@@ -9,6 +9,23 @@
 REX is designed to be a electron, or web application that interfaces with popular exercise bikes.
 The user will connect their exercise bike through bluetooth, or possibly USB.
 
+## Current State
+
+#### Capabilities of REX include
+
+-   [x] Reading Delta Crank Event Time
+-   [x] Reading Delta Crank Revolution(s)
+-   [x] Reading Delta Wheel Event Time
+-   [x] Reading Delta Wheel Revolution(s)
+
+-   [x] Reading Manufacterer Name
+-   [x] Reading Software Revision
+-   [x] Reading Firmware Revision
+-   [x] Reading Bike Model Revision
+-   [x] Reading Bike Model
+
+![image](https://user-images.githubusercontent.com/10961012/125396098-143d2980-e37a-11eb-94a5-4c8536e58d8f.png)
+
 ## Table of Contents
 
 -   [Installation](#installation)
@@ -19,7 +36,8 @@ The user will connect their exercise bike through bluetooth, or possibly USB.
 
 ## Installation
 
-TODO: not yet implemented using electron.
+Installing involves visiting [REX](https://rex.fitness/) and selecting the install button as indicated in this screenshot (using chrome).
+![Chrome](https://user-images.githubusercontent.com/10961012/124973075-eeadca00-dfdf-11eb-9c40-44fcadf219ce.png)
 
 ## Built With
 
@@ -32,8 +50,9 @@ TODO: not yet implemented using electron.
 -   [Nx](https://nx.dev) Complexity Management
 -   [NGINX](https://www.nginx.com/) Web Server
 -   [NgRx](https://ngrx.io/) Frontend State Management
--   [TensorFlowJS](https://www.tensorflow.org/js) Machine learning in the browser
 -   [Linode](https://linode.com) Deployment
+-   [PW2](https://pm2.keymetrics.io/) NodeJS Process Manager
+-   [Redis](https://redislabs.com/) Standalone Database
 
 ## Usage
 
@@ -62,7 +81,7 @@ TODO: not yet implemented using electron.
 
 ## Credits
 
-[Benjamin Benson](https://github.com/BensonBen)
+[Benjamin Benson](https://github.com/BensonBen),
 [Rick Astley](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 [MIT License](https://opensource.org/licenses/MIT) © [Benjamin Benson](https://github.com/BensonBen)

@@ -4,10 +4,12 @@
 
 export const environment = {
 	production: false,
+	// note: rex-api will be rewritten on the server to remove it and proxied to express.
 	baseUrl: `/rex-api`,
 	apiVersionOne: `v1`,
 	authApi: `auth`,
 	workoutApi: `workout`,
+	alive: `alive`,
 };
 
 /*

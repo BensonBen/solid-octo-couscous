@@ -68,7 +68,13 @@
 						"main": "apps/rex/src/main.ts",
 						"polyfills": "apps/rex/src/polyfills.ts",
 						"tsConfig": "apps/rex/tsconfig.app.json",
-						"assets": ["apps/rex/src/favicon.ico", "apps/rex/src/assets"],
+						"assets": [
+							"apps/rex/src/favicon.ico",
+							"apps/rex/src/assets",
+							"apps/rex/src/manifest.webmanifest",
+							"apps/rex/src/ngsw-worker.js",
+							"apps/rex/src/robots.txt"
+						],
 						"styles": ["apps/rex/src/styles.scss"],
 						"scripts": [],
 						"vendorChunk": true,
@@ -76,7 +82,12 @@
 						"buildOptimizer": false,
 						"sourceMap": true,
 						"optimization": false,
-						"namedChunks": true
+						"namedChunks": true,
+						"serviceWorker": true,
+						"ngswConfigPath": "apps/rex/ngsw-config.json",
+						"stylePreprocessorOptions": {
+							"includePaths": ["apps/rex/src/assets/sass/util"]
+						}
 					},
 					"configurations": {
 						"production": {
