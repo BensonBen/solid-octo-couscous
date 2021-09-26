@@ -42,7 +42,8 @@
 					"builder": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/model/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
@@ -141,7 +142,8 @@
 					"builder": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/rex/src/**/*.ts", "apps/rex/src/**/*.html"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
@@ -192,7 +194,8 @@
 					"builder": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/rex-api/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
@@ -226,7 +229,8 @@
 					"builder": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/rex-e2e/**/*.{js,ts}"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				}
 			}
 		},
@@ -240,7 +244,8 @@
 					"builder": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
