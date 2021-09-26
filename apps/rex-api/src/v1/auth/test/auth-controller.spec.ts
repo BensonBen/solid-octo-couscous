@@ -3,7 +3,6 @@ import { AuthController } from '../auth-controller';
 import { AuthService } from '../auth-service';
 import { Request, Response } from 'express';
 import { finance, internet } from 'faker';
-import { cyan } from 'chalk';
 import { nanoid } from 'nanoid';
 
 describe('AuthController', () => {
