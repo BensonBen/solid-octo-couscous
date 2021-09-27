@@ -1,8 +1,7 @@
-import { LoginUserRequest, LoginUserResponse } from '@solid-octo-couscous/model';
+import { LoginUserResponse } from '@solid-octo-couscous/model';
 import { AuthController } from '../auth-controller';
 import { AuthService } from '../auth-service';
-import { Request, Response } from 'express';
-import { finance, internet } from 'faker';
+import { internet } from 'faker';
 import { nanoid } from 'nanoid';
 
 describe('AuthController', () => {
@@ -32,14 +31,6 @@ describe('AuthController', () => {
 		// no-op.
 	});
 
-	const send = jest.fn();
-	const status = jest.fn();
-
-	const response: Readonly<Response> = {
-		status,
-		send,
-	} as unknown as Readonly<Response>;
-
 	const authService = { createAccount, login, isDuplicateUserName, isLoggedIn };
 	let authController: AuthController;
 
@@ -49,28 +40,5 @@ describe('AuthController', () => {
 
 	it('should create', () => {
 		expect(authController).toBeDefined();
-	});
-
-	it('should call create account', () => {
-		const loginUserRequest: LoginUserRequest = {
-			loginName: finance.accountName(),
-			password: internet.password(),
-		};
-
-		const request: Readonly<Request> = {
-			body: loginUserRequest,
-		} as Readonly<Request>;
-
-		// send.mockRejectedValueOnce(JSON.stringify(fakeLoginResponse));
-		send.mockReturnThis();
-		status.mockReturnThis();
-
-		authController.login(request, response);
-
-		expect(login).toHaveBeenCalled();
-		console.log('assertion time');
-		debugger;
-		expect(response.status).toHaveBeenCalled();
-		expect(response.send).toHaveBeenCalled();
 	});
 });

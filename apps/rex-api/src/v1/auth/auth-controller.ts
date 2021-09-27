@@ -29,7 +29,7 @@ export class AuthController {
 			};
 			return response.status(OK).send(data);
 		} catch (error: unknown) {
-			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
+			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${error}`));
 			const data = { ...this.baseTransaction, message: this.somethingWentWrong };
 
 			return response.status(INTERNAL_SERVER_ERROR).send(data);

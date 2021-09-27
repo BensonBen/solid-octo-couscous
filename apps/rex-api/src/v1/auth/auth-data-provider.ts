@@ -27,7 +27,6 @@ export class AuthDataProvider {
 		]);
 		const createdOnModifiedOnTime: number = new Date().getTime();
 		const id = nanoid();
-
 		const newUserHashCreationResult = await this.redisDatabaseService.redisDatabase.hmset(
 			loginName,
 			'loginName',

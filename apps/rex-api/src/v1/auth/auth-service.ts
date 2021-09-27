@@ -1,5 +1,5 @@
 import { LoginUserRequest, NewUserRequest, User, LoginUserResponse } from '@solid-octo-couscous/model';
-import { green, cyan, red } from 'chalk';
+import { green, red } from 'chalk';
 import { inject, singleton } from 'tsyringe';
 import { AuthDataProvider } from './auth-data-provider';
 import { omit as _omit } from 'lodash';
@@ -41,7 +41,6 @@ export class AuthService {
 
 		const omission: keyof User = 'password';
 		const user: LoginUserResponse = _omit(await this.authDataProvider.createAccount(userRequest), omission);
-
 		const jwtToken = jwtSign(user, process?.env?.AUTH_API_JWT_KEY, this.jwtSignOptions);
 
 		return { ...user, jwtToken } as LoginUserResponse;
