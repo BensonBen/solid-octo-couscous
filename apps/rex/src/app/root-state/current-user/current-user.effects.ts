@@ -42,9 +42,9 @@ export class CurrentUserStoreEffects {
 	public signInRequestSuccess$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CurrentUserActions.signInRequestSuccess),
-			switchMap(({ user }) => {
+			map(({ user }) => {
 				const message = `Welcome ${user?.loginName ?? 'blank'}!`;
-				return of(ToastActions.openSnackBar({ message, action: 'dismiss' }));
+				return ToastActions.openSnackBar({ message, action: 'dismiss' });
 			})
 		)
 	);

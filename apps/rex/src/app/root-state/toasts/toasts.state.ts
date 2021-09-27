@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { EntityState } from '@ngrx/entity';
 
 export interface State extends EntityState<any> {
 	isLoaded: boolean;
@@ -13,8 +13,3 @@ export const initialState: State = {
 	loading: false,
 	error: {},
 };
-
-// export const entityAdapter: EntityAdapter<any> = createEntityAdapter<any>({
-// 	selectId: a => a?.id,
-// 	sortComparer: false,
-// });

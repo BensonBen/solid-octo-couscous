@@ -7,7 +7,7 @@ import { NewUserRequest } from '@solid-octo-couscous/model';
 import { isNil as _isNil } from 'lodash-es';
 import { Observable } from 'rxjs';
 
-import { CurrentUserStoreActions, ToastStoreActions } from '../../../root-state';
+import { CurrentUserStoreActions } from '../../../root-state';
 import { RootStoreState } from '../../../root-state/root-state';
 
 @Component({
