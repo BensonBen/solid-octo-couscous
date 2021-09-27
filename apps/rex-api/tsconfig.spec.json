@@ -2,7 +2,7 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"outDir": "../../dist/out-tsc",
-		"types": ["jest", "node"]
+		"types": ["jest", "node", "faker"]
 	},
 	"include": ["**/*.spec.ts", "__mocks__/*.ts", "**/*.d.ts"]
 }

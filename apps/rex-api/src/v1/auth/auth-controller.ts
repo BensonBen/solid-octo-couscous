@@ -7,7 +7,7 @@ import { AuthService } from './auth-service';
 
 @autoInjectable()
 export class AuthController {
-	private readonly loggerPrefix: string = `[Auth Controller]`;
+	private readonly loggerPrefix: string = `[AuthController]`;
 	private readonly logger = console;
 	private readonly baseTransaction: Transaction<User> = {
 		data: undefined,
@@ -19,36 +19,71 @@ export class AuthController {
 
 	constructor(@inject(AuthService) public authService?: AuthService) {}
 
-	public readonly createAccount = async ({ body }: Request, response: Response) => {
+	public readonly createAccount = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
 			const newUser = await this.authService.createAccount(body);
-			return response.status(OK).send({
+			const data: Transaction<LoginUserResponse> = {
 				...this.baseTransaction,
 				data: newUser,
 				success: true,
-			} as Transaction<LoginUserResponse>);
+			};
+			return response.status(OK).send(data);
 		} catch (error: unknown) {
-			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
-			return response
-				.status(INTERNAL_SERVER_ERROR)
-				.send({ ...this.baseTransaction, message: this.somethingWentWrong });
+			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${error}`));
+			const data = { ...this.baseTransaction, message: this.somethingWentWrong };
+
+			return response.status(INTERNAL_SERVER_ERROR).send(data);
 		}
 	};
 
-	public readonly login = async ({ body }: Request, response: Response) => {
+	public readonly login = async ({ body }: Readonly<Request>, response: Readonly<Response>) => {
 		try {
 			const loggedInUser = await this.authService.login(body);
-
-			return response.status(OK).send({
+			const data: Transaction<LoginUserResponse> = {
 				...this.baseTransaction,
 				data: loggedInUser,
 				success: true,
-			} as Transaction<LoginUserResponse>);
+			};
+			console.log('get response time');
+			return response.status(OK).send(data);
 		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to login account with reason: ${JSON.stringify(error)}`));
-			return response
-				.status(INTERNAL_SERVER_ERROR)
-				.send({ ...this.baseTransaction, message: this.somethingWentWrong });
+			const data = { ...this.baseTransaction, message: this.somethingWentWrong };
+
+			return response.status(INTERNAL_SERVER_ERROR).send(data);
+		}
+	};
+
+	public readonly isDuplicateUserName = async ({ query }: Readonly<Request>, response: Readonly<Response>) => {
+		try {
+			const isDuplicateUserName = await this.authService.isDuplicateUserName(query?.userName as string);
+			const data: Transaction<boolean> = {
+				...this.baseTransaction,
+				data: isDuplicateUserName,
+				success: true,
+			};
+			return response.status(OK).send(data);
+		} catch (error: unknown) {
+			this.logger.log(red(`${this.loggerPrefix} Failed to find user name with reason: ${JSON.stringify(error)}`));
+			const data = { ...this.baseTransaction, message: this.somethingWentWrong };
+
+			return response.status(INTERNAL_SERVER_ERROR).send(data);
+		}
+	};
+
+	public readonly isLoggedIn = async ({ headers }: Readonly<Request>, response: Readonly<Response>) => {
+		try {
+			const isLoggedIn = await this.authService.isLoggedIn(headers);
+			const data: Transaction<boolean> = {
+				...this.baseTransaction,
+				data: isLoggedIn,
+				success: true,
+			};
+			return response.status(OK).send(data);
+		} catch (error: unknown) {
+			this.logger.log(red(`${this.loggerPrefix} Failed to find user name with reason: ${JSON.stringify(error)}`));
+			const data = { ...this.baseTransaction, message: this.somethingWentWrong };
+			return response.status(INTERNAL_SERVER_ERROR).send(data);
 		}
 	};
 }

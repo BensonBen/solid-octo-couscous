@@ -4,5 +4,7 @@
 	"editor.formatOnSaveMode": "modifications",
 	"editor.renderWhitespace": "all",
 	"editor.tabSize": 2,
-	"jest.jestCommandLine": "npm run affected:test -- --base=develop --head=HEAD"
+	"editor.fontFamily": "hack",
+	"editor.suggestFontSize": 16,
+	"editor.fontSize": 16
 }

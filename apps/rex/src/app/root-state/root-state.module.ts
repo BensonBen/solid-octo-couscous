@@ -7,6 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { entityConfig } from '../entity-metadata';
 import { CurrentUserStoreModule } from './current-user/current-user.module';
+import { ToastStoreModule } from './toasts/toasts.module';
 
 @NgModule({
 	imports: [
@@ -33,6 +34,7 @@ import { CurrentUserStoreModule } from './current-user/current-user.module';
 			routerState: RouterState.Minimal,
 		}),
 		CurrentUserStoreModule,
+		ToastStoreModule,
 	],
 	declarations: [],
 })

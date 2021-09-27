@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoggedInGuard } from './core/logged-in.guard';
 import { AuthenticateComponent } from './pages/login/authenticate/authenticate.component';
 import { LoginModule } from './pages/login/login.module';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
 	{
 		path: 'main',
 		loadChildren: () => import('./pages/main/main.module').then(mod => mod.MainModule),
+		canActivate: [LoggedInGuard],
 	},
 	{
 		path: 'supporter',

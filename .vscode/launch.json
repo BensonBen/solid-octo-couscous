@@ -1,15 +1,66 @@
 {
+	"version": "0.2.0",
+	"compounds": [
+		{
+			"name": "Compound",
+			"configurations": []
+		}
+	],
+	"inputs": [],
 	"configurations": [
 		{
 			"type": "node",
-			"name": "vscode-jest-tests",
 			"request": "launch",
-			"console": "integratedTerminal",
+			"name": "rex-api debug-jest-ubuntu-20.04",
+			"presentation": {
+				"hidden": false,
+				"group": "jest",
+				"order": 1
+			},
+			"preLaunchTask": "",
+			"postDebugTask": "",
 			"internalConsoleOptions": "neverOpen",
-			"disableOptimisticBPs": true,
-			"cwd": "${workspaceFolder}",
-			"runtimeExecutable": "npm",
-			"args": ["run", "affected:test", "--", "--base=develop", "--head=HEAD", "--runInBand"]
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+			"args": [
+				"test",
+				"rex-api",
+				"--codeCoverage=false",
+				"--runInBand",
+				"--ci",
+				"--silent",
+				"--no-cache",
+				"--detectOpenHandles"
+			],
+			"console": "integratedTerminal",
+			"port": 9229
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "rex debug-jest-ubuntu-20.04",
+			"presentation": {
+				"hidden": false,
+				"group": "jest",
+				"order": 2
+			},
+			"preLaunchTask": "",
+			"postDebugTask": "",
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+			"args": [
+				"test",
+				"rex",
+				"--codeCoverage=false",
+				"--runInBand",
+				"--ci",
+				"--silent",
+				"--no-cache",
+				"--env=jsdom"
+			],
+			"console": "integratedTerminal",
+			"port": 9229
 		}
 	]
 }

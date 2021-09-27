@@ -1,8 +1,8 @@
-import { LoginUserRequest, NewUserRequest } from '@solid-octo-couscous/model';
+import { LoginUserRequest, NewUserRequest, User } from '@solid-octo-couscous/model';
 import { inject, singleton } from 'tsyringe';
 import { RedisDatabaseService } from '../../database/redis-database';
 import { genSalt, hash, compareSync } from 'bcrypt';
-import { red } from 'chalk';
+import { green, red } from 'chalk';
 import { nanoid } from 'nanoid';
 @singleton()
 export class AuthDataProvider {
@@ -27,7 +27,6 @@ export class AuthDataProvider {
 		]);
 		const createdOnModifiedOnTime: number = new Date().getTime();
 		const id = nanoid();
-
 		const newUserHashCreationResult = await this.redisDatabaseService.redisDatabase.hmset(
 			loginName,
 			'loginName',
@@ -51,13 +50,11 @@ export class AuthDataProvider {
 		);
 
 		if (newUserHashCreationResult === 'OK') {
-			return this.redisDatabaseService.redisDatabase.hgetall(id);
+			return this.redisDatabaseService.redisDatabase.hgetall(loginName);
 		}
 
 		this.logger.log(
-			red(
-				`${this.loggerPrefix} login name: ${loginName}, password: ${password}, email: ${email}, date of birth: ${dateOfBirth}`
-			)
+			red(`${this.loggerPrefix} login name: ${loginName}, email: ${email}, date of birth: ${dateOfBirth}`)
 		);
 		// just throw an exception if something went wrong. don't give information that's not needed.
 		throw new Error();
@@ -81,5 +78,22 @@ export class AuthDataProvider {
 
 		// if the passwords don't match simply throw an exception and don't give away details.
 		throw new Error();
+	};
+
+	/**
+	 * Checks if a given user name exists.
+	 *
+	 * @param userName, the request is assumed to be validated by this point in time.
+	 * @returns boolean, if the user name exists or not.
+	 */
+	public readonly isDuplicateUserName = async (userName: Readonly<string>): Promise<boolean> => {
+		const loginNameField: keyof User = 'loginName';
+		const result = await this.redisDatabaseService.redisDatabase.hget(userName, loginNameField);
+
+		this.logger.log(
+			green(`${this.loggerPrefix} finding by field ${loginNameField} to check ${result} against ${userName}`)
+		);
+
+		return userName === result;
 	};
 }

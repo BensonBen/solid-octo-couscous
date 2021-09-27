@@ -15,7 +15,7 @@
 				<input matInput="email" formControlName="email" autocomplete="off" />
 			</mat-form-field>
 			<mat-error *ngIf="form.get('email')?.invalid">Email Invalid</mat-error>
-			<mat-form-field [appearance]="matFormFieldAppearance" class="mb-0" style="padding-bottom: 0em">
+			<mat-form-field class="pb-0 mb-0" [appearance]="matFormFieldAppearance">
 				<mat-label>Password</mat-label>
 				<input type="password" matInput formControlName="password" autocomplete="off" />
 			</mat-form-field>

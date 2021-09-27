@@ -5,14 +5,14 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../core';
 
 import * as CurrentUserActions from './current-user.actions';
-
+import * as ToastActions from '../toasts/toasts.actions';
+import { of } from 'rxjs';
 @Injectable()
 export class CurrentUserStoreEffects {
 	readonly createUser$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CurrentUserActions.createUserRequest),
 			switchMap(({ newUserRequest }) => {
-				console.table([newUserRequest]);
 				return this.authService.createAccount(newUserRequest).pipe(
 					tap(({ data }) => this.authService.persistJwtTokenToSessionStorage(data?.jwtToken)),
 					map(({ data }) => {
@@ -35,6 +35,16 @@ export class CurrentUserStoreEffects {
 						return CurrentUserActions.signInRequestSuccess({ user });
 					})
 				);
+			})
+		)
+	);
+
+	public signInRequestSuccess$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(CurrentUserActions.signInRequestSuccess),
+			map(({ user }) => {
+				const message = `Welcome ${user?.loginName ?? 'blank'}!`;
+				return ToastActions.openSnackBar({ message, action: 'dismiss' });
 			})
 		)
 	);
