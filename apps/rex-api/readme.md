@@ -36,20 +36,20 @@ You can perform up to 5 request/second from the same IP address. If you exceed t
 
 ## Built With
 
--   [bcrypt](https://github.com/kelektiv/node.bcrypt.js) password hashing.
--   [body parser](https://github.com/expressjs/body-parser) JSON formatted parsing of requests.
--   [chalk](https://github.com/chalk/chalk) make logging pretty again.
--   [cors](https://github.com/expressjs/cors) express middlewear for handling CORS issues.
--   [express](http://expressjs.com/) RESTful thinking.
--   [express-jwt](https://github.com/auth0/express-jwt) express middlewear for handling JWTs.
--   [helmet](https://helmetjs.github.io/) express middlewear to aid in setting common HTTP headers.
--   [http-status](https://github.com/adaltas/node-http-status) set common HTTP statuses.
--   [ioredis](https://github.com/luin/ioredis) database interface.
--   [joi](https://github.com/sideway/joi) JSON validation.
--   [lodash](https://lodash.com/) javascript utility library (seriously the only thing is doesn't do it cook you breakfast 🍳).
--   [morgan](https://github.com/expressjs/morgan) HTTP response logging.
--   [reflect-metadata](https://rbuckton.github.io/reflect-metadata/) implementation of RFC proposal for token injection.
--   [tsyringe](https://github.com/Microsoft/tsyringe) allows for dependency injection architecture.
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js) password hashing.
+- [body parser](https://github.com/expressjs/body-parser) JSON formatted parsing of requests.
+- [chalk](https://github.com/chalk/chalk) make logging pretty again.
+- [cors](https://github.com/expressjs/cors) express middlewear for handling CORS issues.
+- [express](http://expressjs.com/) RESTful thinking.
+- [express-jwt](https://github.com/auth0/express-jwt) express middlewear for handling JWTs.
+- [helmet](https://helmetjs.github.io/) express middlewear to aid in setting common HTTP headers.
+- [http-status](https://github.com/adaltas/node-http-status) set common HTTP statuses.
+- [ioredis](https://github.com/luin/ioredis) database interface.
+- [joi](https://github.com/sideway/joi) JSON validation.
+- [lodash](https://lodash.com/) javascript utility library (seriously the only thing is doesn't do it cook you breakfast 🍳).
+- [morgan](https://github.com/expressjs/morgan) HTTP response logging.
+- [reflect-metadata](https://rbuckton.github.io/reflect-metadata/) implementation of RFC proposal for token injection.
+- [tsyringe](https://github.com/Microsoft/tsyringe) allows for dependency injection architecture.
 
 ## Errors
 
@@ -57,9 +57,9 @@ If you find a typo or an error, I'm welcome pull requests. You can also [submit 
 
 ## Status Code Explanations
 
--   401: Invalid or unauthorized API user – verify your API user is valid and authorized to access the API.
--   403: Missing User-Agent header - all API requests require an User-Agent header, please identify yourself appropriately.
--   405: Unknown HTTP method - we only support standard HTTP requests, please double-check your request verb.
--   429: Too many requests (throttling) – slow down your request frequency.
--   502: Under heavy load – slow down your request frequency.
--   5xx: Server error - please double-check your JSON payload for formatting errors, data integrity, etc.
+- 401: Invalid or unauthorized API user – verify your API user is valid and authorized to access the API.
+- 403: Missing User-Agent header - all API requests require an User-Agent header, please identify yourself appropriately.
+- 405: Unknown HTTP method - we only support standard HTTP requests, please double-check your request verb.
+- 429: Too many requests (throttling) – slow down your request frequency.
+- 502: Under heavy load – slow down your request frequency.
+- 5xx: Server error - please double-check your JSON payload for formatting errors, data integrity, etc.

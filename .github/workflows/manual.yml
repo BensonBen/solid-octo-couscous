@@ -1,32 +1,32 @@
 name: REX Continuous Integration
 
 on:
-    push:
-        branches: [develop]
-    pull_request:
-        branches: [develop]
-    release:
-        types:
-            - created
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+  release:
+    types:
+      - created
 jobs:
-    ci-develop:
-        runs-on: [ubuntu-20.04]
+  ci-develop:
+    runs-on: [ubuntu-20.04]
 
-        strategy:
-            matrix:
-                node-version: [14.x]
+    strategy:
+      matrix:
+        node-version: [14.x]
 
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: git fetch origin develop
-            - run: npm i --no-save
-            - run: npm run affected:lint -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
-            - run: npm run affected:test -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
-            - run: npm run affected:build -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
-              env:
-                  CI: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: git fetch origin develop
+      - run: npm i --no-save
+      - run: npm run affected:lint -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
+      - run: npm run affected:test -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
+      - run: npm run affected:build -- --base=remotes/origin/develop --head=HEAD --parallel --skip-nx-cache
+        env:
+          CI: true

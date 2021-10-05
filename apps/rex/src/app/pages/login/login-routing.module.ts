@@ -20,8 +20,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'createAccount',
-				loadChildren: () =>
-					import('./create-component/create-account.module').then(mod => mod.CreateAccountModule),
+				loadChildren: () => import('./create-component/create-account.module').then(mod => mod.CreateAccountModule),
 			},
 		],
 	},

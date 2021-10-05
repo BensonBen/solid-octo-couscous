@@ -52,8 +52,7 @@ export class CurrentUserStoreEffects {
 	constructor(private readonly actions$: Actions, private readonly authService: AuthService) {}
 
 	private readonly transform = (data: LoginUserResponse): Omit<User, 'password'> => {
-		const { approvalNotes, id, dateOfBirth, createdOn, description, email, isApproved, loginName, modifiedOn } =
-			data;
+		const { approvalNotes, id, dateOfBirth, createdOn, description, email, isApproved, loginName, modifiedOn } = data;
 		const user: Omit<User, 'password'> = {
 			approvalNotes,
 			id,

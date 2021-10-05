@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-    app:
-        image: redis:latest
-        ports:
-            - target: 6379
-              published: 4690
-              protocol: tcp
-              mode: host
-        volumes:
-            - ./redis.conf:/redis.conf
-        command: ['redis-server', '/redis.conf']
+  app:
+    image: redis:latest
+    ports:
+      - target: 6379
+        published: 4690
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ['redis-server', '/redis.conf']
