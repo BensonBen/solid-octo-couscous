@@ -88,6 +88,97 @@
 		}
 	}
 
+	/*! *****************************************************************************
+	Copyright (c) Microsoft Corporation.
+
+	Permission to use, copy, modify, and/or distribute this software for any
+	purpose with or without fee is hereby granted.
+
+	THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+	REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+	AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+	INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+	LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+	OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+	PERFORMANCE OF THIS SOFTWARE.
+	***************************************************************************** */
+	function __awaiter(thisArg, _arguments, P, generator) {
+		function adopt(value) {
+			return value instanceof P
+				? value
+				: new P(function (resolve) {
+						resolve(value);
+				  });
+		}
+		return new (P || (P = Promise))(function (resolve, reject) {
+			function fulfilled(value) {
+				try {
+					step(generator.next(value));
+				} catch (e) {
+					reject(e);
+				}
+			}
+
+			function rejected(value) {
+				try {
+					step(generator['throw'](value));
+				} catch (e) {
+					reject(e);
+				}
+			}
+
+			function step(result) {
+				result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+			}
+			step((generator = generator.apply(thisArg, _arguments || [])).next());
+		});
+	}
+
+	/**
+	 * @license
+	 * Copyright Google LLC All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	/**
+	 * A wrapper around `CacheStorage` to allow interacting with caches more easily and consistently by:
+	 * - Adding a `name` property to all opened caches, which can be used to easily perform other
+	 *   operations that require the cache name.
+	 * - Name-spacing cache names to avoid conflicts with other caches on the same domain.
+	 */
+	class NamedCacheStorage {
+		constructor(original, cacheNamePrefix) {
+			this.original = original;
+			this.cacheNamePrefix = cacheNamePrefix;
+		}
+		delete(cacheName) {
+			return this.original.delete(`${this.cacheNamePrefix}:${cacheName}`);
+		}
+		has(cacheName) {
+			return this.original.has(`${this.cacheNamePrefix}:${cacheName}`);
+		}
+		keys() {
+			return __awaiter(this, void 0, void 0, function* () {
+				const prefix = `${this.cacheNamePrefix}:`;
+				const allCacheNames = yield this.original.keys();
+				const ownCacheNames = allCacheNames.filter(name => name.startsWith(prefix));
+				return ownCacheNames.map(name => name.slice(prefix.length));
+			});
+		}
+		match(request, options) {
+			return this.original.match(request, options);
+		}
+		open(cacheName) {
+			return __awaiter(this, void 0, void 0, function* () {
+				const cache = yield this.original.open(`${this.cacheNamePrefix}:${cacheName}`);
+				return Object.assign(cache, {
+					name: cacheName,
+				});
+			});
+		}
+	}
+
 	/**
 	 * @license
 	 * Copyright Google LLC All Rights Reserved.
@@ -166,7 +257,11 @@
 			// Workaround a Safari bug, see
 			// https://github.com/angular/angular/issues/31061#issuecomment-503637978
 			const parsed = !relativeTo ? new URL(url) : new URL(url, relativeTo);
-			return { origin: parsed.origin, path: parsed.pathname, search: parsed.search };
+			return {
+				origin: parsed.origin,
+				path: parsed.pathname,
+				search: parsed.search,
+			};
 		}
 		/**
 		 * Wait for a given amount of time before completing a Promise.
@@ -271,7 +366,6 @@
 			return this.cache.put(this.request(key), this.adapter.newResponse(JSON.stringify(value)));
 		}
 	}
-
 	/**
 	 * @license
 	 * Copyright Google LLC All Rights Reserved.
@@ -665,7 +759,10 @@
 					// Do nothing, not found. This shouldn't happen, but it can be handled.
 				}
 				// Return both the response and any available metadata.
-				return { response, metadata };
+				return {
+					response,
+					metadata,
+				};
 			});
 		}
 		/**
@@ -724,7 +821,10 @@
 						// needed for future determination of whether this cached response is stale or not.
 						if (!this.hashes.has(this.adapter.normalizeUrl(req.url))) {
 							// Metadata is tracked for requests that are unhashed.
-							const meta = { ts: this.adapter.time, used };
+							const meta = {
+								ts: this.adapter.time,
+								used,
+							};
 							const metaTable = yield this.metadata;
 							yield metaTable.write(req.url, meta);
 						}
@@ -1104,7 +1204,11 @@
 				return;
 			}
 			// Look up the node in the map, and construct a new entry if it's
-			const node = this.state.map[url] || { url, next: null, previous: null };
+			const node = this.state.map[url] || {
+				url,
+				next: null,
+				previous: null,
+			};
 			// Step 1: remove the node from its position within the chain, if it is in the chain.
 			if (this.state.map[url] !== undefined) {
 				this.remove(url);
@@ -1252,7 +1356,10 @@
 				// Since fetch() will always return a response, undefined indicates a timeout.
 				if (res === undefined) {
 					// The request timed out. Return a Gateway Timeout error.
-					res = this.adapter.newResponse(null, { status: 504, statusText: 'Gateway Timeout' });
+					res = this.adapter.newResponse(null, {
+						status: 504,
+						statusText: 'Gateway Timeout',
+					});
 					// Cache the network response eventually.
 					event.waitUntil(this.safeCacheResponse(req, networkFetch, lru));
 				} else {
@@ -1364,7 +1471,10 @@
 							// Successful match from the cache. Use the response, after marking it as having
 							// been accessed.
 							lru.accessed(req.url);
-							return { res, age };
+							return {
+								res,
+								age,
+							};
 						}
 						// Otherwise, or if there was an error, assume the response is expired, and evict it.
 					} catch (_a) {
@@ -1409,7 +1519,9 @@
 				yield (yield this.cache).put(req, res.clone());
 				// Store the age of the cache.
 				const ageTable = yield this.ageTable;
-				yield ageTable.write(req.url, { age: this.adapter.time });
+				yield ageTable.write(req.url, {
+					age: this.adapter.time,
+				});
 				// Sync the LRU chain to non-volatile storage.
 				yield this.syncLru();
 			});
@@ -1447,8 +1559,18 @@
 			return __awaiter(this, void 0, void 0, function* () {
 				const [cache, ageTable] = yield Promise.all([this.cache, this.ageTable]);
 				yield Promise.all([
-					cache.delete(this.adapter.newRequest(url, { method: 'GET' }), this.config.cacheQueryOptions),
-					cache.delete(this.adapter.newRequest(url, { method: 'HEAD' }), this.config.cacheQueryOptions),
+					cache.delete(
+						this.adapter.newRequest(url, {
+							method: 'GET',
+						}),
+						this.config.cacheQueryOptions
+					),
+					cache.delete(
+						this.adapter.newRequest(url, {
+							method: 'HEAD',
+						}),
+						this.config.cacheQueryOptions
+					),
 					ageTable.delete(url),
 				]);
 			});
@@ -1475,9 +1597,18 @@
 	 * found in the LICENSE file at https://angular.io/license
 	 */
 	const BACKWARDS_COMPATIBILITY_NAVIGATION_URLS = [
-		{ positive: true, regex: '^/.*$' },
-		{ positive: false, regex: '^/.*\\.[^/]*$' },
-		{ positive: false, regex: '^/.*__' },
+		{
+			positive: true,
+			regex: '^/.*$',
+		},
+		{
+			positive: false,
+			regex: '^/.*\\.[^/]*$',
+		},
+		{
+			positive: false,
+			regex: '^/.*__',
+		},
 	];
 	/**
 	 * A specific version of the application, identified by a unique manifest
@@ -1795,7 +1926,10 @@ Last update check: ${this.since(state.lastUpdateCheck)}`;
 					.map(
 						version => `=== Version ${version.hash} ===
 
-Clients: ${version.clients.join(', ')}`
+Clients: $ {
+	version.clients.join(', ')
+}
+`
 					)
 					.join('\n\n');
 				const msgIdle = `=== Idle Task Queue ===
@@ -1813,8 +1947,15 @@ ${this.formatDebugLog(this.debugLogA)}
 
 ${msgVersions}
 
-${msgIdle}`,
-					{ headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }) }
+$ {
+	msgIdle
+}
+`,
+					{
+						headers: this.adapter.newHeaders({
+							'Content-Type': 'text/plain',
+						}),
+					}
 				);
 			});
 		}
@@ -1851,7 +1992,11 @@ ${msgIdle}`,
 				value = this.errorToString(value);
 			}
 			// Log the message.
-			this.debugLogA.push({ value, time: this.adapter.time, context });
+			this.debugLogA.push({
+				value,
+				time: this.adapter.time,
+				context,
+			});
 		}
 		errorToString(err) {
 			return `${err.name}(${err.message}, ${err.stack})`;
@@ -1939,7 +2084,10 @@ ${msgIdle}`,
 			});
 		}
 		schedule(desc, run) {
-			this.queue.push({ desc, run });
+			this.queue.push({
+				desc,
+				run,
+			});
 			if (this.emptyResolve === null) {
 				this.empty = new Promise(resolve => {
 					this.emptyResolve = resolve;
@@ -2110,7 +2258,9 @@ ${msgIdle}`,
 				// same time the activation event is allowed to resolve and traffic starts
 				// being served.
 				if (this.scope.registration.active !== null) {
-					this.scope.registration.active.postMessage({ action: 'INITIALIZE' });
+					this.scope.registration.active.postMessage({
+						action: 'INITIALIZE',
+					});
 				}
 			});
 			// Handle the fetch, message, and push events.
@@ -2335,8 +2485,20 @@ ${msgIdle}`,
 				}
 				yield this.broadcast({
 					type: 'NOTIFICATION_CLICK',
-					data: { action, notification: options },
+					data: {
+						action,
+						notification: options,
+					},
 				});
+			});
+		}
+		getLastFocusedMatchingClient(scope) {
+			return __awaiter(this, void 0, void 0, function* () {
+				const windowClients = yield scope.clients.matchAll({
+					type: 'window',
+				});
+				// As per the spec windowClients are `sorted in the most recently focused order`
+				return windowClients[0];
 			});
 		}
 		getLastFocusedMatchingClient(scope) {
@@ -2348,7 +2510,11 @@ ${msgIdle}`,
 		}
 		reportStatus(client, promise, nonce) {
 			return __awaiter(this, void 0, void 0, function* () {
-				const response = { type: 'STATUS', nonce, status: true };
+				const response = {
+					type: 'STATUS',
+					nonce,
+					status: true,
+				};
 				try {
 					yield promise;
 					client.postMessage(response);
@@ -2492,7 +2658,9 @@ ${msgIdle}`,
 					const hash = hashManifest(manifest);
 					manifests = { [hash]: manifest };
 					assignments = {};
-					latest = { latest: hash };
+					latest = {
+						latest: hash,
+					};
 					// Save the initial state to the DB.
 					yield Promise.all([
 						table.write('manifests', manifests),
