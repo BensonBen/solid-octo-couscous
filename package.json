@@ -30,6 +30,7 @@
 		"help": "nx help"
 	},
 	"dependencies": {
+		"@angular-architects/module-federation": "^12.2.0",
 		"@angular/animations": "12.2.8",
 		"@angular/cdk": "12.2.8",
 		"@angular/common": "12.2.8",
