@@ -49,16 +49,7 @@
 			"internalConsoleOptions": "neverOpen",
 			"skipFiles": ["<node_internals>/**"],
 			"program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
-			"args": [
-				"test",
-				"rex",
-				"--codeCoverage=false",
-				"--runInBand",
-				"--ci",
-				"--silent",
-				"--no-cache",
-				"--env=jsdom"
-			],
+			"args": ["test", "rex", "--codeCoverage=false", "--runInBand", "--ci", "--silent", "--no-cache", "--env=jsdom"],
 			"console": "integratedTerminal",
 			"port": 9229
 		}

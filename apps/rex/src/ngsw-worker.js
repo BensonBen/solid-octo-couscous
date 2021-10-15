@@ -1,5 +1,92 @@
 (function () {
-	'use strict';
+	('use strict');
+
+	/*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+	function __awaiter(thisArg, _arguments, P, generator) {
+		function adopt(value) {
+			return value instanceof P
+				? value
+				: new P(function (resolve) {
+						resolve(value);
+				  });
+		}
+		return new (P || (P = Promise))(function (resolve, reject) {
+			function fulfilled(value) {
+				try {
+					step(generator.next(value));
+				} catch (e) {
+					reject(e);
+				}
+			}
+			function rejected(value) {
+				try {
+					step(generator['throw'](value));
+				} catch (e) {
+					reject(e);
+				}
+			}
+			function step(result) {
+				result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+			}
+			step((generator = generator.apply(thisArg, _arguments || [])).next());
+		});
+	}
+
+	/**
+	 * @license
+	 * Copyright Google LLC All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	/**
+	 * A wrapper around `CacheStorage` to allow interacting with caches more easily and consistently by:
+	 * - Adding a `name` property to all opened caches, which can be used to easily perform other
+	 *   operations that require the cache name.
+	 * - Name-spacing cache names to avoid conflicts with other caches on the same domain.
+	 */
+	class NamedCacheStorage {
+		constructor(original, cacheNamePrefix) {
+			this.original = original;
+			this.cacheNamePrefix = cacheNamePrefix;
+		}
+		delete(cacheName) {
+			return this.original.delete(`${this.cacheNamePrefix}:${cacheName}`);
+		}
+		has(cacheName) {
+			return this.original.has(`${this.cacheNamePrefix}:${cacheName}`);
+		}
+		keys() {
+			return __awaiter(this, void 0, void 0, function* () {
+				const prefix = `${this.cacheNamePrefix}:`;
+				const allCacheNames = yield this.original.keys();
+				const ownCacheNames = allCacheNames.filter(name => name.startsWith(prefix));
+				return ownCacheNames.map(name => name.slice(prefix.length));
+			});
+		}
+		match(request, options) {
+			return this.original.match(request, options);
+		}
+		open(cacheName) {
+			return __awaiter(this, void 0, void 0, function* () {
+				const cache = yield this.original.open(`${this.cacheNamePrefix}:${cacheName}`);
+				return Object.assign(cache, { name: cacheName });
+			});
+		}
+	}
 
 	/*! *****************************************************************************
 	Copyright (c) Microsoft Corporation.
@@ -748,9 +835,7 @@
 						// caches throws an `Entry was not found` error.
 						// If this happens the SW can no longer work correctly. This situation is unrecoverable.
 						throw new SwCriticalError(
-							`Failed to update the caches for request to '${
-								req.url
-							}' (fetchAndCacheOnce): ${errorToString(err)}`
+							`Failed to update the caches for request to '${req.url}' (fetchAndCacheOnce): ${errorToString(err)}`
 						);
 					}
 				} finally {
@@ -938,9 +1023,7 @@
 					yield (yield updateFrom.previouslyCachedResources())
 						// First, narrow down the set of resources to those which are handled by this group.
 						// Either it's a known URL, or it matches a given pattern.
-						.filter(
-							url => this.urls.indexOf(url) !== -1 || this.patterns.some(pattern => pattern.test(url))
-						)
+						.filter(url => this.urls.indexOf(url) !== -1 || this.patterns.some(pattern => pattern.test(url)))
 						// Finally, process each resource in turn.
 						.reduce(
 							(previous, url) =>
@@ -949,8 +1032,7 @@
 									const req = this.adapter.newRequest(url);
 									// It's possible that the resource in question is already cached. If so,
 									// continue to the next one.
-									const alreadyCached =
-										(yield cache.match(req, this.config.cacheQueryOptions)) !== undefined;
+									const alreadyCached = (yield cache.match(req, this.config.cacheQueryOptions)) !== undefined;
 									if (alreadyCached) {
 										return;
 									}
@@ -963,12 +1045,7 @@
 									// Write it into the cache. It may already be expired, but it can still serve
 									// traffic until it's updated (stale-while-revalidate approach).
 									yield cache.put(req, res.response);
-									yield metaTable.write(
-										req.url,
-										Object.assign(Object.assign({}, res.metadata), {
-											used: false,
-										})
-									);
+									yield metaTable.write(req.url, Object.assign(Object.assign({}, res.metadata), { used: false }));
 								}),
 							Promise.resolve()
 						);
@@ -1463,7 +1540,8 @@
 			});
 		}
 		/**
-		 * Return a list of the names of all caches used by this group.*/
+		 * Return a list of the names of all caches used by this group.
+		 */
 		getCacheNames() {
 			return __awaiter(this, void 0, void 0, function* () {
 				const [cache, ageTable, lruTable] = yield Promise.all([this.cache, this.ageTable, this.lruTable]);
@@ -1571,25 +1649,9 @@
 				// Check the caching mode, which determines when resources will be fetched/updated.
 				switch (config.installMode) {
 					case 'prefetch':
-						return new PrefetchAssetGroup(
-							scope,
-							adapter,
-							idle,
-							config,
-							this.hashTable,
-							database,
-							assetCacheNamePrefix
-						);
+						return new PrefetchAssetGroup(scope, adapter, idle, config, this.hashTable, database, assetCacheNamePrefix);
 					case 'lazy':
-						return new LazyAssetGroup(
-							scope,
-							adapter,
-							idle,
-							config,
-							this.hashTable,
-							database,
-							assetCacheNamePrefix
-						);
+						return new LazyAssetGroup(scope, adapter, idle, config, this.hashTable, database, assetCacheNamePrefix);
 				}
 			});
 			// Process each `DataGroup` declared in the manifest.
@@ -1833,7 +1895,7 @@
 	 * Use of this source code is governed by an MIT-style license that can be
 	 * found in the LICENSE file at https://angular.io/license
 	 */
-	const SW_VERSION = '12.2.0';
+	const SW_VERSION = '12.2.8';
 	const DEBUG_LOG_BUFFER_SIZE = 100;
 	class DebugHandler {
 		constructor(driver, adapter) {
@@ -1856,9 +1918,7 @@
 				]);
 				const msgState = `NGSW Debug Info:
 
-Driver version: $ {
-	SW_VERSION
-}
+Driver version: ${SW_VERSION}
 Driver state: ${state.state} (${state.why})
 Latest manifest hash: ${state.latestHash || 'none'}
 Last update check: ${this.since(state.lastUpdateCheck)}`;
@@ -2374,7 +2434,7 @@ $ {
 			});
 		}
 		handleClick(notification, action) {
-			var _a, _b;
+			var _a, _b, _c;
 			return __awaiter(this, void 0, void 0, function* () {
 				notification.close();
 				const options = {};
@@ -2385,14 +2445,17 @@ $ {
 				);
 				const notificationAction = action === '' || action === undefined ? 'default' : action;
 				const onActionClick =
-					(_a = notification === null || notification === void 0 ? void 0 : notification.data) === null ||
-					_a === void 0
+					(_b =
+						(_a = notification === null || notification === void 0 ? void 0 : notification.data) === null ||
+						_a === void 0
+							? void 0
+							: _a.onActionClick) === null || _b === void 0
 						? void 0
-						: _a.onActionClick[notificationAction];
+						: _b[notificationAction];
 				const urlToOpen = new URL(
-					(_b = onActionClick === null || onActionClick === void 0 ? void 0 : onActionClick.url) !== null &&
-					_b !== void 0
-						? _b
+					(_c = onActionClick === null || onActionClick === void 0 ? void 0 : onActionClick.url) !== null &&
+					_c !== void 0
+						? _c
 						: '',
 					this.scope.registration.scope
 				).href;
@@ -2403,9 +2466,7 @@ $ {
 					case 'focusLastFocusedOrOpen': {
 						let matchingClient = yield this.getLastFocusedMatchingClient(this.scope);
 						if (matchingClient) {
-							yield matchingClient === null || matchingClient === void 0
-								? void 0
-								: matchingClient.focus();
+							yield matchingClient === null || matchingClient === void 0 ? void 0 : matchingClient.focus();
 						} else {
 							yield this.scope.clients.openWindow(urlToOpen);
 						}
@@ -2415,9 +2476,7 @@ $ {
 						let matchingClient = yield this.getLastFocusedMatchingClient(this.scope);
 						if (matchingClient) {
 							matchingClient = yield matchingClient.navigate(urlToOpen);
-							yield matchingClient === null || matchingClient === void 0
-								? void 0
-								: matchingClient.focus();
+							yield matchingClient === null || matchingClient === void 0 ? void 0 : matchingClient.focus();
 						} else {
 							yield this.scope.clients.openWindow(urlToOpen);
 						}
@@ -2442,6 +2501,13 @@ $ {
 				return windowClients[0];
 			});
 		}
+		getLastFocusedMatchingClient(scope) {
+			return __awaiter(this, void 0, void 0, function* () {
+				const windowClients = yield scope.clients.matchAll({ type: 'window' });
+				// As per the spec windowClients are `sorted in the most recently focused order`
+				return windowClients[0];
+			});
+		}
 		reportStatus(client, promise, nonce) {
 			return __awaiter(this, void 0, void 0, function* () {
 				const response = {
@@ -2453,12 +2519,7 @@ $ {
 					yield promise;
 					client.postMessage(response);
 				} catch (e) {
-					client.postMessage(
-						Object.assign(Object.assign({}, response), {
-							status: false,
-							error: e.toString(),
-						})
-					);
+					client.postMessage(Object.assign(Object.assign({}, response), { status: false, error: e.toString() }));
 				}
 			});
 		}
@@ -2527,7 +2588,8 @@ $ {
 								yield this.notifyClientsAboutUnrecoverableState(appVersion, err.message);
 							}
 							if (err.isCritical) {
-								// Something went wrong with the activation of this version.
+								// Something went wrong with handling the request from this version.
+								this.debugger.log(err, `Driver.handleFetch(version: ${appVersion.manifestHash})`);
 								yield this.versionFailed(appVersion, err);
 								return this.safeFetch(event.request);
 							}
@@ -2579,10 +2641,7 @@ $ {
 					// Make sure latest manifest is correctly installed. If not (e.g. corrupted data),
 					// it could stay locked in EXISTING_CLIENTS_ONLY or SAFE_MODE state.
 					if (!this.versions.has(latest.latest) && !manifests.hasOwnProperty(latest.latest)) {
-						this.debugger.log(
-							`Missing manifest for latest version hash ${latest.latest}`,
-							'initialize: read from DB'
-						);
+						this.debugger.log(`Missing manifest for latest version hash ${latest.latest}`, 'initialize: read from DB');
 						throw new Error(`Missing manifest for latest hash ${latest.latest}`);
 					}
 					// Successfully loaded from saved state. This implies a manifest exists, so
@@ -2597,9 +2656,7 @@ $ {
 					// server and building up an empty initial state.
 					const manifest = yield this.fetchLatestManifest();
 					const hash = hashManifest(manifest);
-					manifests = {
-						[hash]: manifest,
-					};
+					manifests = { [hash]: manifest };
 					assignments = {};
 					latest = {
 						latest: hash,
@@ -2652,9 +2709,7 @@ $ {
 				this.latestHash = latest.latest;
 				// Finally, assert that the latest version is in fact loaded.
 				if (!this.versions.has(latest.latest)) {
-					throw new Error(
-						`Invariant violated (initialize): latest hash ${latest.latest} has no known manifest`
-					);
+					throw new Error(`Invariant violated (initialize): latest hash ${latest.latest} has no known manifest`);
 				}
 				// Finally, wait for the scheduling of initialization of all versions in the
 				// manifest. Ordinarily this just schedules the initializations to happen during
@@ -2829,46 +2884,34 @@ $ {
 					return;
 				}
 				const brokenHash = broken[0];
-				const affectedClients = Array.from(this.clientVersionMap.entries())
-					.filter(([clientId, hash]) => hash === brokenHash)
-					.map(([clientId]) => clientId);
+				// The specified version is broken and new clients should not be served from it. However, it is
+				// deemed even riskier to switch the existing clients to a different version or to the network.
+				// Therefore, we keep clients on their current version (even if broken) and ensure that no new
+				// clients will be assigned to it.
 				// TODO: notify affected apps.
 				// The action taken depends on whether the broken manifest is the active (latest) or not.
-				// If so, the SW cannot accept new clients, but can continue to service old ones.
+				// - If the broken version is not the latest, no further action is necessary, since new clients
+				//   will be assigned to the latest version anyway.
+				// - If the broken version is the latest, the SW cannot accept new clients (but can continue to
+				//   service old ones).
 				if (this.latestHash === brokenHash) {
-					// The latest manifest is broken. This means that new clients are at the mercy of the
-					// network, but caches continue to be valid for previous versions. This is
-					// unfortunate but unavoidable.
+					// The latest manifest is broken. This means that new clients are at the mercy of the network,
+					// but caches continue to be valid for previous versions. This is unfortunate but unavoidable.
 					this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;
 					this.stateMessage = `Degraded due to: ${errorToString(err)}`;
-					// Cancel the binding for the affected clients.
-					affectedClients.forEach(clientId => this.clientVersionMap.delete(clientId));
-				} else {
-					// The latest version is viable, but this older version isn't. The only
-					// possible remedy is to stop serving the older version and go to the network.
-					// Put the affected clients on the latest version.
-					affectedClients.forEach(clientId => this.clientVersionMap.set(clientId, this.latestHash));
-				}
-				try {
-					yield this.sync();
-				} catch (err2) {
-					// We are already in a bad state. No need to make things worse.
-					// Just log the error and move on.
-					this.debugger.log(err2, `Driver.versionFailed(${err.message || err})`);
+					try {
+						yield this.sync();
+					} catch (err2) {
+						// We are already in a bad state. No need to make things worse.
+						// Just log the error and move on.
+						this.debugger.log(err2, `Driver.versionFailed(${err.message || err})`);
+					}
 				}
 			});
 		}
 		setupUpdate(manifest, hash) {
 			return __awaiter(this, void 0, void 0, function* () {
-				const newVersion = new AppVersion(
-					this.scope,
-					this.adapter,
-					this.db,
-					this.idle,
-					this.debugger,
-					manifest,
-					hash
-				);
+				const newVersion = new AppVersion(this.scope, this.adapter, this.db, this.idle, this.debugger, manifest, hash);
 				// Firstly, check if the manifest version is correct.
 				if (manifest.configVersion !== SUPPORTED_CONFIG_VERSION) {
 					yield this.deleteAllCaches();
@@ -3072,10 +3115,7 @@ $ {
 						__awaiter(this, void 0, void 0, function* () {
 							const client = yield this.scope.clients.get(clientId);
 							if (client) {
-								client.postMessage({
-									type: 'UNRECOVERABLE_STATE',
-									reason,
-								});
+								client.postMessage({ type: 'UNRECOVERABLE_STATE', reason });
 							}
 						})
 					)

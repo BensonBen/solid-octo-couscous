@@ -13,26 +13,26 @@ The user will connect their exercise bike through bluetooth, or possibly USB.
 
 #### Capabilities of REX include
 
--   [x] Reading Delta Crank Event Time
--   [x] Reading Delta Crank Revolution(s)
--   [x] Reading Delta Wheel Event Time
--   [x] Reading Delta Wheel Revolution(s)
+- [x] Reading Delta Crank Event Time
+- [x] Reading Delta Crank Revolution(s)
+- [x] Reading Delta Wheel Event Time
+- [x] Reading Delta Wheel Revolution(s)
 
--   [x] Reading Manufacterer Name
--   [x] Reading Software Revision
--   [x] Reading Firmware Revision
--   [x] Reading Bike Model Revision
--   [x] Reading Bike Model
+- [x] Reading Manufacterer Name
+- [x] Reading Software Revision
+- [x] Reading Firmware Revision
+- [x] Reading Bike Model Revision
+- [x] Reading Bike Model
 
 ![image](https://user-images.githubusercontent.com/10961012/125396098-143d2980-e37a-11eb-94a5-4c8536e58d8f.png)
 
 ## Table of Contents
 
--   [Installation](#installation)
--   [Built With](#built-with)
--   [Usage](#usage)
--   [Contributing](#contributing)
--   [Credits](#credits)
+- [Installation](#installation)
+- [Built With](#built-with)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Credits](#credits)
 
 ## Installation
 
@@ -41,18 +41,18 @@ Installing involves visiting [REX](https://rex.fitness/) and selecting the insta
 
 ## Built With
 
--   [Angular](https://angular.io/) Web Framework
--   [Angular Material](https://material.angular.io) Web Style Patterns
--   [ESLint](https://eslint.org) Style Adherence
--   [Express](https://expressjs.com) API Server
--   [Jest](https://jestjs.io) Frontend Testing
--   [Node JS](https://nodejs.org/en/) Backend
--   [Nx](https://nx.dev) Complexity Management
--   [NGINX](https://www.nginx.com/) Web Server
--   [NgRx](https://ngrx.io/) Frontend State Management
--   [Linode](https://linode.com) Deployment
--   [PW2](https://pm2.keymetrics.io/) NodeJS Process Manager
--   [Redis](https://redislabs.com/) Standalone Database
+- [Angular](https://angular.io/) Web Framework
+- [Angular Material](https://material.angular.io) Web Style Patterns
+- [ESLint](https://eslint.org) Style Adherence
+- [Express](https://expressjs.com) API Server
+- [Jest](https://jestjs.io) Frontend Testing
+- [Node JS](https://nodejs.org/en/) Backend
+- [Nx](https://nx.dev) Complexity Management
+- [NGINX](https://www.nginx.com/) Web Server
+- [NgRx](https://ngrx.io/) Frontend State Management
+- [Linode](https://linode.com) Deployment
+- [PW2](https://pm2.keymetrics.io/) NodeJS Process Manager
+- [Redis](https://redislabs.com/) Standalone Database
 
 ## Usage
 
@@ -71,13 +71,13 @@ Installing involves visiting [REX](https://rex.fitness/) and selecting the insta
 3. Ensure you have `nx` installed globally via your flavor of package manager.
 4. Ensure you have at least `nodejs 14.x` installed.
 5. At a mimimum if you've added code, add tests and run them locally.
-    1. run `nx affected:test --base=remotes/origin/develop --head=HEAD` to execute unit tests using [jest](https://jestjs.io)
-    2. run `nx affected:lint --base=remotes/origin/develop --head=HEAD` to execute linting affected by the change.
+   1. run `nx affected:test --base=remotes/origin/develop --head=HEAD` to execute unit tests using [jest](https://jestjs.io)
+   2. run `nx affected:lint --base=remotes/origin/develop --head=HEAD` to execute linting affected by the change.
 6. Update Documentation as needed.
 7. Pull Request
-    1. Open a Pull request against the original branch `develop`
-    2. Your pull request will build and additional code quality checks will be made.
-    3. Be open to criticism after all we're human all human... right? 🤖
+   1. Open a Pull request against the original branch `develop`
+   2. Your pull request will build and additional code quality checks will be made.
+   3. Be open to criticism after all we're human all human... right? 🤖
 
 ## Credits
 

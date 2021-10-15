@@ -22,10 +22,7 @@ export class AuthService {
 	}
 
 	public createAccount(newUserRequest: NewUserRequest): Observable<Transaction<LoginUserResponse>> {
-		return this.httpClient.post<Transaction<LoginUserResponse>>(
-			`${this.authResource}/createAccount`,
-			newUserRequest
-		);
+		return this.httpClient.post<Transaction<LoginUserResponse>>(`${this.authResource}/createAccount`, newUserRequest);
 	}
 
 	public loginWithEmailAndPassword(loginUserRequest: LoginUserRequest): Observable<Transaction<LoginUserResponse>> {

@@ -22,11 +22,7 @@ serverFactory.bootstrap().listen(port as number, hostName, () => {
 		)
 	);
 	logger.log(
-		green(
-			`${loggerPrefix} APPLICATION NAME: ${
-				autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'
-			}`
-		)
+		green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'}`)
 	);
 	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName ?? 'NO HOST NAME'}.`));
 	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port ?? 'NO PORT'}.`));
