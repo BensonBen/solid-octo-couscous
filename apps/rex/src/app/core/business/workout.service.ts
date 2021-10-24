@@ -15,8 +15,6 @@ export class WorkoutService {
 	constructor(private readonly httpClient: HttpClient) {}
 
 	public getWorkout(): void {
-		this.httpClient
-			.get<Transaction<Record<string, string>>>(`${this.workoutResource}/get`)
-			.subscribe(e => console.table(e));
+		this.httpClient.get<Transaction<Record<string, string>>>(`${this.workoutResource}/get`);
 	}
 }

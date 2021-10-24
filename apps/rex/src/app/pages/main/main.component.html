@@ -6,8 +6,7 @@
 		#tooltip="matTooltip"
 		matTooltip="Connect to a bluetooth device"
 		matTooltipPosition="left"
-		(click)="connectToBluetoothDevice()"
-	>
+		(click)="connectToBluetoothDevice()">
 		<mat-icon aria-hidden="false" aria-label="home icon">bluetooth</mat-icon>
 	</button>
 </div>
@@ -19,8 +18,7 @@
 				[color]="progressBarColor"
 				[mode]="'buffer'"
 				[value]="schwinIc4BluetoothConnectionService?.deltaLastCrankEventTime$ | async"
-				[bufferValue]="10"
-			>
+				[bufferValue]="10">
 			</mat-progress-bar>
 		</mat-card-content>
 	</mat-card>
@@ -31,8 +29,7 @@
 				[color]="progressBarColor"
 				[mode]="'buffer'"
 				[value]="schwinIc4BluetoothConnectionService?.deltaCrankRevolution$ | async"
-				[bufferValue]="10"
-			>
+				[bufferValue]="10">
 			</mat-progress-bar>
 		</mat-card-content>
 	</mat-card>
@@ -45,8 +42,7 @@
 				[color]="progressBarColor"
 				[mode]="'buffer'"
 				[value]="schwinIc4BluetoothConnectionService?.deltaLastWheelEventTime$ | async"
-				[bufferValue]="10"
-			>
+				[bufferValue]="10">
 			</mat-progress-bar>
 		</mat-card-content>
 	</mat-card>
@@ -57,8 +53,7 @@
 				[color]="progressBarColor"
 				[mode]="'buffer'"
 				[value]="schwinIc4BluetoothConnectionService?.deltaWheelRevolution$ | async"
-				[bufferValue]="10"
-			>
+				[bufferValue]="10">
 			</mat-progress-bar>
 		</mat-card-content>
 	</mat-card>

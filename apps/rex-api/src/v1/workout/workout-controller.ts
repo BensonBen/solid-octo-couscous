@@ -24,9 +24,7 @@ export class WorkoutController {
 			} as Transaction<string>);
 		} catch (error: unknown) {
 			this.logger.log(red(`${this.loggerPrefix} Failed to create account with reason: ${JSON.stringify(error)}`));
-			return response
-				.status(INTERNAL_SERVER_ERROR)
-				.send({ ...this.baseTransaction, message: this.somethingWentWrong });
+			return response.status(INTERNAL_SERVER_ERROR).send({ ...this.baseTransaction, message: this.somethingWentWrong });
 		}
 	};
 }

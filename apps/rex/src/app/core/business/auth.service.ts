@@ -22,10 +22,7 @@ export class AuthService {
 	}
 
 	public createAccount(newUserRequest: NewUserRequest): Observable<Transaction<LoginUserResponse>> {
-		return this.httpClient.post<Transaction<LoginUserResponse>>(
-			`${this.authResource}/createAccount`,
-			newUserRequest
-		);
+		return this.httpClient.post<Transaction<LoginUserResponse>>(`${this.authResource}/createAccount`, newUserRequest);
 	}
 
 	public loginWithEmailAndPassword(loginUserRequest: LoginUserRequest): Observable<Transaction<LoginUserResponse>> {
@@ -34,5 +31,10 @@ export class AuthService {
 
 	public isDuplicationUsername(username: string): Observable<Transaction<LoginUserResponse>> {
 		return this.httpClient.post<Transaction<LoginUserResponse>>(`${this.authResource}/duplicateUsername`, username);
+	}
+
+	public isLoggedIn(): Observable<Transaction<boolean>> {
+		// don't really need to send anything specific. it's just to trip people up
+		return this.httpClient.post<Transaction<boolean>>(`${this.authResource}/isLoggedIn`, null);
 	}
 }

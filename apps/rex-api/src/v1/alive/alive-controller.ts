@@ -23,12 +23,8 @@ export class AliveController {
 				success: true,
 			} as Transaction<string>);
 		} catch (error: unknown) {
-			this.logger.log(
-				red(`${this.loggerPrefix} Failed to check if the server is alive: ${JSON.stringify(error)}`)
-			);
-			return response
-				.status(INTERNAL_SERVER_ERROR)
-				.send({ ...this.baseTransaction, message: this.somethingWentWrong });
+			this.logger.log(red(`${this.loggerPrefix} Failed to check if the server is alive: ${JSON.stringify(error)}`));
+			return response.status(INTERNAL_SERVER_ERROR).send({ ...this.baseTransaction, message: this.somethingWentWrong });
 		}
 	};
 }

@@ -15,6 +15,8 @@ import { AuthController } from './v1/auth/auth-controller';
 import { WorkoutController } from './v1/workout/workout-controller';
 import { Algorithm } from 'jsonwebtoken';
 import { AliveController } from './v1/alive/alive-controller';
+import { environment } from './environments/environment';
+import { NOT_FOUND } from 'http-status';
 
 /** This class is designed to produce express servers with a default configuration depending on the environment file. */
 @autoInjectable()
@@ -22,34 +24,46 @@ export class AuthenticationServerFactory {
 	public readonly logger = console.log;
 	private readonly loggerPrefix: string = `[AuthenticationServerFactory]`;
 	private readonly jwtTokenAlgorithm: Algorithm = process?.env?.AUTH_API_JWT_ALG as Algorithm;
+	private readonly secret = process?.env?.AUTH_API_JWT_KEY;
+	private readonly audience = process?.env?.AUTH_API_JWT_AUDIENCE;
+	private readonly issuer = process?.env?.AUTH_API_JWT_ISSUER;
 
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
 	public bootstrap(): Application {
 		const authenticationServer = expressServer();
-		const secret = process?.env?.AUTH_API_JWT_KEY;
-		const audience = process?.env?.AUTH_API_JWT_AUDIENCE;
-		const issuer = process?.env?.AUTH_API_JWT_ISSUER;
 
-		if (_isEmpty(secret) || _isEmpty(audience) || _isEmpty(issuer)) {
+		if (_isEmpty(this.secret) || _isEmpty(this.audience) || _isEmpty(this.issuer)) {
 			// uncaught fatal exception kill the node process prevent it from starting.
 			process.exit(1);
 		}
 
 		authenticationServer.use(
 			jwt({
-				secret,
-				audience,
-				issuer,
+				secret: this.secret,
+				audience: this.audience,
+				issuer: this.issuer,
 				algorithms: [this.jwtTokenAlgorithm],
-			}).unless({ path: ['/v1/auth/createAccount', '/v1/auth/login', '/v1/alive/server'] })
+			}).unless({
+				path: [
+					'/v1/auth/createAccount',
+					'/v1/auth/login',
+					'/v1/alive/server',
+					'/v1/auth/userNameExists',
+					'/v1/auth/isLoggedIn',
+				],
+			})
 		);
 
 		authenticationServer.use(cors({ origin: autheniticationConfiguration.whiteList }));
 		authenticationServer.use(json());
 		authenticationServer.use(urlencoded({ extended: false }));
 		authenticationServer.use(helmet());
-		authenticationServer.use(morgan('tiny'));
+		authenticationServer.use(
+			morgan('common', {
+				skip: environment.production ? (req, res) => res.statusCode < NOT_FOUND : () => false,
+			})
+		);
 
 		this.logger(green(`${this.loggerPrefix} CREATING SERVER MIDDLEWEAR.`));
 
@@ -67,6 +81,8 @@ export class AuthenticationServerFactory {
 		// auth sub routes.
 		authRouter.post('/login', authController.login);
 		authRouter.post('/createAccount', authController.createAccount);
+		authRouter.post('/isLoggedIn', authController.isLoggedIn);
+		authRouter.get('/isDuplicateUserName', authController.isDuplicateUserName);
 
 		// workout sub routes.
 		workoutRouter.get('/get', workoutController.getWorkout);

@@ -40,6 +40,13 @@
 			"tags": [],
 			"implicitDependencies": ["rex"]
 		},
+		"tgw": {
+			"tags": []
+		},
+		"tgw-e2e": {
+			"tags": [],
+			"implicitDependencies": ["tgw"]
+		},
 		"ui": {
 			"tags": []
 		}
