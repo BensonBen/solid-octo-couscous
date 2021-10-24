@@ -1,37 +1,5 @@
 {
 	"version": 1,
-	"cli": {
-		"defaultCollection": "@ngrx/schematics",
-		"analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
-	},
-	"defaultProject": "rex",
-	"schematics": {
-		"@nrwl/angular": {
-			"application": {
-				"linter": "eslint"
-			},
-			"library": {
-				"linter": "eslint"
-			},
-			"storybook-configuration": {
-				"linter": "eslint"
-			}
-		},
-		"@nrwl/angular:application": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest",
-			"e2eTestRunner": "cypress"
-		},
-		"@nrwl/angular:library": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest"
-		},
-		"@nrwl/angular:component": {
-			"style": "scss"
-		}
-	},
 	"projects": {
 		"model": {
 			"root": "libs/model",
@@ -53,7 +21,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"rex": {
 			"projectType": "application",
@@ -153,7 +122,9 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": []
 		},
 		"rex-api": {
 			"root": "apps/rex-api",
@@ -205,7 +176,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"rex-e2e": {
 			"root": "apps/rex-e2e",
@@ -232,7 +204,9 @@
 					},
 					"outputs": ["{options.outputFile}"]
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": ["rex"]
 		},
 		"tgw": {
 			"projectType": "application",
@@ -250,7 +224,7 @@
 						"polyfills": "apps/tgw/src/polyfills.ts",
 						"tsConfig": "apps/tgw/tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
-						"assets": ["apps/tgw/src/favicon.ico", "apps/tgw/src/assets"],
+						"assets": ["apps/tgw/src/favicon.ico"],
 						"styles": ["apps/tgw/src/styles.scss"],
 						"scripts": [],
 						"customWebpackConfig": {
@@ -332,7 +306,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"tgw-e2e": {
 			"root": "apps/tgw-e2e",
@@ -358,7 +333,9 @@
 						"lintFilePatterns": ["apps/tgw-e2e/**/*.{js,ts}"]
 					}
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": ["tgw"]
 		},
 		"ui": {
 			"projectType": "library",
@@ -381,7 +358,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		}
 	}
 }
