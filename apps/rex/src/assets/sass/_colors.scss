@@ -1,38 +1,38 @@
-$primary900: #1b217e;
-$primary800: #283393;
-$primary700: #303d9f;
-$primary600: #3947ab;
-$primary500: #3f4fb5;
-$primary400: #5c6ac0;
-$primary300: #7985cb;
-$primary200: #9fa7da;
-$primary100: #c5c9e9;
-$primary50: #e8eaf6;
+$primary900: hsl(236, 65%, 30%);
+$primary800: hsl(234, 57%, 37%);
+$primary700: hsl(233, 54%, 41%);
+$primary600: hsl(233, 50%, 45%);
+$primary500: hsl(232, 48%, 48%);
+$primary400: hsl(232, 44%, 56%);
+$primary300: hsl(231, 44%, 64%);
+$primary200: hsl(232, 44%, 74%);
+$primary100: hsl(233, 45%, 84%);
+$primary50: hsl(231, 44%, 94%);
 
-$secondary900: #1f1f1f;
-$secondary800: #404040;
-$secondary700: #5e5e5e;
-$secondary600: #727272;
-$secondary500: #9b9b9b;
-$secondary400: #bababa;
-$secondary300: #dedede;
-$secondary200: #ececec;
-$secondary100: #f4f4f4;
-$secondary50: #fafafa;
+$secondary900: hsl(0, 0%, 12%);
+$secondary800: hsl(0, 0%, 25%);
+$secondary700: hsl(0, 0%, 37%);
+$secondary600: hsl(0, 0%, 45%);
+$secondary500: hsl(0, 0%, 61%);
+$secondary400: hsl(0, 0%, 73%);
+$secondary300: hsl(0, 0%, 87%);
+$secondary200: hsl(0, 0%, 93%);
+$secondary100: hsl(0, 0%, 96%);
+$secondary50: $secondary500;
 
-$error900: #7e1a22;
-$error800: #8e1f2b;
-$error700: #9c2431;
-$error600: #ad2b37;
-$error500: #bb323a;
-$error400: #bb454f;
-$error300: #b6656d;
-$error200: #cc8e94;
-$error100: #e9c5cc;
-$error50: #f5e8eb;
+$error900: hsl(355, 66%, 30%);
+$error800: hsl(354, 64%, 34%);
+$error700: hsl(354, 63%, 38%);
+$error600: hsl(354, 60%, 42%);
+$error500: hsl(356, 58%, 46%);
+$error400: hsl(355, 46%, 50%);
+$error300: hsl(354, 36%, 55%);
+$error200: hsl(354, 38%, 68%);
+$error100: hsl(348, 45%, 84%);
+$error50: hsl(346, 39%, 94%);
 
-$primaryTextColorGivenSmallText: rgba(255, 255, 255, 0.9);
-$secondaryTextColorGivenSmallText: rgba(0, 0, 0, 0.6);
+$primaryTextColorGivenSmallText: hsla(0, 0%, 100%, 0.9);
+$secondaryTextColorGivenSmallText: hsla(0, 0%, 0%, 0.6);
 
 /* custom created primary map of colors for SOC. */
 $mat-dark-indigo-blue: (
@@ -46,6 +46,10 @@ $mat-dark-indigo-blue: (
 	700: $primary700,
 	800: $primary800,
 	900: $primary900,
+	A100: $primary100,
+	A200: $primary200,
+	A400: $primary400,
+	A700: $primary700,
 	contrast: (
 		50: $primaryTextColorGivenSmallText,
 		100: $primaryTextColorGivenSmallText,
@@ -57,9 +61,12 @@ $mat-dark-indigo-blue: (
 		700: $primaryTextColorGivenSmallText,
 		800: $primaryTextColorGivenSmallText,
 		900: $primaryTextColorGivenSmallText,
+		A100: $secondaryTextColorGivenSmallText,
+		A200: $secondaryTextColorGivenSmallText,
+		A400: $secondaryTextColorGivenSmallText,
+		A700: $secondaryTextColorGivenSmallText,
 	),
 );
-
 /* custom created secondary map of colors for SOC. */
 $mat-dark-mustard-secondary: (
 	50: $secondary50,
@@ -72,6 +79,10 @@ $mat-dark-mustard-secondary: (
 	700: $secondary700,
 	800: $secondary800,
 	900: $secondary900,
+	A100: $secondary100,
+	A200: $secondary200,
+	A400: $secondary400,
+	A700: $secondary700,
 	// TODO: choose a contrast color that isn't completely illegable for text reasons
 	contrast:
 		(
@@ -85,6 +96,10 @@ $mat-dark-mustard-secondary: (
 			700: $secondaryTextColorGivenSmallText,
 			800: $secondaryTextColorGivenSmallText,
 			900: $secondaryTextColorGivenSmallText,
+			A100: $secondaryTextColorGivenSmallText,
+			A200: $secondaryTextColorGivenSmallText,
+			A400: $secondaryTextColorGivenSmallText,
+			A700: $secondaryTextColorGivenSmallText,
 		),
 );
 
@@ -99,6 +114,10 @@ $mat-dark-triadic-error: (
 	700: $error700,
 	800: $error800,
 	900: $error900,
+	A100: $error100,
+	A200: $error200,
+	A400: $error400,
+	A700: $error700,
 	contrast: (
 		50: $primaryTextColorGivenSmallText,
 		100: $primaryTextColorGivenSmallText,
@@ -110,5 +129,9 @@ $mat-dark-triadic-error: (
 		700: $primaryTextColorGivenSmallText,
 		800: $primaryTextColorGivenSmallText,
 		900: $primaryTextColorGivenSmallText,
+		A100: $secondaryTextColorGivenSmallText,
+		A200: $secondaryTextColorGivenSmallText,
+		A400: $secondaryTextColorGivenSmallText,
+		A700: $secondaryTextColorGivenSmallText,
 	),
 );
