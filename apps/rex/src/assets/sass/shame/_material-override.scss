@@ -1,11 +1,11 @@
 @use '../colors' as colors;
 
 .primary-toast-message {
-  background-color: colors.$secondary800 !important;
-  color: colors.$primaryTextColorGivenSmallText !important;
+	background-color: colors.$secondary800 !important;
+	color: colors.$primaryTextColorGivenSmallText !important;
 }
 
 .warning-toast-message {
-  background-color: colors.$error800 !important;
-  color: colors.$primaryTextColorGivenSmallText !important;
+	background-color: colors.$error800 !important;
+	color: colors.$primaryTextColorGivenSmallText !important;
 }
