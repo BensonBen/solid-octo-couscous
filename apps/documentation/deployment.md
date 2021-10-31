@@ -18,6 +18,7 @@
 | AUTH_API_REDIS_PORT        | 6379                         |
 | AUTH_API_REDIS_HOST        | 0.0.0.0                      |
 | AUTH_API_SALT_ROUNDS       | 10                           |
+| AUTH_API_REDIS_PASS        | nrjjjfdC6tsIrHf4mXdMykCLQbkgfNUUaC4dmwsZ7Qj8HMzpg3zQQCQBcjsSje/0/QEGdxPsqG5M2Bhu% |
 | AUTH_API_CRT               | /path/to/cert/bundle         |
 | AUTH_API_SALT_ROUNDS       | /path/to/original/key        |
 
