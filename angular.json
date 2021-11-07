@@ -1,32 +1,5 @@
 {
 	"version": 1,
-	"schematics": {
-		"@nrwl/angular": {
-			"application": {
-				"linter": "eslint"
-			},
-			"library": {
-				"linter": "eslint"
-			},
-			"storybook-configuration": {
-				"linter": "eslint"
-			}
-		},
-		"@nrwl/angular:application": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest",
-			"e2eTestRunner": "cypress"
-		},
-		"@nrwl/angular:library": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest"
-		},
-		"@nrwl/angular:component": {
-			"style": "scss"
-		}
-	},
 	"projects": {
 		"model": {
 			"root": "libs/model",
@@ -251,7 +224,7 @@
 						"polyfills": "apps/tgw/src/polyfills.ts",
 						"tsConfig": "apps/tgw/tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
-						"assets": ["apps/tgw/src/favicon.ico", "apps/tgw/src/assets"],
+						"assets": ["apps/tgw/src/favicon.ico"],
 						"styles": ["apps/tgw/src/styles.scss"],
 						"scripts": [],
 						"customWebpackConfig": {

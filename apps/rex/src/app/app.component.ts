@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 declare const window: Window;
@@ -19,7 +20,11 @@ export class AppComponent {
 	title = 'rex';
 	matDrawerMode: MatDrawerMode = 'over';
 
-	constructor(private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {}
+	constructor(
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly router: Router,
+		private readonly matNotification: MatSnackBar
+	) {}
 
 	public github(event: Event): void {
 		event.preventDefault();
@@ -39,5 +44,19 @@ export class AppComponent {
 	public supportedEquipment(event: Event): void {
 		event.preventDefault();
 		this.router.navigate(['supported-equipment'], { relativeTo: this.activatedRoute });
+	}
+
+	public displayNotification(): void {
+		this.matNotification.open('hello!', 'dismiss', {
+			announcementMessage: 'hello!',
+			data: {
+				praise: 'praise the datum',
+			},
+			panelClass: ['primary-toast-message'],
+			direction: 'ltr',
+			duration: 5000,
+			horizontalPosition: 'center',
+			politeness: 'assertive',
+		});
 	}
 }

@@ -4,7 +4,6 @@
 	"editor.formatOnSaveMode": "modifications",
 	"editor.renderWhitespace": "all",
 	"editor.tabSize": 2,
-	"editor.fontFamily": "hack",
-	"editor.suggestFontSize": 16,
-	"editor.fontSize": 16
+	"editor.suggestFontSize": 12,
+	"editor.fontSize": 12
 }

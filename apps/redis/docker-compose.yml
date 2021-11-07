@@ -1,8 +1,8 @@
-version: '3.3'
+version: '3.9'
 
 services:
   app:
-    image: redis:latest
+    image: redis:alpine
     ports:
       - target: 6379
         published: 4690
