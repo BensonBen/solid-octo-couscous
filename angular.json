@@ -1,10 +1,5 @@
 {
 	"version": 1,
-	"cli": {
-		"defaultCollection": "@ngrx/schematics",
-		"analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
-	},
-	"defaultProject": "rex",
 	"schematics": {
 		"@nrwl/angular": {
 			"application": {
@@ -53,7 +48,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"rex": {
 			"projectType": "application",
@@ -153,7 +149,9 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": []
 		},
 		"rex-api": {
 			"root": "apps/rex-api",
@@ -205,7 +203,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"rex-e2e": {
 			"root": "apps/rex-e2e",
@@ -232,7 +231,9 @@
 					},
 					"outputs": ["{options.outputFile}"]
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": ["rex"]
 		},
 		"tgw": {
 			"projectType": "application",
@@ -332,7 +333,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"tgw-e2e": {
 			"root": "apps/tgw-e2e",
@@ -358,7 +360,9 @@
 						"lintFilePatterns": ["apps/tgw-e2e/**/*.{js,ts}"]
 					}
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": ["tgw"]
 		},
 		"ui": {
 			"projectType": "library",
@@ -381,7 +385,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		}
 	}
 }

@@ -25,32 +25,6 @@
 			}
 		}
 	},
-	"projects": {
-		"model": {
-			"tags": []
-		},
-		"rex": {
-			"tags": [],
-			"implicitDependencies": []
-		},
-		"rex-api": {
-			"tags": []
-		},
-		"rex-e2e": {
-			"tags": [],
-			"implicitDependencies": ["rex"]
-		},
-		"tgw": {
-			"tags": []
-		},
-		"tgw-e2e": {
-			"tags": [],
-			"implicitDependencies": ["tgw"]
-		},
-		"ui": {
-			"tags": []
-		}
-	},
 	"targetDependencies": {
 		"build": [
 			{
@@ -58,5 +32,37 @@
 				"projects": "dependencies"
 			}
 		]
-	}
+	},
+	"cli": {
+		"defaultCollection": "@ngrx/schematics",
+		"analytics": "8fb32732-295b-4887-8e11-9c7c59fbe256"
+	},
+	"generators": {
+		"@nrwl/angular": {
+			"application": {
+				"linter": "eslint"
+			},
+			"library": {
+				"linter": "eslint"
+			},
+			"storybook-configuration": {
+				"linter": "eslint"
+			}
+		},
+		"@nrwl/angular:application": {
+			"style": "scss",
+			"linter": "eslint",
+			"unitTestRunner": "jest",
+			"e2eTestRunner": "cypress"
+		},
+		"@nrwl/angular:library": {
+			"style": "scss",
+			"linter": "eslint",
+			"unitTestRunner": "jest"
+		},
+		"@nrwl/angular:component": {
+			"style": "scss"
+		}
+	},
+	"defaultProject": "rex"
 }
