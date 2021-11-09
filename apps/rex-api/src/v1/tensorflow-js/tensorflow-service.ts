@@ -1,7 +1,7 @@
 import { NewUserRequest, User, LoginUserResponse } from '@solid-octo-couscous/model';
 import { green } from 'chalk';
 import { inject, singleton } from 'tsyringe';
-import { AuthDataProvider } from './auth-data-provider';
+import { TensorFlowDataProvider } from './tensorflow-data-provider';
 import { omit as _omit } from 'lodash';
 import { sign as jwtSign, Algorithm, SignOptions } from 'jsonwebtoken';
 
@@ -16,10 +16,10 @@ export class TensorFlowService {
 		expiresIn: '1h',
 	};
 
-	constructor(@inject(AuthDataProvider) private readonly authDataProvider?: AuthDataProvider) {}
+	constructor(@inject(TensorFlowDataProvider) private readonly tensorFlowDataProvider?: TensorFlowDataProvider) {}
 
 	/**
-	 * Handles the POST request for creating a users account.
+	 * Handles tensorflow estimation and transmission.
 	 *
 	 * @param Request, body the body of the request from a POST request.
 	 * @param response, response the response object on which to attach objects.
@@ -38,7 +38,7 @@ export class TensorFlowService {
 		);
 
 		const omission: keyof User = 'password';
-		const user: LoginUserResponse = _omit(await this.authDataProvider.createAccount(userRequest), omission);
+		const user: LoginUserResponse = _omit(await this.tensorFlowDataProvider.createAccount(userRequest), omission);
 		const jwtToken = jwtSign(user, process?.env?.AUTH_API_JWT_KEY, this.jwtSignOptions);
 
 		return { ...user, jwtToken } as LoginUserResponse;
