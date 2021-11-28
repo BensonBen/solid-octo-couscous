@@ -1,6 +1,0 @@
-@mixin grid-position($rowStart, $rowEnd, $colStart, $colEnd) {
-	grid-column-start: $colStart;
-	grid-column-end: $colEnd;
-	grid-row-start: $rowStart;
-	grid-row-end: $rowEnd;
-}
