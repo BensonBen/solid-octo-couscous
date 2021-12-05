@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import { config } from 'dotenv';
-import { green } from 'chalk';
+import chalk from 'chalk';
 import { AuthenticationServerFactory } from './authentication-server';
 import { autheniticationConfiguration } from './config/auth-api-config';
 
@@ -15,15 +15,17 @@ const logger = console;
 
 serverFactory.bootstrap().listen(port as number, hostName, () => {
 	logger.log(
-		green(
+		chalk.green(
 			`${loggerPrefix} CORS ENABLED ON DOMAIN(S): ${
 				autheniticationConfiguration?.whiteList?.join(' ') ?? 'NO WHITELISTED DOMAIN(S)'
 			}.`
 		)
 	);
 	logger.log(
-		green(`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'}`)
+		chalk.green(
+			`${loggerPrefix} APPLICATION NAME: ${autheniticationConfiguration?.applicationName ?? 'NO APPLICATION NAME'}`
+		)
 	);
-	logger.log(green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName ?? 'NO HOST NAME'}.`));
-	logger.log(green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port ?? 'NO PORT'}.`));
+	logger.log(chalk.green(`${loggerPrefix} HOSTNAME: ${autheniticationConfiguration?.hostName ?? 'NO HOST NAME'}.`));
+	logger.log(chalk.green(`${loggerPrefix} PORT: ${autheniticationConfiguration?.port ?? 'NO PORT'}.`));
 });
