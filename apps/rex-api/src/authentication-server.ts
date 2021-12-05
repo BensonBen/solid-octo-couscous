@@ -1,6 +1,6 @@
 import * as cors from 'cors';
-import * as helmet from 'helmet';
-import * as expressServer from 'express';
+import helmet from 'helmet';
+import express from 'express';
 import * as morgan from 'morgan';
 
 import { autheniticationConfiguration } from './config/auth-api-config';
@@ -9,7 +9,7 @@ import { Application, Router } from 'express';
 import { ErrorHandler } from './util/error-handler';
 import { green } from 'chalk';
 import { autoInjectable, inject } from 'tsyringe';
-import * as jwt from 'express-jwt';
+import jwt from 'express-jwt';
 import { isEmpty as _isEmpty } from 'lodash';
 import { AuthController } from './v1/auth/auth-controller';
 import { WorkoutController } from './v1/workout/workout-controller';
@@ -17,6 +17,7 @@ import { Algorithm } from 'jsonwebtoken';
 import { AliveController } from './v1/alive/alive-controller';
 import { environment } from './environments/environment';
 import { NOT_FOUND } from 'http-status';
+import { TextRecognitionController } from './v1/text-recognition/text-recognition-controller';
 
 /** This class is designed to produce express servers with a default configuration depending on the environment file. */
 @autoInjectable()
@@ -31,7 +32,7 @@ export class AuthenticationServerFactory {
 	constructor(@inject(ErrorHandler) public errorHandler?: ErrorHandler) {}
 
 	public bootstrap(): Application {
-		const authenticationServer = expressServer();
+		const authenticationServer = express();
 
 		if (_isEmpty(this.secret) || _isEmpty(this.audience) || _isEmpty(this.issuer)) {
 			// uncaught fatal exception kill the node process prevent it from starting.
@@ -71,12 +72,14 @@ export class AuthenticationServerFactory {
 		const authController: AuthController = new AuthController();
 		const workoutController: WorkoutController = new WorkoutController();
 		const aliveController: AliveController = new AliveController();
+		const textRecognitionController: TextRecognitionController = new TextRecognitionController();
 
 		// Setup routing.
 		const versionOneRouter: Router = Router();
 		const authRouter: Router = Router();
 		const workoutRouter: Router = Router();
 		const aliveRouter: Router = Router();
+		const textRecognitionRouter: Router = Router();
 
 		// auth sub routes.
 		authRouter.post('/login', authController.login);
@@ -89,6 +92,9 @@ export class AuthenticationServerFactory {
 
 		// alive sub routes.
 		aliveRouter.get('/server', aliveController.ping);
+
+		// text recognition sub routes.
+		textRecognitionRouter.post('/witnessme', textRecognitionController.findTextInImage);
 
 		// version one sub routes.
 		versionOneRouter.use('/auth', authRouter);
