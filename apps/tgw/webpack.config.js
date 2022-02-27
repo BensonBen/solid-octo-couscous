@@ -7,6 +7,8 @@ sharedMappings.register(path.join(__dirname, '../../tsconfig.base.json'), [
 	/* mapped paths to share */
 ]);
 
+const share = mf.share;
+mf.setInferVersion(true);
 module.exports = {
 	output: {
 		uniqueName: 'tgw',
@@ -14,7 +16,7 @@ module.exports = {
 	},
 	optimization: {
 		runtimeChunk: false,
-		minimize: false,
+		minimize: true,
 	},
 	resolve: {
 		alias: {
@@ -28,13 +30,13 @@ module.exports = {
 			exposes: {
 				'./Module': 'apps/tgw/src/app/remote-entry/entry.module.ts',
 			},
-			shared: {
+			shared: share({
 				'@angular/core': { singleton: true, strictVersion: true },
 				'@angular/common': { singleton: true, strictVersion: true },
 				'@angular/common/http': { singleton: true, strictVersion: true },
 				'@angular/router': { singleton: true, strictVersion: true },
 				...sharedMappings.getDescriptors(),
-			},
+			}),
 		}),
 		sharedMappings.getPlugin(),
 	],
